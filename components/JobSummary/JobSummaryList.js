@@ -1,14 +1,5 @@
-import tw from "twin.macro";
 import JobSummary from "./JobSummary";
-import styled from "styled-components";
-
-const JobListStyles = styled.ul`
-    ${tw`mx-2`}
-    
-    > * + * {
-        ${tw`border-t`}
-    }
-`;
+import JobListStyles from "./JobSummaryList.styled";
 
 const JobSummaryList = ({jobs}) => (
     <JobListStyles>
