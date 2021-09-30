@@ -3,7 +3,7 @@ import JobSummaryStyles from "./JobSummary.styled"
 
 const JobSummary = () => (
     <JobSummaryStyles>
-        <Link href="/single">
+        <Link href={`/job/software-developer-${Math.random(3).toString(36).substring(9)}`}>
             <a>
                 <div className="top">
                     <div className="left">

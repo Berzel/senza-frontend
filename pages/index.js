@@ -2,6 +2,7 @@ import tw from 'twin.macro'
 import Head from 'next/head'
 import styled from 'styled-components'
 import JobSummaryList from '../components/JobSummary/JobSummaryList';
+import PostJobBanner from '../components/PostJob/PostJobBanner';
 
 const Main = styled.main`
   min-height: 100vh;
@@ -53,12 +54,8 @@ const Category = styled.li`
   }
 `;
 
-const CreateAd = styled.a`
-  ${tw`mx-2 my-3 mt-6 bg-purple-700 block h-40 p-1 shadow-lg rounded-lg`}
-`;
-
 export default function Home() {
-  const jobs = [{}, {}];
+  const jobs = [{}, {}, {}, {}, {}, {}, {}];
 
   return (
     <>
@@ -99,10 +96,7 @@ export default function Home() {
           </CategoryRows>
         </CategoryItems>
 
-        <CreateAd href="#">
-          Create Job CTA
-        </CreateAd>
-
+        <PostJobBanner />
         <JobSummaryList jobs={jobs}/>
       </Main>
     </>
