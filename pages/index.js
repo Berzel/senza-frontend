@@ -3,9 +3,12 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import JobSummaryList from '../components/JobSummary/JobSummaryList';
 import PostJobBanner from '../components/PostJob/PostJobBanner';
+import CategoryList from '../components/Category/CategoryList';
 
 const Main = styled.main`
-  min-height: 100vh;
+  & > * {
+    ${tw`mt-7 block`}
+  }
 `;
 
 const Header = styled.div`
@@ -24,38 +27,9 @@ const SearchBar = styled.div`
   ${tw`mx-2 px-2 py-3 bg-white -mt-5 rounded-xl shadow-lg`}
 `;
 
-const CategoryItems = styled.div`
-  ${tw`mt-8`}
-
-  > h2 {
-    ${tw`mx-2 font-semibold text-gray-900`}
-  }
-`;
-
-const CategoryRows = styled.div`
-  ${tw`overflow-hidden pt-3 pb-3`}
-
-  & > * + * {
-    ${tw`mt-2`}
-  }
-`;
-
-const CategoryRow = styled.ul`
-  ${tw`px-2 flex`}
-
-  & > * + * {
-    ${tw`ml-2`}
-  }
-`;
-
-const Category = styled.li`
-  a {
-    ${tw`text-purple-700 inline-block rounded-xl px-3 py-1 bg-purple-100`}
-  }
-`;
-
 export default function Home() {
   const jobs = [{}, {}, {}, {}, {}, {}, {}];
+  const categories = ['Accounting & Finance', 'Programming', 'Secretary', 'Driving', 'Software Development', 'Mining & Farming', 'Shop Keeping', 'Another', 'Different One', 'Ari Kupisa'];
 
   return (
     <>
@@ -79,23 +53,7 @@ export default function Home() {
       </Header>
 
       <Main>
-        <CategoryItems>
-          <h2>Categories</h2>
-          <CategoryRows>
-            {[1,2,3].map(i => (
-              <CategoryRow key={i}>
-                {[1,2,3,4,5,6,7,8,9].map(j => (
-                  <Category key={j}>
-                    <a href="#">
-                      {Math.random(j).toString(36).substring(7)}
-                    </a>
-                  </Category>
-                ))}
-              </CategoryRow>
-            ))}
-          </CategoryRows>
-        </CategoryItems>
-
+        <CategoryList categories={categories} />
         <PostJobBanner />
         <JobSummaryList jobs={jobs}/>
       </Main>

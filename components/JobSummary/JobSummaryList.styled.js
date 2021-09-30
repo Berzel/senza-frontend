@@ -1,11 +1,17 @@
 import tw from "twin.macro";
 import styled from "styled-components";
 
-const JobListStyles = styled.ul`
-    ${tw`mx-2`}
+const JobListStyles = styled.div`
+    > .title {
+        ${tw`mx-2 font-semibold mb-2`}
+    }
+
+    .list {
+        ${tw`mx-2`}
     
-    > * + * {
-        ${tw`border-t`}
+        > * {
+            ${tw`border-t`}
+        }
     }
 `;
 
