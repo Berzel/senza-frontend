@@ -1,19 +1,67 @@
 import tw from 'twin.macro'
 import Head from 'next/head'
 import styled from 'styled-components'
+import ApplyLink from '../../components/JobDetail/ApplyLink';
 
 const Main = styled.div`
-    ${tw`min-h-screen bg-purple-100 flex`}
+    ${tw`min-h-screen bg-purple-50 flex`}
     flex-direction: column;
 `;
 
 const Top = styled.div`
     ${tw`px-2 py-4`}
+
+    .icons {
+        ${tw`mb-5`}
+    }
+    .details {
+        ${tw`flex justify-between`}
+
+        .type {
+            ${tw`uppercase text-xs text-purple-500 font-semibold`}
+        }
+        .title {
+            ${tw`font-semibold mt-0.5`}
+        }
+        .range{
+            ${tw`text-sm text-gray-800`}
+        }
+        .logo {
+            width: 4rem;
+            height: 4rem;
+            font-size: 3.2rem;
+            ${tw`bg-purple-700 text-purple-100 font-bold flex justify-center items-center rounded-lg shadow-md`}
+        }
+    }
+
+    .location {
+        ${tw`flex justify-between text-xs mt-3 text-gray-800 mb-3`}
+
+        .company-name {
+            ${tw`text-purple-900`}
+        }
+    }
 `;
 
 const Bottom = styled.div`
-    ${tw`px-2 py-4 shadow-lg bg-gray-50 rounded-t-xl`}
+    ${tw`p-2 shadow-lg bg-gray-50 rounded-t-xl pb-20`}
     flex-grow: 1;
+
+    & > *+* {
+        ${tw`mt-6`}
+    }
+
+    .title {
+        ${tw`font-semibold`}
+    }
+
+    .body {
+        ${tw`mt-2 text-gray-800`}
+
+        & > *+* {
+            ${tw`mt-2`}
+        }
+    }
 `;
 
 const Single = () => (
@@ -29,12 +77,96 @@ const Single = () => (
 
         <Main>
             <Top>
-                Top
+                <div className="icons">Icons</div>
+                <div className="details">
+                    <div className="left">
+                        <p className="type">Full-time</p>
+                        <h1 className="title">Software developer</h1>
+                        <p className="range">$5.5K - $7.5K / month</p>
+                    </div>
+                    <div className="right">
+                        <div className="logo">
+                            M
+                        </div>
+                    </div>
+                </div>
+                <div className="location">
+                    <p>Harare, Remote</p>
+                    <p className="company-name">Maverik Inc</p>
+                </div>
             </Top>
             <Bottom>
-                Bottom
+                <div>
+                    <h2 className="title">
+                        Job Description
+                    </h2>
+                    <div className="body">
+                        <p>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error eos reprehenderit praesentium ad sit, enim illo iusto debitis voluptates! Est similique quibusdam ex? Voluptate, eveniet.
+                        </p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quas voluptatem at adipisci, quam nostrum facilis illo pariatur quibusdam dicta! Quia illum sit minima ad ab laborum eligendi cupiditate inventore!</p>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="title">
+                        Responsibilities
+                    </h2>
+                    <ul className="body">
+                        <li>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae aut recusandae voluptatem.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet consectetur.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 className="title">
+                        Required Skills
+                    </h2>
+                    <ul className="body">
+                        <li>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae aut recusandae voluptatem.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet consectetur.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 className="title">
+                        Qualifications
+                    </h2>
+                    <ul className="body">
+                        <li>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae aut recusandae voluptatem.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet consectetur.
+                        </li>
+                    </ul>
+                </div>
             </Bottom>
         </Main>
+        <ApplyLink />
     </>
 )
 
