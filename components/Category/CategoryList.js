@@ -17,7 +17,6 @@ const CategoryList = ({categories}) => {
 
     return (
         <CategoryListStyles>
-            <h2 className="title">Categories</h2>
             <ul className="lists">
                 {
                     rows.map(row => (

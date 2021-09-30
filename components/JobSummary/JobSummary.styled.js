@@ -13,15 +13,15 @@ const JobSummaryStyles = styled.div`
     }
 
     .title {
-        ${tw`font-semibold`}
+        ${tw`text-black`}
     }
 
     .salary {
-        ${tw`text-sm text-gray-700`}
+        ${tw`text-sm text-gray-600`}
     }
 
     .location {
-        ${tw`text-gray-700`}
+        ${tw`text-gray-600`}
     }
 
     .bottom {
