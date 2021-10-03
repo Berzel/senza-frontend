@@ -2,7 +2,7 @@ import tw from "twin.macro";
 import styled from "styled-components";
 
 const SearchBarStyles = styled.div`
-  ${tw`mx-2 -mt-5 rounded-xl shadow-lg overflow-hidden`}
+  ${tw`mx-3 -mt-5 rounded-xl shadow-lg overflow-hidden`}
 
   .form {
       ${tw`flex`}
@@ -19,11 +19,11 @@ const SearchBarStyles = styled.div`
 
       .query {
           width: 2em;
-          ${tw`flex-grow bg-gray-50 outline-none border-none`}
-      }
+          ${tw`px-1 py-3 flex-grow bg-gray-50 outline-none border-none text-gray-900`}
 
-      .submit {
-          ${tw`px-4 py-2 text-gray-50 bg-purple-800`}
+          &::placeholder {
+              ${tw`text-gray-700`}
+          }
       }
   }
 `;

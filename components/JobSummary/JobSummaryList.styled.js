@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 const JobListStyles = styled.div`
     > .title {
-        ${tw`mx-2 font-semibold mb-2`}
+        ${tw`px-3 font-semibold py-1 border-b border-t`}
     }
 
     .list {
-        ${tw`mx-2`}
+        ${tw`mx-3`}
     
-        > * {
+        > * + * {
             ${tw`border-t`}
         }
     }

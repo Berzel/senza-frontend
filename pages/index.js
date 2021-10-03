@@ -5,21 +5,13 @@ import JobSummaryList from '../components/JobSummary/JobSummaryList';
 import PostJobBanner from '../components/PostJob/PostJobBanner';
 import CategoryList from '../components/Category/CategoryList';
 import SearchBar from '../components/Search/SearchBar';
+import NavBar from '../components/NavBar/NavBar';
+import Banner from '../components/Banner/Banner';
 
 const Main = styled.main`
   & > * {
     ${tw`mt-7 block`}
   }
-`;
-
-const Header = styled.div`
-  display: flex;
-  min-height: 15em;
-  flex-direction: column;
-`;
-
-const TopHeader = styled.div`
-  ${tw`p-1 bg-purple-700 rounded-b-lg shadow-lg flex-grow`}
 `;
 
 export default function Home() {
@@ -37,13 +29,9 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
       </Head>
 
-      <Header>
-        <TopHeader>
-          Top Header
-        </TopHeader>
-
-        <SearchBar />
-      </Header>
+      <NavBar />
+      <Banner />
+      <SearchBar />
 
       <Main>
         <CategoryList categories={categories} />

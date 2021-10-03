@@ -3,7 +3,7 @@ import tw from "twin.macro";
 
 const CategoryRowStyles = styled.div`
     .row {
-        ${tw`px-2`}
+        ${tw`px-3`}
         display: flex;
 
         & > * + * {

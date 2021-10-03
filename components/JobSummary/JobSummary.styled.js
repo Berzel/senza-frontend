@@ -2,9 +2,13 @@ import tw from "twin.macro"
 import styled from "styled-components"
 
 const JobSummaryStyles = styled.div`
-    ${tw`py-3`}
+    ${tw`py-3 bg-gray-50`}
 
-    & .top, .bottom {
+    .link {
+        ${tw`bg-gray-50`}
+    }
+
+    .top, .bottom {
         ${tw`flex justify-between`}
     }
 
@@ -13,19 +17,30 @@ const JobSummaryStyles = styled.div`
     }
 
     .title {
-        ${tw`text-black`}
+        ${tw`text-black font-semibold`}
     }
 
     .salary {
-        ${tw`text-sm text-gray-600`}
+        ${tw`text-sm text-gray-600 mt-0.5`}
+    }
+
+    .pin {
+        > svg {
+            width: 0.75em;
+            height: 0.75em;
+        }
     }
 
     .location {
-        ${tw`text-gray-600`}
+        ${tw`text-gray-600 ml-1`}
     }
 
     .bottom {
-        ${tw`mt-1`}
+        ${tw`mt-2`}
+
+        .left {
+            ${tw`flex items-center`}
+        }
     }
 
     .company-name {
