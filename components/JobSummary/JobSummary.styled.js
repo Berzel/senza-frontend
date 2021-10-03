@@ -2,7 +2,7 @@ import tw from "twin.macro"
 import styled from "styled-components"
 
 const JobSummaryStyles = styled.div`
-    ${tw`py-3 bg-gray-50`}
+    ${tw`px-2 py-3 bg-gray-50 border rounded-lg`}
 
     .link {
         ${tw`bg-gray-50`}
@@ -16,8 +16,19 @@ const JobSummaryStyles = styled.div`
         ${tw`text-xs`}
     }
 
+    .pills {
+        >*+*{
+            ${tw`ml-2`}
+        }
+    }
+
+    .type {
+        ${tw`text-xs text-purple-800 bg-purple-200 px-2 py-1 rounded inline-block`}
+        font-weight: 500;
+    }
+
     .title {
-        ${tw`text-black font-semibold`}
+        ${tw`text-black font-semibold mt-1`}
     }
 
     .salary {
@@ -48,8 +59,8 @@ const JobSummaryStyles = styled.div`
     }
 
     .company-logo {
-        width: 3em;
-        height: 3em;
+        width: 4em;
+        height: 4em;
         ${tw`bg-purple-700 rounded-lg`}
     }
 `;

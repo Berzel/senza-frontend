@@ -7,6 +7,10 @@ const JobSummary = () => (
             <a className="link">
                 <div className="top">
                     <div className="left">
+                        <div className="pills">
+                            <span className="type">3 years</span>
+                            <span className="type">Full-time</span>
+                        </div>
                         <h3 className="title">Software Developer</h3>
                         <div className="salary">$5.5K - $7.5K / month</div>
                     </div>

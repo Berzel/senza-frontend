@@ -9,8 +9,8 @@ const JobListStyles = styled.div`
     .list {
         ${tw`mx-3`}
     
-        > * + * {
-            ${tw`border-t`}
+        > * {
+            ${tw`mt-4`}
         }
     }
 `;

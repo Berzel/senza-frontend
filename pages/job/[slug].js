@@ -2,6 +2,7 @@ import tw from 'twin.macro'
 import Head from 'next/head'
 import styled from 'styled-components'
 import ApplyLink from '../../components/JobDetail/ApplyLink';
+import NavBar from '../../components/NavBar/NavBar';
 
 const Main = styled.div`
     ${tw`min-h-screen bg-purple-50 flex`}
@@ -9,32 +10,41 @@ const Main = styled.div`
 `;
 
 const Top = styled.div`
-    ${tw`px-2 py-4`}
+    ${tw`px-3 py-4`}
 
     .icons {
-        ${tw`mb-5`}
+        ${tw`mb-8`}
 
         .back {
-            width: 2rem;
-            height: 2rem;
-            ${tw`rounded-full bg-gray-200 p-2`}
+            width: 0.85rem;
+            height: 0.85rem;
+            ${tw`rounded-full`}
 
             > svg {
-                ${tw`fill-current text-gray-800`}
+                ${tw`fill-current text-purple-800`}
             }
         }
     }
+
     .details {
         ${tw`flex justify-between`}
 
+        .pills {
+            ${tw`flex`}
+            >*+*{
+                ${tw`ml-1`}
+            }
+        }
+
         .type {
-            ${tw`uppercase text-xs text-purple-500 font-semibold`}
+            ${tw`text-xs text-purple-800 bg-purple-200 inline-block rounded px-2 py-1`}
+            font-weight: 500;
         }
         .title {
-            ${tw`font-semibold mt-0.5`}
+            ${tw`font-semibold mt-1`}
         }
         .range{
-            ${tw`text-sm text-gray-800`}
+            ${tw`text-sm text-gray-800 mt-0.5`}
         }
         .logo {
             width: 4rem;
@@ -54,7 +64,7 @@ const Top = styled.div`
 `;
 
 const Bottom = styled.div`
-    ${tw`p-2 shadow-lg bg-gray-50 rounded-t-xl pb-20`}
+    ${tw`px-3 py-4 shadow-lg bg-gray-50 rounded-t-xl pb-20`}
     flex-grow: 1;
 
     & > *+* {
@@ -104,18 +114,22 @@ const Single = () => (
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
         </Head>
 
+        <NavBar />
         <Main>
             <Top>
                 <div className="icons">
                     <div className="left">
                         <button className="back">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M3.828 9l6.071-6.071-1.414-1.414L0 10l.707.707 7.778 7.778 1.414-1.414L3.828 11H20V9H3.828z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M3.828 9l6.071-6.071-1.414-1.414L0 10l.707.707 7.778 7.778 1.414-1.414L3.828 11H20V9H3.828z"/></svg>
                         </button>
                     </div>
                 </div>
                 <div className="details">
                     <div className="left">
-                        <p className="type">Full-time</p>
+                        <div className="pills">
+                            <p className="type">3 years</p>
+                            <p className="type">Full-time</p>
+                        </div>
                         <h1 className="title">Software developer</h1>
                         <p className="range">$5.5K - $7.5K / month</p>
                     </div>
