@@ -2,7 +2,7 @@ import tw from "twin.macro";
 import styled from "styled-components";
 
 const SearchBarStyles = styled.div`
-  ${tw`mx-3 -mt-5 rounded-xl shadow-lg overflow-hidden`}
+  ${tw`mx-3 -mt-5 rounded-lg shadow-lg overflow-hidden`}
 
   .form {
       ${tw`flex`}

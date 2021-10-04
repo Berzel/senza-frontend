@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 const JobListStyles = styled.div`
     > .title {
-        ${tw`px-3 font-semibold py-2 border-b border-t`}
+        ${tw`px-3 font-semibold py-2 bg-gray-50 border-b border-t sticky top-0`}
     }
 
     .jobs {
         ${tw`m-3`}
 
         @media screen and (min-width: 1280px) {
-            ${tw`flex m-3`}
+            ${tw`flex m-3 mb-0`}
         }
 
         >*+*{
@@ -33,8 +33,14 @@ const JobListStyles = styled.div`
             display: none;
 
             @media screen and (min-width: 1280px) {
-                ${tw`block flex-grow border rounded-lg p-2`}
+                ${tw`block flex-grow bg-gray-50 border rounded-lg p-2 sticky`}
+                top: 3.3rem;
+                height: 94vh;
             }
+        }
+
+        .more {
+            ${tw`block w-full rounded-lg bg-purple-800 mb-2 p-3 shadow-lg text-white font-semibold`}
         }
     }
 `;
