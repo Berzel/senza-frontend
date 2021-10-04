@@ -7,11 +7,20 @@ const BannerStyles = styled.div`
     > .title {
         ${tw`font-bold text-2xl`}
         line-height: 1.75rem;
+        max-width: 15em;
+
+        @media screen and (min-width: 1280px) {
+            ${tw`text-3xl`}
+        }
     }
 
     > .text {
         ${tw`mt-5 text-gray-100`}
-        max-width: 95%;
+        max-width: 20em;
+
+        @media screen and (min-width: 1280px) {            
+            ${tw`mt-10 text-lg`}
+        }
     }
 `;
 

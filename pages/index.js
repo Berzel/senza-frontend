@@ -7,6 +7,7 @@ import CategoryList from '../components/Category/CategoryList';
 import SearchBar from '../components/Search/SearchBar';
 import NavBar from '../components/NavBar/NavBar';
 import Banner from '../components/Banner/Banner';
+import Container from '../components/Container/Container';
 
 const Main = styled.main`
   & > * {
@@ -31,15 +32,18 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
       </Head>
 
-      <NavBar />
-      <Banner />
-      <SearchBar />
+      <Container>
+        <NavBar />
+        <Banner />
+        <SearchBar />
+      
 
-      <Main>
-        <CategoryList categories={categories} />
-        <PostJobBanner />
-        <JobSummaryList jobs={jobs}/>
-      </Main>
+        <Main>
+          <CategoryList categories={categories} />
+          <PostJobBanner />
+          <JobSummaryList jobs={jobs}/>
+        </Main>
+      </Container>
     </>
   )
 }

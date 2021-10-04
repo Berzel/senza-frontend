@@ -3,9 +3,13 @@ import styled from "styled-components"
 
 const JobSummaryStyles = styled.div`
     ${tw`px-2 py-3 bg-gray-50 border rounded-lg`}
+    
+    &:hover {
+        ${tw`bg-gray-100`}
+    }
 
     .link {
-        ${tw`bg-gray-50`}
+        ${tw`block`}        
     }
 
     .top, .bottom {
@@ -39,6 +43,7 @@ const JobSummaryStyles = styled.div`
         > svg {
             width: 0.75em;
             height: 0.75em;
+            ${tw`text-gray-600 fill-current`}
         }
     }
 
