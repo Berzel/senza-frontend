@@ -15,7 +15,7 @@ const MainSearchStyles = styled.div`
             }
 
             > input {
-                ${tw`block w-full p-3`} 
+                ${tw`block w-full p-2 px-3 outline-none`} 
 
                 ::placeholder{
                     ${tw`text-gray-800`}
@@ -23,16 +23,21 @@ const MainSearchStyles = styled.div`
             }
         }
 
-        .group .query {
-            ${tw`rounded-l-lg`}
+        .group .icon {
+            width: 2.5rem;
+            ${tw`p-3 flex bg-white rounded-l-lg`}
+
+            > svg {
+                ${tw`fill-current text-black`}
+            }
         }
 
-        .group .location {
+        .group.location {
             ${tw`border-l-2 border-purple-800`}
         }
 
         .group .btn {
-            ${tw`p-3 bg-purple-800 w-full block text-gray-50 text-lg font-semibold`}
+            ${tw`p-2 px-3 bg-purple-800 w-full block text-gray-50 text-lg font-semibold`}
         }
     }
 `;
