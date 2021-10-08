@@ -35,10 +35,42 @@ export default function Home() {
 
   // Hint: Category names should make sense when someone searches for {category} jobs in {location}
   const categories = [
-    'Accounting', 'Administrative & Clerical', 'Banking & Mortgage', 'Biotech & Pharmaceutical', 'Construction', 'Customer Service', 'Design', 'Education', 'Engineering',
-    'Finance', 'Web Development', 'Programming', 'Mobile Application Development', 'Software Engineering', 'Human Resource Management', 'Driving', 'Mining', 'Marketing', 'Receptionist',
-    'Administrative & Clerical', 'Banking & Mortgage', 'Biotech & Pharmaceutical', 'Construction', 'Customer Service', 'Design', 'Education', 'Engineering',
-    'Finance', 'Web Development', 'Programming', 'Mobile Application Development', 'Software Engineering', 'Human Resource Management', 'Driving', 'Mining', 'Marketing', 'Receptionist'
+    'Accountancy & Accounting',
+    'Admin & Administration',
+    'Automotive',
+    'Aviation',
+    'Banking',
+    'Charity & Volunteer',
+    'Cleaning',
+    'Construction',
+    'Customer Services',
+    'Design',
+    'Education',
+    'Engineering',
+    'Environmental',
+    'Finance',
+    'Healthcare',
+    'Hospitality',
+    'Information Technology',
+    'Legal',
+    'Leisure & Sports',
+    'Logistics, Transport & Distribution',
+    'Managerial',
+    'Manufacturing',
+    'Marketing',
+    'Multilingual',
+    'Health Services',
+    'Procurement',
+    'Public Sector',
+    'Recruitment',
+    'Retail',
+    'Sales',
+    'Science',
+    'Seasonal',
+    'Security & Emergency',
+    'Travel & Tourism',
+    'Warehouse',
+    'Work from Home'
   ];
 
   return (
