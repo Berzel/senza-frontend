@@ -2,10 +2,22 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const MainSearchStyles = styled.div`
-    ${tw`m-3 mt-5`}
+    ${tw`m-3`}
+
+    .title {
+        ${tw`mb-3 font-semibold`}
+
+        @media screen and (min-width: 1280px) {
+            display: none;
+        }
+    }
 
     .form {
-        ${tw`flex justify-between border-2 border-purple-800 rounded-lg`}
+        ${tw` border-2 border-purple-800 rounded-lg`}
+
+        @media screen and (min-width: 1280px) {
+            ${tw`flex justify-between`}
+        }
 
         .group {
             ${tw`flex-grow flex`}
@@ -15,7 +27,11 @@ const MainSearchStyles = styled.div`
             }
 
             > input {
-                ${tw`block w-full p-2 px-3 outline-none`} 
+                ${tw`block w-full p-3 px-1 rounded-r-lg outline-none`} 
+
+                @media screen and (min-width: 1280px) {
+                    ${tw`p-2 px-3`}
+                }
 
                 ::placeholder{
                     ${tw`text-gray-800`}
@@ -23,9 +39,22 @@ const MainSearchStyles = styled.div`
             }
         }
 
+        .group.btn {
+            display: none;
+
+            @media screen and (min-width: 1280px) {
+               display: block;
+            }
+        }
+
         .group .icon {
-            width: 2.5rem;
-            ${tw`p-3 flex bg-white rounded-l-lg`}
+            width: 2rem;
+            ${tw`p-2 flex bg-white rounded-l-lg`}
+
+            @media screen and (min-width: 1280px) {
+                width: 2.5rem;
+                ${tw`p-3`}
+            }
 
             > svg {
                 ${tw`fill-current text-black`}
@@ -33,11 +62,22 @@ const MainSearchStyles = styled.div`
         }
 
         .group.location {
-            ${tw`border-l-2 border-purple-800`}
+            ${tw`border-t border-gray-300`}
+            @media screen and (min-width: 1280px) {
+                ${tw`border-l-2 border-t-0 border-purple-800`}
+            }
         }
 
         .group .btn {
             ${tw`p-2 px-3 bg-purple-800 w-full block text-gray-50 text-lg font-semibold`}
+        }
+    }
+
+    .filters {
+        ${tw`block w-full bg-purple-800 rounded-lg p-3 mt-3 text-white font-semibold`}
+
+        @media screen and (min-width: 1280px) {
+            display: none;
         }
     }
 `;

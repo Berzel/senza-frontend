@@ -3,8 +3,11 @@ import MainSearchStyles from "./MainSearch.styled"
 const MainSearch = () => {
     return (
         <MainSearchStyles>
+            <h1 className="title">
+                Find jobs
+            </h1>
             <form className="form" action="/search">
-                <div className="group">
+                <div className="group query">
                     <i className="icon">
                         <svg enableBackground="new 0 0 512 512" version="1.1" viewBox="0 0 512 512">
                             <g>
@@ -29,10 +32,15 @@ const MainSearch = () => {
                     </i>
                     <input className="location" type="text" name="location" placeholder="Location" />
                 </div>
-                <div className="group">
+                <div className="group btn">
                     <button className="btn">Search</button>
                 </div>
             </form>
+            <div>
+                <button className="filters">
+                    Search
+                </button>
+            </div>
         </MainSearchStyles>
     )
 }

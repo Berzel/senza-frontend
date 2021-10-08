@@ -2,6 +2,14 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const CategoryListStyles = styled.div`
+    cursor: grab;
+
+    :first-child {
+        @media screen and (min-width: 1280px) {
+            ${tw`mt-4`}
+        }
+    }
+
     .lists {
         overflow: hidden;
 
