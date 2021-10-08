@@ -15,6 +15,18 @@ const Main = styled.main`
   }
 `;
 
+const Header = styled.div`
+  ${tw`bg-purple-800`}
+
+  .container {
+    @media screen and (min-width: 1280px) {
+        margin: 0 auto;
+        max-width: 980px;
+        position: relative;
+    }
+  }
+`;
+
 export default function Home() {
   const jobs = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {},{}, {}, {},{}, {}, {},{}, {}, {},{}, {},];
 
@@ -39,12 +51,14 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
       </Head>
 
+      <Header>
+        <div className="container">
+          <NavBar />
+          <Banner />
+          <SearchBar />
+        </div>
+      </Header>
       <Container>
-        <NavBar />
-        <Banner />
-        <SearchBar />
-      
-
         <Main>
           <CategoryList categories={categories} />
           <PostJobBanner />

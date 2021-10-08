@@ -6,7 +6,7 @@ const CategoryListStyles = styled.div`
 
     :first-child {
         @media screen and (min-width: 1280px) {
-            ${tw`mt-4`}
+            ${tw`mt-0 pt-6`}
         }
     }
 
