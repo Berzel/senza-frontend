@@ -9,6 +9,7 @@ const BannerStyles = styled.div`
     @media screen and (min-width: 1280px) {
         ${tw`py-16`}
         background-image: none;
+        background-color: transparent;
     }
 
     > .title {
