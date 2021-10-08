@@ -8,15 +8,12 @@ const PostJobBannerStyles = styled.div`
         ${tw`text-left mx-3 rounded-lg flex items-end justify-between`}
     }
 
-    >*+*{
-        ${tw`mt-4`}
-    }
-
     .title {
         ${tw`font-bold text-2xl`}
     }
 
     .body {
+        ${tw`mt-3`}
         @media screen and (min-width: 1280px) {
             max-width: 35em;
             ${tw`mt-6`}
@@ -24,7 +21,7 @@ const PostJobBannerStyles = styled.div`
     }
 
     .button {
-        ${tw`text-white bg-pink-500 rounded-lg p-3 block w-full font-semibold`}
+        ${tw`text-white bg-pink-500 rounded-lg p-3 block w-full font-semibold mt-8`}
 
         @media screen and (min-width: 1280px) {
             ${tw`px-5`}
