@@ -6,7 +6,7 @@ const Banner = () => (
             Zimbabwe's favourite job board.
         </h1>
         <p className="text">
-            Instantly search over 250,000 live vacancies from all industries across the nation and get the results delivered right to your inbox.
+            Instantly search over 250,000 live vacancies from all industries across the nation and find the perfect job you desire.
         </p>
     </BannerStyles>
 )

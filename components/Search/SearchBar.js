@@ -29,7 +29,7 @@ const SearchBar = () => (
                 <input className="location" name="location" type="text" placeholder="Location" />
             </div>
             <div className="group submit">
-                <button className="submit">Search jobs</button>
+                <button className="submit">Find jobs</button>
             </div>
         </form>
     </SearchBarStyles>
