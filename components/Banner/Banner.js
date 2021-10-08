@@ -3,10 +3,10 @@ import BannerStyles from "./Banner.styled"
 const Banner = () => (
     <BannerStyles>
         <h1 className="title">
-            Lorem ipsum dolor sit amet consectetur.
+            Zimbabwe's favourite job board.
         </h1>
         <p className="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti impedit voluptate dolorem atque.
+            Instantly search over 250,000 live vacancies from all industries across the nation and get the results delivered right to your inbox.
         </p>
     </BannerStyles>
 )

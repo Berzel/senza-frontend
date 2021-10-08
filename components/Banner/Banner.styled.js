@@ -2,7 +2,14 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const BannerStyles = styled.div`
-    ${tw`px-3 py-8 pb-12 bg-purple-800 text-gray-50`}
+    ${tw`px-3 py-8 pb-12 text-gray-50`}
+    ${tw`bg-gradient-to-b from-purple-800 to-purple-700`}
+
+
+    @media screen and (min-width: 1280px) {
+        ${tw`py-16`}
+        background-image: none;
+    }
 
     > .title {
         ${tw`font-bold text-2xl`}
@@ -10,7 +17,8 @@ const BannerStyles = styled.div`
         max-width: 15em;
 
         @media screen and (min-width: 1280px) {
-            ${tw`text-3xl`}
+            ${tw`text-5xl`}
+            max-width: 12em;
         }
     }
 
@@ -19,7 +27,8 @@ const BannerStyles = styled.div`
         max-width: 20em;
 
         @media screen and (min-width: 1280px) {            
-            ${tw`mt-10 text-lg`}
+            ${tw`mt-10 text-xl`}
+            max-width: 25em;
         }
     }
 `;

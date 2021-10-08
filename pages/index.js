@@ -16,13 +16,16 @@ const Main = styled.main`
 `;
 
 const Header = styled.div`
-  ${tw`bg-purple-800`}
+  @media screen and (min-width: 1280px) {
+    ${tw`bg-purple-800 bg-gradient-to-t from-purple-900 to-purple-700`}
+  }
 
   .container {
     @media screen and (min-width: 1280px) {
         margin: 0 auto;
         max-width: 980px;
         position: relative;
+        ${tw`pb-5`}
     }
   }
 `;
