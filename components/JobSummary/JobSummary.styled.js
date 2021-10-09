@@ -8,6 +8,19 @@ const JobSummaryStyles = styled.div`
         ${tw`bg-gray-100`}
     }
 
+    .link.mobile {
+        @media screen and (min-width: 1280px) {
+            display: none;
+        }
+    }
+
+    .link.desktop {
+        cursor: pointer;
+        @media screen and (max-width: 1280px) {
+            display: none;
+        }
+    }
+
     .link {
         ${tw`block`}        
     }
