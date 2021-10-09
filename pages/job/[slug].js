@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import ApplyLink from '../../components/JobDetail/ApplyLink';
 import NavBar from '../../components/NavBar/NavBar';
 import Container from '../../components/Container/Container';
+import Header from '../../components/Header/Header';
 
 const Main = styled.div`
     ${tw`min-h-screen bg-purple-50 flex`}
@@ -117,8 +118,13 @@ const Single = () => (
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
         </Head>
 
+        <Header>
+            <div className="container">
+                <NavBar />
+            </div>
+        </Header>
+
         <Container>
-            <NavBar />
             <Main>
                 <Top>
                     <div className="icons">
