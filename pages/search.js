@@ -2,6 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Container from "../components/Container/Container";
+import Header from "../components/Header/Header";
 import JobSummaryList from "../components/JobSummary/JobSummaryList";
 import NavBar from "../components/NavBar/NavBar";
 import MainSearch from "../components/Search/MainSearch";
@@ -27,9 +28,12 @@ const SearchPage = () => (
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
         </Head>
 
+        <Header>
+            <div className="container">
+                <NavBar />
+            </div>
+        </Header>
         <Container>
-            <NavBar />
-
             <Main>
                 <MainSearch />
                 <JobSummaryList jobs={jobs} />

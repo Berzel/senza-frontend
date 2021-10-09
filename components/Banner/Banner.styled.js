@@ -15,7 +15,7 @@ const BannerStyles = styled.div`
     > .title {
         ${tw`font-bold text-3xl`}
         line-height: 1.75rem;
-        max-width: 15em;
+        max-width: 12em;
 
         @media screen and (min-width: 1280px) {
             ${tw`text-5xl`}

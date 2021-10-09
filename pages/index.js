@@ -8,25 +8,11 @@ import SearchBar from '../components/Search/SearchBar';
 import NavBar from '../components/NavBar/NavBar';
 import Banner from '../components/Banner/Banner';
 import Container from '../components/Container/Container';
+import Header from '../components/Header/Header';
 
 const Main = styled.main`
   & > * {
     ${tw`mt-7 block`}
-  }
-`;
-
-const Header = styled.div`
-  @media screen and (min-width: 1280px) {
-    ${tw`bg-purple-800 bg-gradient-to-t from-purple-900 to-purple-700`}
-  }
-
-  .container {
-    @media screen and (min-width: 1280px) {
-        margin: 0 auto;
-        max-width: 980px;
-        position: relative;
-        ${tw`pb-5`}
-    }
   }
 `;
 

@@ -2,7 +2,9 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const MainSearchStyles = styled.div`
-    ${tw`m-3`}
+    :first-child {
+        ${tw`mx-3 my-0 pt-6`}
+    }
 
     .title {
         ${tw`mb-3 font-semibold`}
