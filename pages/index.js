@@ -83,7 +83,7 @@ export default function Home() {
         <Main>
           <CategoryList categories={categories} />
           <PostJobBanner />
-          <JobSummaryList jobs={jobs}/>
+          <JobSummaryList title='Latest job feed' jobs={jobs}/>
         </Main>
       </Container>
     </>

@@ -17,6 +17,9 @@ const CategoryList = ({categories}) => {
 
     return (
         <CategoryListStyles>
+            <div className="header">
+                <h2>Find jobs by industry</h2>
+            </div>
             <ul className="lists">
                 {
                     rows.map(row => (

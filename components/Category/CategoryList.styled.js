@@ -2,7 +2,6 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const CategoryListStyles = styled.div`
-    cursor: grab;
 
     :first-child {
         @media screen and (min-width: 1280px) {
@@ -10,7 +9,16 @@ const CategoryListStyles = styled.div`
         }
     }
 
+    .header {
+        display: none;
+        @media screen and (min-width: 1280px) {
+            display: block;
+            ${tw`px-3 mb-5 py-2 font-semibold flex justify-between border-t border-b`}
+        }
+    }
+
     .lists {
+        cursor: grab;
         overflow: hidden;
 
         & > * + * {

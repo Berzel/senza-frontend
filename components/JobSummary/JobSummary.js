@@ -9,14 +9,16 @@ const updateActiveJob = e => {
     }
 }
 
-const JobSummary = () => (
-    <JobSummaryStyles>
-        <Link href={`/job/software-developer-${Math.random(3).toString(36).substring(9)}`}>
-            <a className="link" onClick={updateActiveJob}>
-                <JobSummaryDetails />
-            </a>
-        </Link>
-    </JobSummaryStyles>
-)
+const JobSummary = () => {
+    return (
+        <JobSummaryStyles>
+            <Link href={`/job/software-developer-${Math.random(3).toString(36).substring(9)}`}>
+                <a className="link" onClick={updateActiveJob}>
+                    <JobSummaryDetails />
+                </a>
+            </Link>
+        </JobSummaryStyles>
+    )
+}
 
 export default JobSummary

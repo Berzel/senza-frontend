@@ -5,7 +5,7 @@ const SearchBarStyles = styled.div`
   ${tw`mx-3 -mt-5 rounded-lg shadow-lg overflow-hidden`}
 
   @media screen and (min-width: 1280px) {
-      ${tw`shadow-none pb-5 mx-0 px-3`}
+      ${tw`shadow-none py-10 mx-0 px-3`}
       width: 80%;
   }
 

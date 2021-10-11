@@ -36,7 +36,7 @@ const SearchPage = () => (
         <Container>
             <Main>
                 <MainSearch />
-                <JobSummaryList jobs={jobs} />
+                <JobSummaryList title={'Software developer jobs'} jobs={jobs} />
             </Main>
         </Container>
     </>

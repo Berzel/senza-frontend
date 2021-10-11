@@ -1,9 +1,9 @@
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 
-const JobSummaryList = ({jobs}) => (
+const JobSummaryList = ({title, jobs}) => (
     <JobListStyles>
-        <h2 className="title">Newest job listings</h2>
+        <h2 className="title">{title}</h2>
         <div className="jobs">
             <ul className="list">
                 {
