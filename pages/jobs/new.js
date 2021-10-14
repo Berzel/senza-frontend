@@ -27,20 +27,42 @@ const CreateJob = styled.div`
 }
 
     .form-container {
-        ${tw`flex justify-between space-x-16 mt-12 p-3 border-t`}
+        ${tw`mt-12 p-3 border-t`}
+
+        @media screen and (min-width: 1280px) {
+            ${tw`flex justify-between space-x-16 mt-24`}
+        }
+
+        .left {
+            display: none;
+
+            @media screen and (min-width: 1280px) {
+                display: block;
+            }
+        }
 
         .right {
-            flex-basis: 65%;
+            flex-basis: 100%;
+
+            @media screen and (min-width: 1280px) {
+                flex-basis: 65%;
+            }
         }
     }
 
     .form {
+        @media screen and (min-width: 1280px) {
+            ${tw`-mt-16 bg-gray-50`}
+        }
+
         >*+*{
             ${tw`mt-5`}
         }
 
         .section {
-            ${tw`border p-3 rounded-lg`}
+            @media screen and (min-width: 1280px) {
+                ${tw`border p-3 rounded-lg`}
+            }
 
             >*+*{
                 ${tw`mt-5`}
@@ -48,6 +70,10 @@ const CreateJob = styled.div`
 
             .title {
                 ${tw`font-semibold text-2xl border-b pb-4 pt-2`}
+
+                @media screen and (min-width: 1280px) {
+                    ${tw`border-none`}
+                }
             }
         }
 
@@ -115,7 +141,7 @@ const NewJobPage = () => {
                             </p>
                         </div>
                         <div className="form-container">
-                            <div>
+                            <div className="left">
                                 Left
                             </div>
                             <div className="right">
