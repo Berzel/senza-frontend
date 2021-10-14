@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Homepage</title>
+        <title>Senza - Zimbabwe's favourite job board</title>
         <meta name="description" content="Zimbabwe's favourite job board." />
         <link rel="manifest" href="manifest.json" />
         <meta name="theme-color" content="#4c1d95" />
