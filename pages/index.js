@@ -65,7 +65,7 @@ export default function Home() {
         <title>Senza - Zimbabwe's favourite job board</title>
         <meta name="description" content="Zimbabwe's favourite job board." />
         <link rel="manifest" href="manifest.json" />
-        <meta name="theme-color" content="#4c1d95" />
+        <meta name="theme-color" content="#1f2937" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
