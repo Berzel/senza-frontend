@@ -15,7 +15,7 @@ const MainSearchStyles = styled.div`
     }
 
     .form {
-        ${tw` border-2 border-purple-800 rounded-lg`}
+        ${tw` border-2 border-gray-800 rounded-lg`}
 
         @media screen and (min-width: 1280px) {
             ${tw`flex justify-between`}
@@ -66,17 +66,17 @@ const MainSearchStyles = styled.div`
         .group.location {
             ${tw`border-t border-gray-300`}
             @media screen and (min-width: 1280px) {
-                ${tw`border-l-2 border-t-0 border-purple-800`}
+                ${tw`border-l-2 border-t-0 border-gray-800`}
             }
         }
 
         .group .btn {
-            ${tw`p-2 px-3 bg-purple-800 w-full block text-gray-50 text-lg font-semibold`}
+            ${tw`p-2 px-3 bg-gray-800 w-full block text-gray-50 text-lg font-semibold`}
         }
     }
 
     .filters {
-        ${tw`block w-full bg-purple-800 rounded-lg p-3 mt-3 text-white font-semibold`}
+        ${tw`block w-full bg-gray-800 rounded-lg p-3 mt-3 text-white font-semibold`}
 
         @media screen and (min-width: 1280px) {
             display: none;

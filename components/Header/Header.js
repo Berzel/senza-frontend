@@ -3,7 +3,7 @@ import tw from "twin.macro";
 
 const Header = styled.div`
   @media screen and (min-width: 1280px) {
-    ${tw`bg-purple-800 bg-gradient-to-t from-purple-900 to-purple-700`}
+    ${tw`bg-gray-800 bg-gradient-to-t from-gray-900 to-gray-700`}
   }
 
   .container {

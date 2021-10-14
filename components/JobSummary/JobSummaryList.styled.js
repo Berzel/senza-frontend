@@ -40,7 +40,7 @@ const JobListStyles = styled.div`
         }
 
         .more {
-            ${tw`block w-full rounded-lg bg-purple-800 mb-2 p-3 shadow-lg text-white font-semibold`}
+            ${tw`block w-full rounded-lg bg-gray-800 mb-2 p-3 shadow-lg text-white font-semibold`}
         }
     }
 `;

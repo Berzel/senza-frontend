@@ -2,7 +2,7 @@ import tw from "twin.macro";
 import styled from "styled-components";
 
 const PostJobBannerStyles = styled.div`
-    ${tw`px-3 bg-purple-700 p-4 text-white shadow-lg text-center bg-gradient-to-t from-purple-700 to-purple-800`}
+    ${tw`px-3 bg-gray-700 p-4 text-white shadow-lg text-center bg-gradient-to-t from-gray-700 to-gray-800`}
 
     @media screen and (min-width: 1280px) {
         ${tw`text-left mx-3 rounded-lg flex items-end justify-between`}

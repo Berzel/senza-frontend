@@ -14,7 +14,7 @@ const Main = styled.main`
 `;
 
 const NewJobLink = styled.div`
-    ${tw`px-3 bg-purple-700 pb-5`}
+    ${tw`px-3 bg-gray-700 pb-5`}
 
     @media screen and (min-width: 1280px) {
         ${tw`bg-transparent pb-8`}

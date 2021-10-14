@@ -10,7 +10,7 @@ const ApplyLinkStyles = styled.div`
     }
 
     .link {
-        ${tw`block text-white bg-purple-700 rounded-lg shadow-lg p-3 text-center font-semibold`}
+        ${tw`block text-white bg-gray-700 rounded-lg shadow-lg p-3 text-center font-semibold`}
     }
 `;
 

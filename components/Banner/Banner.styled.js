@@ -3,7 +3,7 @@ import tw from "twin.macro";
 
 const BannerStyles = styled.div`
     ${tw`px-3 py-8 pb-12 text-gray-50`}
-    ${tw`bg-gradient-to-b from-purple-800 to-purple-700`}
+    ${tw`bg-gradient-to-b from-gray-800 to-gray-700`}
 
 
     @media screen and (min-width: 1280px) {
