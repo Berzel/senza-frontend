@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
 import tw from "twin.macro";
-import Link from "next/link";
 import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
@@ -98,7 +97,7 @@ const CreateJob = styled.div`
             }
 
             .submit {
-                ${tw`bg-blue-500 border-blue-500 text-white font-semibold shadow-lg cursor-pointer`}
+                ${tw`bg-pink-500 border-pink-500 text-white font-semibold shadow-lg cursor-pointer`}
             }
         }
 
@@ -271,7 +270,7 @@ const NewJobPage = () => {
                                                 </div>
                                                 <div className="group">
                                                     <label htmlFor="salary_interval" className="label">
-                                                        Interval (Per)
+                                                        Interval
                                                     </label>
                                                     <input className="input" type="text" id="salary_interval" name="salary_interval" placeholder="Year"/>
                                                 </div>
