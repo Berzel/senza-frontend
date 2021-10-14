@@ -51,6 +51,7 @@ const CreateJob = styled.div`
     }
 
     .form {
+        ${tw`pb-10`}
         @media screen and (min-width: 1280px) {
             ${tw`-mt-16 bg-gray-50`}
         }
@@ -78,8 +79,7 @@ const CreateJob = styled.div`
         }
 
         .row {
-            display: flex;
-            ${tw`space-x-3`}
+            ${tw`space-x-3 flex items-center`}
 
             >*{
                 flex-grow: 1;
@@ -99,6 +99,18 @@ const CreateJob = styled.div`
 
             .submit {
                 ${tw`bg-blue-500 border-blue-500 text-white font-semibold shadow-lg cursor-pointer`}
+            }
+        }
+
+        .small-title {
+            ${tw`font-semibold ml-0.5 border-b pb-2`}
+        }
+
+        .check-group {
+            ${tw`ml-1 my-3 flex items-center`}
+
+            .check-label {
+                ${tw`inline-block ml-2`}
             }
         }
     }
@@ -204,9 +216,23 @@ const NewJobPage = () => {
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="job_sector" className="label">
-                                                    Job sector
+                                                    Industry sector
                                                 </label>
                                                 <input className="input" type="text" id="job_sector" name="job_sector" placeholder="Pick a sector"/>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="group">
+                                                <label htmlFor="job_level" className="label">
+                                                    Job level
+                                                </label>
+                                                <input className="input" type="text" id="job_level" name="job_level" placeholder="Entry, Intermediate, etc"/>
+                                            </div>
+                                            <div className="group">
+                                                <label htmlFor="job_type" className="label">
+                                                    Contract type
+                                                </label>
+                                                <input className="input" type="text" id="job_type" name="job_type" placeholder="full-time, part-time, etc"/>
                                             </div>
                                         </div>
                                         <div className="group">
@@ -217,9 +243,67 @@ const NewJobPage = () => {
 
                                             </textarea>
                                         </div>
+
+                                        <div>
+                                            <h3 className="small-title">Renumeration</h3>
+                                            <div className="check-group">
+                                                <input type="checkbox" name="is_salary_negotiable" id="is_salary_negotiable" checked />
+                                                <label htmlFor="is_salary_negotiable" className="check-label">Salary is negotiable?</label>
+                                            </div>
+                                            <div className="row">
+                                                <div className="group">
+                                                    <label htmlFor="salary_min" className="label">
+                                                        Min Salary
+                                                    </label>
+                                                    <input className="input" type="text" id="salary_min" name="salary_min" placeholder="10,000"/>
+                                                </div>
+                                                <div className="group">
+                                                    <label htmlFor="salary_max" className="label">
+                                                        Max Salary
+                                                    </label>
+                                                    <input className="input" type="text" id="salary_max" name="salary_max" placeholder="300,000"/>
+                                                </div>
+                                                <div className="group">
+                                                    <label htmlFor="salary_currency" className="label">
+                                                        Currency
+                                                    </label>
+                                                    <input className="input" type="text" id="salary_currency" name="salary_currency" placeholder="USD"/>
+                                                </div>
+                                                <div className="group">
+                                                    <label htmlFor="salary_interval" className="label">
+                                                        Interval (Per)
+                                                    </label>
+                                                    <input className="input" type="text" id="salary_interval" name="salary_interval" placeholder="Year"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="small-title">Residential preference</h3>
+                                            <div className="check-group">
+                                                <input type="checkbox" name="is_remote" id="is_remote" checked />
+                                                <label htmlFor="is_remote" className="check-label">This role allows working from home?</label>
+                                            </div>
+                                            <div className="row">
+                                                <div className="group">
+                                                    <label htmlFor="job_country" className="label">
+                                                        Country
+                                                    </label>
+                                                    <input className="input" type="text" id="job_country" name="job_country" placeholder="Zimbabwe"/>
+                                                </div>
+                                                <div className="group">
+                                                    <label htmlFor="job_city" className="label">
+                                                        City
+                                                    </label>
+                                                    <input className="input" type="text" id="job_city" name="job_city" placeholder="Harare"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="group">
+                                            <input type="button" className="input submit" name="action" value="Post your job" />
+                                        </div>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </CreateJob>
