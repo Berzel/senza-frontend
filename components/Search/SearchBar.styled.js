@@ -63,7 +63,7 @@ const SearchBarStyles = styled.div`
       }
 
       .group .submit {
-          ${tw`p-3 bg-pink-500 block w-full rounded-lg text-white font-semibold`}
+          ${tw`p-3 bg-blue-500 block w-full rounded-lg text-white font-semibold`}
       }
   }
 `;

@@ -8,7 +8,7 @@ import Header from '../../components/Header/Header';
 import { useRouter } from 'next/router';
 
 const Main = styled.div`
-    ${tw`min-h-screen bg-gray-50 flex`}
+    ${tw`min-h-screen bg-blue-50 flex`}
     flex-direction: column;
 `;
 
@@ -39,8 +39,7 @@ const Top = styled.div`
         }
 
         .type {
-            ${tw`text-xs text-gray-800 bg-gray-200 inline-block rounded px-2 py-1`}
-            font-weight: 500;
+            ${tw`text-xs text-black bg-blue-200 inline-block rounded px-2 py-1`}
         }
         .title {
             ${tw`font-semibold mt-1`}
@@ -98,7 +97,7 @@ const Bottom = styled.div`
                     display: inline-block;
 
                     > svg {
-                        ${tw`fill-current text-gray-800`}
+                        ${tw`fill-current text-blue-600`}
                     }
                 }
             }

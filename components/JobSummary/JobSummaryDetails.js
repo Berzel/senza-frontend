@@ -4,14 +4,16 @@ const JobSummaryDetails = () => {
             <div className="top">
                 <div className="left">
                     <div className="pills">
-                        <span className="type">3 years</span>
-                        <span className="type">Full-time</span>
+                        <span className="type">entry-level</span>
+                        <span className="type">full-time</span>
                     </div>
                     <h3 className="title">Software Developer</h3>
                     <div className="salary">$5.5K - $7.5K / month</div>
                 </div>
                 <div className="right">
-                    <div className="company-logo"></div>
+                    <div className="company-logo">
+                        MV
+                    </div>
                 </div>
             </div>
             <div className="bottom">

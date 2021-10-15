@@ -27,8 +27,7 @@ const JobSummaryStyles = styled.div`
     }
 
     .type {
-        ${tw`text-xs text-gray-800 bg-gray-200 px-2 py-1 rounded inline-block`}
-        font-weight: 500;
+        ${tw`text-xs text-black bg-blue-200 px-2 py-1 rounded inline-block`}
     }
 
     .title {
@@ -59,14 +58,10 @@ const JobSummaryStyles = styled.div`
         }
     }
 
-    .company-name {
-        ${tw`text-gray-700`}
-    }
-
     .company-logo {
-        width: 4em;
-        height: 4em;
-        ${tw`bg-gray-700 rounded-lg`}
+        width: 4rem;
+        height: 4rem;
+        ${tw`border rounded-lg flex items-center justify-center text-3xl text-gray-500 font-bold overflow-hidden`}
     }
 `;
 

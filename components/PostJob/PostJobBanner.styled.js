@@ -21,7 +21,7 @@ const PostJobBannerStyles = styled.div`
     }
 
     .button {
-        ${tw`text-white bg-pink-500 rounded-lg p-3 block w-full font-semibold mt-8`}
+        ${tw`text-white bg-blue-500 rounded-lg p-3 block w-full font-semibold mt-8`}
 
         @media screen and (min-width: 1280px) {
             ${tw`px-5`}

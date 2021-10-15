@@ -66,8 +66,6 @@ const CreateJob = styled.div`
 }
 
 .form {
-    ${tw`pb-10`}
-
     @media screen and (min-width: 1280px) {
         ${tw`-mt-16 bg-gray-50`}
     }
@@ -94,6 +92,12 @@ const CreateJob = styled.div`
         }
     }
 
+    .sub-section {
+        >*+*{
+            ${tw`mt-3`}
+        }
+    }
+
     .row {
         ${tw`space-x-3 flex items-center`}
 
@@ -114,7 +118,7 @@ const CreateJob = styled.div`
         }
 
         .submit {
-            ${tw`bg-pink-500 border-pink-500 text-white font-semibold shadow-lg cursor-pointer`}
+            ${tw`bg-blue-500 border-blue-500 text-white font-semibold shadow-lg cursor-pointer`}
         }
     }
 
@@ -191,13 +195,13 @@ const NewJobPage = () => {
                                                 <label htmlFor="company_name" className="label">
                                                     Company name
                                                 </label>
-                                                <input className="input" type="text" id="company_name" name="company_name" placeholder="Company Name"/>
+                                                <input className="input" type="text" id="company_name" name="company_name" placeholder="Company name"/>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="company_logo" className="label">
                                                     Company logo
                                                 </label>
-                                                <input className="input" type="text" id="company_logo" name="company_logo" placeholder="Click upload company logo"/>
+                                                <input className="input" type="text" id="company_logo" name="company_logo" placeholder="Upload logo"/>
                                             </div>
                                         </div>
 
@@ -283,7 +287,7 @@ const NewJobPage = () => {
                                         </div>
 
                                         <div>
-                                            <h3 className="small-title">Renumeration</h3>
+                                            <h3 className="small-title">Salary details</h3>
                                             <div className="check-group">
                                                 <input type="checkbox" name="is_salary_negotiable" id="is_salary_negotiable" checked />
                                                 <label htmlFor="is_salary_negotiable" className="check-label">Salary is negotiable?</label>
@@ -291,13 +295,13 @@ const NewJobPage = () => {
                                             <div className="row">
                                                 <div className="group">
                                                     <label htmlFor="salary_min" className="label">
-                                                        Min Salary
+                                                        Min
                                                     </label>
                                                     <input className="input" type="text" id="salary_min" name="salary_min" placeholder="10,000"/>
                                                 </div>
                                                 <div className="group">
                                                     <label htmlFor="salary_max" className="label">
-                                                        Max Salary
+                                                        Max
                                                     </label>
                                                     <input className="input" type="text" id="salary_max" name="salary_max" placeholder="300,000"/>
                                                 </div>
@@ -335,6 +339,55 @@ const NewJobPage = () => {
                                                     </label>
                                                     <input className="input" type="text" id="job_city" name="job_city" placeholder="Harare"/>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div className="sub-section">
+                                            <h3 className="small-title">Responsibilities</h3>
+                                            <div className="group">
+                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Responsibility #1"/>
+                                            </div>
+                                            <div className="group">
+                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Responsibility #2"/>
+                                            </div>
+                                            <div className="group">
+                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Responsibility #3"/>
+                                            </div>
+                                        </div>
+                                        <div className="sub-section">
+                                            <h3 className="small-title">Skills &amp; Qualifications</h3>
+                                            <div className="group">
+                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Qualification #1"/>
+                                            </div>
+                                            <div className="group">
+                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Qualification #2"/>
+                                            </div>
+                                            <div className="group">
+                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Qualification #3"/>
+                                            </div>
+                                        </div>
+                                        <div className="sub-section">
+                                            <h3 className="small-title">How to apply</h3>
+                                            <div className="group">
+                                                <label htmlFor="company_description" className="label">
+                                                    Application instructions
+                                                </label>
+                                                <textarea rows="5" className="input" name="company_description" id="company_description" placeholder="How should candidates apply?">
+
+                                                </textarea>
+                                            </div>
+                                            <div className="row">
+                                            <div className="group">
+                                                <label htmlFor="application_email" className="label">
+                                                    Application email
+                                                </label>
+                                                <input className="input" type="text" id="application_email" name="application_email" placeholder="Application email"/>
+                                            </div>
+                                            <div className="group">
+                                                <label htmlFor="application_link" className="label">
+                                                    Application link
+                                                </label>
+                                                <input className="input" type="text" id="application_link" name="application_link" placeholder="Application link"/>
+                                            </div>
                                             </div>
                                         </div>
                                         <div className="group">
