@@ -107,7 +107,7 @@ const CreateJobStyles = styled.div`
         }
 
         .submit {
-            ${tw`bg-blue-500 border-blue-500 text-white font-semibold shadow-lg cursor-pointer`}
+            ${tw`bg-blue-400 border-blue-400 text-white font-semibold shadow-lg cursor-pointer`}
         }
     }
 

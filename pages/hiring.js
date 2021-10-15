@@ -21,7 +21,7 @@ const NewJobLink = styled.div`
     }
 
     .link {
-        ${tw`text-white bg-blue-500 rounded-lg p-3 px-5 inline-block font-semibold`}
+        ${tw`text-white bg-blue-400 rounded-lg p-3 px-5 inline-block font-semibold`}
     }
 `;
 

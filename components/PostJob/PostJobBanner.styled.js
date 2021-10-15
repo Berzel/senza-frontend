@@ -2,14 +2,12 @@ import tw from "twin.macro";
 import styled from "styled-components";
 
 const PostJobBannerStyles = styled.div`
-    background-size: 200%;
-    ${tw`px-3 bg-gray-700 p-4 text-white shadow-lg text-center bg-gradient-to-t from-gray-700 to-gray-800`}
-    background-image: linear-gradient(to bottom, rgba(59,130,246,0.95), rgb(31 41 55)), url('/img/circuit.jpg');
+    ${tw`px-3 pt-8 pb-8 text-center bg-gradient-to-b from-blue-50 to-gray-50`}
 
     @media screen and (min-width: 1280px) {
         background-size: cover;
-        background-image: linear-gradient(to right, rgba(59,130,246,0.95), rgb(31 41 55)), url('/img/circuit.jpg');
-        ${tw`text-left mx-3 rounded-lg flex items-end justify-between`}
+        background-image: linear-gradient(to right, rgba(96,165,250,0.97), rgb(31 41 55)), url('/img/circuit.jpg');
+        ${tw`text-left text-white mx-3 rounded-lg flex items-end justify-between`}
     }
 
     .title {
@@ -25,7 +23,7 @@ const PostJobBannerStyles = styled.div`
     }
 
     .button {
-        ${tw`text-white bg-blue-500 rounded-lg p-3 block w-full font-semibold mt-8`}
+        ${tw`text-white bg-blue-400 rounded-lg p-3 block w-full font-semibold mt-8`}
 
         @media screen and (min-width: 1280px) {
             ${tw`px-5`}
