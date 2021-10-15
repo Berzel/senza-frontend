@@ -23,21 +23,41 @@ const NewJobPage = () => {
     const [responsibilities, setResponsibilities] = useState(['', '', ''])
 
     const addSkill = e => {
+        if (skills.length > 30) return;
         e.preventDefault()
         setSkills([...skills, '']);
     }
 
-    const handleSkillChange = e => {
-        e.preventDefault()
+    const updateSkill = (key, value) => {
         let newSkills = [...skills]
-        newSkills[Number(e.target.dataset.skillKey)] = e.target.value
-        console.log(newSkills)
+        newSkills[key] = value
+        setSkills(newSkills)
+    }
+
+    const removeSkill = key => {
+        if (skills.length < 4) return;
+        let newSkills = [...skills]
+        newSkills = newSkills.filter((skill, index) => key !== index)
         setSkills(newSkills)
     }
 
     const addResponsibitity = e => {
+        if (responsibilities.length > 30) return;
         e.preventDefault()
         setResponsibilities([...responsibilities, ''])
+    }
+
+    const updateResponsibility = (key, value) => {
+        let newResponsibilities = [...responsibilities]
+        newResponsibilities[key] = value
+        setResponsibilities(newResponsibilities)
+    }
+
+    const removeResponsibility = key => {
+        if (responsibilities.length < 4) return;
+        let newResponsibilities = [...responsibilities]
+        newResponsibilities = newResponsibilities.filter((res, index) => key !== index)
+        setResponsibilities(newResponsibilities)
     }
     
     return (
@@ -65,7 +85,9 @@ const NewJobPage = () => {
                             <div>
                                 <button className="back" onClick={e => router.back()}>
                                     <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M3.828 9l6.071-6.071-1.414-1.414L0 10l.707.707 7.778 7.778 1.414-1.414L3.828 11H20V9H3.828z"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path d="M3.828 9l6.071-6.071-1.414-1.414L0 10l.707.707 7.778 7.778 1.414-1.414L3.828 11H20V9H3.828z"/>
+                                        </svg>
                                     </span>
                                     <span>
                                         Back
@@ -76,7 +98,8 @@ const NewJobPage = () => {
                                 New Job Listing
                             </h1>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui quo ad nostrum culpa, aperiam numquam animi enim, dolores, neque veritatis eius deleniti voluptas alias reiciendis ab dignissimos unde velit rem.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui quo ad nostrum culpa, 
+                                aperiam numquam animi enim, dolores, neque veritatis eius deleniti voluptas alias reiciendis ab dignissimos unde velit rem.
                             </p>
                         </div>
                         <div className="form-container">
@@ -96,7 +119,14 @@ const NewJobPage = () => {
                                                 <label htmlFor="company_name" className="label">
                                                     Company name
                                                 </label>
-                                                <input className="input" type="text" id="company_name" name="company_name" value={company_name} onChange={e => setCompanyName(e.target.value)} placeholder="Company name"/>
+                                                <input 
+                                                    className="input" 
+                                                    type="text" 
+                                                    id="company_name" 
+                                                    name="company_name" 
+                                                    value={company_name} 
+                                                    onChange={e => setCompanyName(e.target.value)} 
+                                                    placeholder="Company name"/>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="company_logo" className="label">
@@ -110,8 +140,12 @@ const NewJobPage = () => {
                                             <label htmlFor="company_description" className="label">
                                                 Company description
                                             </label>
-                                            <textarea rows="5" className="input" name="company_description" id="company_description" placeholder="Briefly describe your company">
-
+                                            <textarea 
+                                                rows="5" 
+                                                className="input" 
+                                                name="company_description" 
+                                                id="company_description" 
+                                                placeholder="Briefly describe your company">
                                             </textarea>
                                         </div>
                                         <div className="row">
@@ -152,7 +186,14 @@ const NewJobPage = () => {
                                                 <label htmlFor="job_title" className="label">
                                                     Job title / role
                                                 </label>
-                                                <input className="input" type="text" id="job_title" name="job_title" value={job_title} onChange={e => setJobTitle(e.target.value)} placeholder="Web Developer, etc"/>
+                                                <input 
+                                                    className="input" 
+                                                    type="text" 
+                                                    id="job_title" 
+                                                    name="job_title" 
+                                                    value={job_title} 
+                                                    onChange={e => setJobTitle(e.target.value)} 
+                                                    placeholder="Web Developer, etc"/>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="job_sector" className="label">
@@ -275,30 +316,50 @@ const NewJobPage = () => {
                                             <h3 className="small-title">Responsibilities</h3>
                                             {
                                                 responsibilities && responsibilities.map((res, key) => (
-                                                    <div className="group">
-                                                        <input className="input" value={res} data-responsibility-key={key} type="text" id="job_city" name="job_city" placeholder={`Responsibility #${key+1}`}/>
+                                                    <div className="group list" key={key}>
+                                                        <input 
+                                                            className="input" 
+                                                            value={res} 
+                                                            onChange={e => updateResponsibility(key, e.target.value)} 
+                                                            type="text" 
+                                                            id={`job-responsibility-${key}`} 
+                                                            name={`responsibilities[${key}]`} 
+                                                            placeholder={`Responsibility #${key+1}`}/>
+                                                        <a className="action-btn" onClick={() => removeResponsibility(key)}>
+                                                            x
+                                                        </a>
                                                     </div>
                                                 ))
                                             }
                                             <div className="more-btn">
-                                                <button onClick={addResponsibitity}>
+                                                <a onClick={addResponsibitity}>
                                                     +1 Responsibility
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">Skills &amp; Qualifications</h3>
                                             {
                                                 skills && skills.map((skill, key) =>(
-                                                    <div className="group" key={key}>
-                                                        <input className="input" value={skill} onChange={handleSkillChange} data-skill-key={key} type="text" id="job_city" name="job_city" placeholder={`Qualification #${key+1}`}/>
+                                                    <div className="group list" key={key}>
+                                                        <input 
+                                                            className="input" 
+                                                            value={skill} 
+                                                            onChange={e => updateSkill(key, e.target.value)} 
+                                                            type="text" 
+                                                            id={`job-skill-${key}`} 
+                                                            name={`skills[${key}]`} 
+                                                            placeholder={`Qualification #${key+1}`}/>
+                                                        <a className="action-btn" onClick={() => removeSkill(key)}>
+                                                            x
+                                                        </a>
                                                     </div>
                                                 ))
                                             }
                                             <div className="more-btn">
-                                                <button onClick={addSkill}>
+                                                <a onClick={addSkill}>
                                                     +1 Qualification / Skill
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                         <div className="sub-section">
