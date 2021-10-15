@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Main = styled.main`
     & > *+* {
@@ -137,7 +138,9 @@ const CreateJob = styled.div`
 `;
 
 const NewJobPage = () => {
-    const router = useRouter();
+    const router = useRouter()
+    const [skills, setSkills] = useState(['', '', ''])
+    const [responsibilities, setResponsibilities] = useState(['', '', ''])
     
     return (
         <>
@@ -241,9 +244,6 @@ const NewJobPage = () => {
                                                 <input className="input" type="text" id="company_facebook" name="company_facebook" placeholder="Facebook page"/>
                                             </div>
                                         </div>
-                                        <div className="group">
-                                            <input type="button" className="input submit" name="action" value="Save company details" />
-                                        </div>
                                     </div>
                                     <div className="section">
                                         <h2 className="title">
@@ -343,27 +343,23 @@ const NewJobPage = () => {
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">Responsibilities</h3>
-                                            <div className="group">
-                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Responsibility #1"/>
-                                            </div>
-                                            <div className="group">
-                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Responsibility #2"/>
-                                            </div>
-                                            <div className="group">
-                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Responsibility #3"/>
-                                            </div>
+                                            {
+                                                responsibilities && responsibilities.map((res, key) => (
+                                                    <div className="group">
+                                                        <input className="input" value={res} type="text" id="job_city" name="job_city" placeholder={`Responsibility #${key+1}`}/>
+                                                    </div>
+                                                ))
+                                            }
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">Skills &amp; Qualifications</h3>
-                                            <div className="group">
-                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Qualification #1"/>
-                                            </div>
-                                            <div className="group">
-                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Qualification #2"/>
-                                            </div>
-                                            <div className="group">
-                                                <input className="input" type="text" id="job_city" name="job_city" placeholder="Qualification #3"/>
-                                            </div>
+                                            {
+                                                skills && skills.map((skill, key) =>(
+                                                    <div className="group" key={key}>
+                                                        <input className="input" value={skill} type="text" id="job_city" name="job_city" placeholder={`Qualification #${key+1}`}/>
+                                                    </div>
+                                                ))
+                                            }
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">How to apply</h3>
