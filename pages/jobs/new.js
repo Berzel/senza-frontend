@@ -4,6 +4,7 @@ import tw from "twin.macro";
 import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
+import { useRouter } from "next/router";
 
 const Main = styled.main`
     & > *+* {
@@ -23,99 +24,116 @@ const CreateJob = styled.div`
     .title {
         ${tw`font-bold text-3xl`}
     }
+
+    .back {
+        ${tw`flex items-center space-x-2`}
+
+        svg {
+            width: 0.85rem;
+            height: 0.85rem;
+            ${tw`fill-current text-gray-800`}
+        }
+    }
 }
 
-    .form-container {
-        ${tw`mt-12 p-3 border-t`}
+.form-container {
+    ${tw`mt-12 p-3 border-t`}
+
+    @media screen and (min-width: 1280px) {
+        ${tw`flex justify-between space-x-3 mt-24`}
+    }
+
+    .left {
+        display: none;
 
         @media screen and (min-width: 1280px) {
-            ${tw`flex justify-between space-x-16 mt-24`}
+            display: block;
+            flex-grow: 1;
         }
 
-        .left {
-            display: none;
-
-            @media screen and (min-width: 1280px) {
-                display: block;
-            }
-        }
-
-        .right {
-            flex-basis: 100%;
-
-            @media screen and (min-width: 1280px) {
-                flex-basis: 65%;
-            }
+        .sidebar {
+            ${tw`sticky top-3 block w-full border rounded-lg p-2`}
         }
     }
 
-    .form {
-        ${tw`pb-10`}
+    .right {
+        flex-basis: 100%;
+
         @media screen and (min-width: 1280px) {
-            ${tw`-mt-16 bg-gray-50`}
+            flex-basis: 65%;
+        }
+    }
+}
+
+.form {
+    ${tw`pb-10`}
+
+    @media screen and (min-width: 1280px) {
+        ${tw`-mt-16 bg-gray-50`}
+    }
+
+    >*+*{
+        ${tw`mt-5`}
+    }
+
+    .section {
+        @media screen and (min-width: 1280px) {
+            ${tw`border p-3 rounded-lg`}
         }
 
         >*+*{
             ${tw`mt-5`}
         }
 
-        .section {
+        .title {
+            ${tw`font-semibold text-2xl border-b pb-4 pt-2`}
+
             @media screen and (min-width: 1280px) {
-                ${tw`border p-3 rounded-lg`}
-            }
-
-            >*+*{
-                ${tw`mt-5`}
-            }
-
-            .title {
-                ${tw`font-semibold text-2xl border-b pb-4 pt-2`}
-
-                @media screen and (min-width: 1280px) {
-                    ${tw`border-none`}
-                }
-            }
-        }
-
-        .row {
-            ${tw`space-x-3 flex items-center`}
-
-            >*{
-                flex-grow: 1;
-                flex-basis: 50%;
-            }
-        }
-
-        .group {
-
-            .label {
-                ${tw`ml-0.5 block mb-1`}
-            }
-
-            .input {
-                ${tw`block w-full p-3 rounded-lg border bg-white`}
-            }
-
-            .submit {
-                ${tw`bg-pink-500 border-pink-500 text-white font-semibold shadow-lg cursor-pointer`}
-            }
-        }
-
-        .small-title {
-            ${tw`font-semibold ml-0.5 border-b pb-2`}
-        }
-
-        .check-group {
-            ${tw`ml-1 my-3 flex items-center`}
-
-            .check-label {
-                ${tw`inline-block ml-2`}
+                ${tw`border-none`}
             }
         }
     }
+
+    .row {
+        ${tw`space-x-3 flex items-center`}
+
+        >*{
+            flex-grow: 1;
+            flex-basis: 50%;
+        }
+    }
+
+    .group {
+
+        .label {
+            ${tw`ml-0.5 block mb-1`}
+        }
+
+        .input {
+            ${tw`block w-full p-3 rounded-lg border bg-white`}
+        }
+
+        .submit {
+            ${tw`bg-pink-500 border-pink-500 text-white font-semibold shadow-lg cursor-pointer`}
+        }
+    }
+
+    .small-title {
+        ${tw`font-semibold ml-0.5 border-b pb-2`}
+    }
+
+    .check-group {
+        ${tw`ml-1 my-3 flex items-center`}
+
+        .check-label {
+            ${tw`inline-block ml-2`}
+        }
+    }
+}
 `;
 
 const NewJobPage = () => {
+    const router = useRouter();
     
     return (
         <>
@@ -140,8 +158,13 @@ const NewJobPage = () => {
                     <CreateJob>
                         <div className="top">
                             <div>
-                                <button className="back">
-                                    Back
+                                <button className="back" onClick={e => router.back()}>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M3.828 9l6.071-6.071-1.414-1.414L0 10l.707.707 7.778 7.778 1.414-1.414L3.828 11H20V9H3.828z"/></svg>
+                                    </span>
+                                    <span>
+                                        Back
+                                    </span>
                                 </button>
                             </div>
                             <h1 className="title">
@@ -153,7 +176,9 @@ const NewJobPage = () => {
                         </div>
                         <div className="form-container">
                             <div className="left">
-                                Left
+                                <div className="sidebar">
+                                    Left
+                                </div>
                             </div>
                             <div className="right">
                                 <form action="" className="form">
@@ -186,16 +211,30 @@ const NewJobPage = () => {
                                         </div>
                                         <div className="row">
                                             <div className="group">
-                                                <label htmlFor="company_name" className="label">
-                                                    Contact email
+                                                <label htmlFor="company_website" className="label">
+                                                    Company website
                                                 </label>
-                                                <input className="input" type="text" id="company_name" name="company_name" placeholder="someone@company.com"/>
+                                                <input className="input" type="text" id="company_website" name="company_website" placeholder="www.company.com"/>
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="company_logo" className="label">
+                                                <label htmlFor="company_email" className="label">
+                                                    Contact email
+                                                </label>
+                                                <input className="input" type="text" id="company_email" name="company_email" placeholder="someone@company.com"/>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="group">
+                                                <label htmlFor="company_twitter" className="label">
                                                     Twitter handle
                                                 </label>
-                                                <input className="input" type="text" id="company_logo" name="company_logo" placeholder="@CompanyName"/>
+                                                <input className="input" type="text" id="company_twitter" name="company_twitter" placeholder="@CompanyName"/>
+                                            </div>
+                                            <div className="group">
+                                                <label htmlFor="company_facebook" className="label">
+                                                    Facebook
+                                                </label>
+                                                <input className="input" type="text" id="company_facebook" name="company_facebook" placeholder="Facebook page"/>
                                             </div>
                                         </div>
                                         <div className="group">
