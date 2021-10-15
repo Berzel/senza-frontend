@@ -6,6 +6,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import CreateJobStyles from "../../components/CreateJob/CreateJob.styled";
 
 const Main = styled.main`
     & > *+* {
@@ -13,134 +14,31 @@ const Main = styled.main`
     }
 `;
 
-const CreateJob = styled.div`
-
-.top {
-    ${tw`pt-8 px-3`}
-
-    >*+*{
-        ${tw`mt-10`}
-    }
-
-    .title {
-        ${tw`font-bold text-3xl`}
-    }
-
-    .back {
-        ${tw`flex items-center space-x-2`}
-
-        svg {
-            width: 0.85rem;
-            height: 0.85rem;
-            ${tw`fill-current text-gray-800`}
-        }
-    }
-}
-
-.form-container {
-    ${tw`mt-12 p-3 border-t`}
-
-    @media screen and (min-width: 1280px) {
-        ${tw`flex justify-between space-x-3 mt-24`}
-    }
-
-    .left {
-        display: none;
-
-        @media screen and (min-width: 1280px) {
-            display: block;
-            flex-grow: 1;
-        }
-
-        .sidebar {
-            ${tw`sticky top-3 block w-full border rounded-lg p-2`}
-        }
-    }
-
-    .right {
-        flex-basis: 100%;
-
-        @media screen and (min-width: 1280px) {
-            flex-basis: 65%;
-        }
-    }
-}
-
-.form {
-    @media screen and (min-width: 1280px) {
-        ${tw`-mt-16 bg-gray-50`}
-    }
-
-    >*+*{
-        ${tw`mt-5`}
-    }
-
-    .section {
-        @media screen and (min-width: 1280px) {
-            ${tw`border p-3 rounded-lg`}
-        }
-
-        >*+*{
-            ${tw`mt-5`}
-        }
-
-        .title {
-            ${tw`font-semibold text-2xl border-b pb-4 pt-2`}
-
-            @media screen and (min-width: 1280px) {
-                ${tw`border-none`}
-            }
-        }
-    }
-
-    .sub-section {
-        >*+*{
-            ${tw`mt-3`}
-        }
-    }
-
-    .row {
-        ${tw`space-x-3 flex items-center`}
-
-        >*{
-            flex-grow: 1;
-            flex-basis: 50%;
-        }
-    }
-
-    .group {
-
-        .label {
-            ${tw`ml-0.5 block mb-1`}
-        }
-
-        .input {
-            ${tw`block w-full p-3 rounded-lg border bg-white`}
-        }
-
-        .submit {
-            ${tw`bg-blue-500 border-blue-500 text-white font-semibold shadow-lg cursor-pointer`}
-        }
-    }
-
-    .small-title {
-        ${tw`font-semibold ml-0.5 border-b pb-2`}
-    }
-
-    .check-group {
-        ${tw`ml-1 my-3 flex items-center`}
-
-        .check-label {
-            ${tw`inline-block ml-2`}
-        }
-    }
-}
-`;
-
 const NewJobPage = () => {
     const router = useRouter()
+
+    const [company_name, setCompanyName] = useState('');
+    const [job_title, setJobTitle] = useState('');
     const [skills, setSkills] = useState(['', '', ''])
     const [responsibilities, setResponsibilities] = useState(['', '', ''])
+
+    const addSkill = e => {
+        e.preventDefault()
+        setSkills([...skills, '']);
+    }
+
+    const handleSkillChange = e => {
+        e.preventDefault()
+        let newSkills = [...skills]
+        newSkills[Number(e.target.dataset.skillKey)] = e.target.value
+        console.log(newSkills)
+        setSkills(newSkills)
+    }
+
+    const addResponsibitity = e => {
+        e.preventDefault()
+        setResponsibilities([...responsibilities, ''])
+    }
     
     return (
         <>
@@ -162,7 +60,7 @@ const NewJobPage = () => {
             </Header>
             <Container>
                 <Main>
-                    <CreateJob>
+                    <CreateJobStyles>
                         <div className="top">
                             <div>
                                 <button className="back" onClick={e => router.back()}>
@@ -198,7 +96,7 @@ const NewJobPage = () => {
                                                 <label htmlFor="company_name" className="label">
                                                     Company name
                                                 </label>
-                                                <input className="input" type="text" id="company_name" name="company_name" placeholder="Company name"/>
+                                                <input className="input" type="text" id="company_name" name="company_name" value={company_name} onChange={e => setCompanyName(e.target.value)} placeholder="Company name"/>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="company_logo" className="label">
@@ -254,13 +152,15 @@ const NewJobPage = () => {
                                                 <label htmlFor="job_title" className="label">
                                                     Job title / role
                                                 </label>
-                                                <input className="input" type="text" id="job_title" name="job_title" placeholder="Web Developer, etc"/>
+                                                <input className="input" type="text" id="job_title" name="job_title" value={job_title} onChange={e => setJobTitle(e.target.value)} placeholder="Web Developer, etc"/>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="job_sector" className="label">
                                                     Industry sector
                                                 </label>
-                                                <input className="input" type="text" id="job_sector" name="job_sector" placeholder="Pick a sector"/>
+                                                <select className="input" name="job_sector" id="job_sector">
+                                                    <option value={null}>Pick a sector</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -268,13 +168,27 @@ const NewJobPage = () => {
                                                 <label htmlFor="job_level" className="label">
                                                     Job level
                                                 </label>
-                                                <input className="input" type="text" id="job_level" name="job_level" placeholder="Entry, Intermediate, etc"/>
+                                                <select className="input" name="job_level" id="job_level">
+                                                    <option value="intern">Internship</option>
+                                                    <option value="graduate-trainee">Graduate Trainee</option>
+                                                    <option value="entry-level">Entry-Level</option>
+                                                    <option value="intermediate">Intermediate</option>
+                                                    <option value="mid-level">Mid-Level</option>
+                                                    <option value="senior">Senior</option>
+                                                </select>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="job_type" className="label">
                                                     Contract type
                                                 </label>
-                                                <input className="input" type="text" id="job_type" name="job_type" placeholder="full-time, part-time, etc"/>
+                                                <select className="input" name="contract_type" id="contract_type">
+                                                    <option value="fixed-term">Fixed Term</option>
+                                                    <option value="part-time">Part Time</option>
+                                                    <option value="full-time">Full Time</option>
+                                                    <option value="temporary">Temporary</option>
+                                                    <option value="zero-hours">Zero Hours</option>
+                                                    <option value="apprenticeship">Apprenticeship</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div className="group">
@@ -309,13 +223,25 @@ const NewJobPage = () => {
                                                     <label htmlFor="salary_currency" className="label">
                                                         Currency
                                                     </label>
-                                                    <input className="input" type="text" id="salary_currency" name="salary_currency" placeholder="USD"/>
+                                                    <select className="input" name="salary_currency" id="salary_currency">
+                                                        <option value="usd">USD</option>
+                                                        <option value="usd">ZWL</option>
+                                                        <option value="usd">EUR</option>
+                                                        <option value="usd">GBP</option>
+                                                    </select>
                                                 </div>
                                                 <div className="group">
                                                     <label htmlFor="salary_interval" className="label">
                                                         Interval
                                                     </label>
-                                                    <input className="input" type="text" id="salary_interval" name="salary_interval" placeholder="Year"/>
+                                                    <select className="input" name="salary_interval" id="salary_interval">
+                                                        <option value="hourly">Hourly</option>
+                                                        <option value="daily">Daily</option>
+                                                        <option value="weekly">Weekly</option>
+                                                        <option value="bi-weekly">Bi-Weekly</option>
+                                                        <option value="monthly">Monthly</option>
+                                                        <option value="yearly">Yearly</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -331,11 +257,15 @@ const NewJobPage = () => {
                                                     <label htmlFor="job_country" className="label">
                                                         Country
                                                     </label>
-                                                    <input className="input" type="text" id="job_country" name="job_country" placeholder="Zimbabwe"/>
+                                                    <select className="input" name="job_country" id="job_country">
+                                                        <option value="">Anywhere</option>
+                                                        <option value="zambia">Zambia</option>
+                                                        <option value="zimbabwe">Zimbabwe</option>
+                                                    </select>
                                                 </div>
                                                 <div className="group">
                                                     <label htmlFor="job_city" className="label">
-                                                        City
+                                                        City / Town
                                                     </label>
                                                     <input className="input" type="text" id="job_city" name="job_city" placeholder="Harare"/>
                                                 </div>
@@ -346,20 +276,30 @@ const NewJobPage = () => {
                                             {
                                                 responsibilities && responsibilities.map((res, key) => (
                                                     <div className="group">
-                                                        <input className="input" value={res} type="text" id="job_city" name="job_city" placeholder={`Responsibility #${key+1}`}/>
+                                                        <input className="input" value={res} data-responsibility-key={key} type="text" id="job_city" name="job_city" placeholder={`Responsibility #${key+1}`}/>
                                                     </div>
                                                 ))
                                             }
+                                            <div className="more-btn">
+                                                <button onClick={addResponsibitity}>
+                                                    +1 Responsibility
+                                                </button>
+                                            </div>
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">Skills &amp; Qualifications</h3>
                                             {
                                                 skills && skills.map((skill, key) =>(
                                                     <div className="group" key={key}>
-                                                        <input className="input" value={skill} type="text" id="job_city" name="job_city" placeholder={`Qualification #${key+1}`}/>
+                                                        <input className="input" value={skill} onChange={handleSkillChange} data-skill-key={key} type="text" id="job_city" name="job_city" placeholder={`Qualification #${key+1}`}/>
                                                     </div>
                                                 ))
                                             }
+                                            <div className="more-btn">
+                                                <button onClick={addSkill}>
+                                                    +1 Qualification / Skill
+                                                </button>
+                                            </div>
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">How to apply</h3>
@@ -393,7 +333,7 @@ const NewJobPage = () => {
                                 </form>
                             </div>
                         </div>
-                    </CreateJob>
+                    </CreateJobStyles>
                 </Main>
             </Container>
         </>
