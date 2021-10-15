@@ -3,7 +3,7 @@ import CategoryListStyles from "./CategoryList.styled";
 
 const CategoryList = ({categories}) => {
     let rows = [];
-    let rowCount = 3;
+    let rowCount = 4;
     let perRow = categories.length / rowCount;
     
     for (let i = 0; i < rowCount; i++) {
