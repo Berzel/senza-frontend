@@ -51,8 +51,14 @@ const LoginModalStyles = styled.div`
             .input {
                 ${tw`block w-full border p-3 rounded-lg`}
             }
+            .input.has-error {
+                ${tw`border-red-500 outline-none`}
+            }
             .submit {
                 ${tw`bg-blue-400 font-semibold text-white shadow-lg block mt-8 border-none capitalize`}
+            }
+            .error-msg {
+                ${tw`text-red-500 text-sm inline-block ml-1`}
             }
         }
 

@@ -12,6 +12,7 @@ const AuthModal = ({close}) => {
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const {user, setUser, loginError} = useUser();
+    const [validationErrors, setValidationErrors] = useState({});
 
     // We don't wan't to show the modals if user is 
     // already logged in
@@ -22,15 +23,26 @@ const AuthModal = ({close}) => {
         if (mode === "register") setMode("login")
     }
 
+    const onEmailChange = e => {
+        setEmail(e.target.value)
+        setUsername(e.target.value)
+    }
+
+    const onPhoneChange = e => {
+        setPhone(e.target.value)
+        setUsername(e.target.value)
+    }
+
     const handleSubmit = async event => {
         event.preventDefault();
 
+        console.log({email, phone, password, password_confirmation});
         if (mode === "register") {
-            await axios.post('/api/register', {email, phone, password, password_confirmation});
+            // await axios.post('/api/register', {email, phone, password, password_confirmation});
         }
 
-        await axios.post('/api/login', {username, password});
-        setUser('/api/user');
+        // await axios.post('/api/login', {username, password});
+        // setUser('/api/user');
         close();
     }
 
@@ -46,7 +58,8 @@ const AuthModal = ({close}) => {
                         mode === "login" && (
                             <div className="group">
                                 <label htmlFor="username" className="label">Email / Phone</label>
-                                <input type="text" className="input" name="username" id="username" placeholder="you@email.com" />
+                                <input type="text" className={`input ${validationErrors?.username ? 'has-error' : null}`} name="username" value={username} onChange={e => setUsername(e.target.value)} id="username" placeholder="you@email.com" required/>
+                                { validationErrors?.username && <span className="error-msg">{validationErrors?.username}</span> }
                             </div>
                         )
                     }
@@ -55,18 +68,29 @@ const AuthModal = ({close}) => {
                             <>
                                 <div className="group">
                                     <label htmlFor="email" className="label">Email</label>
-                                    <input type="email" className="input" name="email" id="email" placeholder="you@email.com" />
+                                    <input type="email" className={`input ${validationErrors?.email ? 'has-error' : null}`} name="email" value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
+                                    { validationErrors?.email && <span className="error-msg">{validationErrors?.email}</span> }
                                 </div>
                                 <div className="group">
                                     <label htmlFor="phone" className="label">Phone number</label>
-                                    <input type="text" className="input" name="phone" id="phone" placeholder="+263783632563" />
+                                    <input type="text" className={`input ${validationErrors?.phone ? 'has-error' : null}`} name="phone" value={phone} onChange={onPhoneChange} id="phone" placeholder="+263783632563" required/>
+                                    { validationErrors?.phone && <span className="error-msg">{validationErrors?.phone}</span> }
                                 </div>
                             </>
                         )
                     }
                     <div className="group">
                         <label htmlFor="password" className="label">Password</label>
-                        <input type="password"  id="password" name="password" className="input" placeholder="********" />
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)} 
+                            className={`input ${validationErrors?.password ? 'has-error' : null}`}
+                            placeholder="********" 
+                            required />
+                        { validationErrors?.password && <span className="error-msg">{validationErrors?.password}</span> }
                         {
                             mode === "login" && (
                                 <div className="forgot-password">
@@ -83,7 +107,16 @@ const AuthModal = ({close}) => {
                         mode === 'register' && (
                             <div className="group">
                                 <label htmlFor="password_confirmation" className="label">Password Confirmation</label>
-                                <input type="password"  id="password_confirmation" name="password_confirmation" className="input" placeholder="********" />
+                                <input 
+                                    type="password"  
+                                    id="password_confirmation" 
+                                    name="password_confirmation" 
+                                    value={password_confirmation} 
+                                    onChange={e => setPasswordConfirmation(e.target.value)} 
+                                    className={`input ${validationErrors?.password_confirmation ? 'has-error' : null}`}
+                                    placeholder="********"
+                                    required />
+                                { validationErrors?.password_confirmation && <span className="error-msg">{validationErrors?.password_confirmation}</span> }
                             </div>
                         )
                     }
