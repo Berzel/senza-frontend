@@ -7,7 +7,8 @@ import Container from "../../components/Container/Container";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import CreateJobStyles from "../../components/CreateJob/CreateJob.styled";
-import withSession from "../../lib/session";
+import useUser from "../../lib/useUser";
+import LoginModal from "../../components/LoginModal/LoginModal";
 
 const Main = styled.main`
     & > *+* {
@@ -15,18 +16,19 @@ const Main = styled.main`
     }
 `;
 
-const NewJobPage = ({user}) => {
-    const router = useRouter()
-
+const NewJobPage = () => {
+    const router = useRouter();
+    const {user, setUser, loginError} = useUser();
     const [company_name, setCompanyName] = useState('');
     const [job_title, setJobTitle] = useState('');
-    const [skills, setSkills] = useState(['', '', ''])
-    const [responsibilities, setResponsibilities] = useState(['', '', ''])
+    const [skills, setSkills] = useState(['', '', '']);
+    const [responsibilities, setResponsibilities] = useState(['', '', '']);
+    const [showLoginForm, setShowLoginForm] = useState(false);
 
     const addSkill = e => {
+        e.preventDefault();
         if (skills.length > 30) return;
-        e.preventDefault()
-        setSkills([...skills, '']);
+        setSkills([...skills, ''])
     }
 
     const updateSkill = (key, value) => {
@@ -43,8 +45,8 @@ const NewJobPage = ({user}) => {
     }
 
     const addResponsibitity = e => {
-        if (responsibilities.length > 30) return;
         e.preventDefault()
+        if (responsibilities.length > 30) return;
         setResponsibilities([...responsibilities, ''])
     }
 
@@ -59,6 +61,16 @@ const NewJobPage = ({user}) => {
         let newResponsibilities = [...responsibilities]
         newResponsibilities = newResponsibilities.filter((res, index) => key !== index)
         setResponsibilities(newResponsibilities)
+    }
+    
+    const postJob = event => {
+        event.preventDefault()
+        
+        if (!user & !loginError) {
+            if (!showLoginForm) {
+                setShowLoginForm(true)
+            }
+        }
     }
     
     return (
@@ -106,11 +118,11 @@ const NewJobPage = ({user}) => {
                         <div className="form-container">
                             <div className="left">
                                 <div className="sidebar">
-                                    Logged in as: {user.email}
+                                    Left
                                 </div>
                             </div>
                             <div className="right">
-                                <form action="" className="form">
+                                <form action="/jobs" id="post_job_form" method="POST" encType="multipart/form-data" className="form" onSubmit={postJob}>
                                     <div className="section">
                                         <h2 className="title">
                                             Company Details
@@ -366,10 +378,10 @@ const NewJobPage = ({user}) => {
                                         <div className="sub-section">
                                             <h3 className="small-title">How to apply</h3>
                                             <div className="group">
-                                                <label htmlFor="company_description" className="label">
+                                                <label htmlFor="application_instruction" className="label">
                                                     Application instructions
                                                 </label>
-                                                <textarea rows="5" className="input" name="company_description" id="company_description" placeholder="How should candidates apply?">
+                                                <textarea rows="5" className="input" name="application_instruction" id="application_instruction" placeholder="How should candidates apply?">
 
                                                 </textarea>
                                             </div>
@@ -389,13 +401,14 @@ const NewJobPage = ({user}) => {
                                             </div>
                                         </div>
                                         <div className="group">
-                                            <input type="button" className="input submit" name="action" value="Post your job" />
+                                            <input type="submit" className="input submit" name="action" value="Post your job" />
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </CreateJobStyles>
+                    { showLoginForm && (<LoginModal />) }
                 </Main>
             </Container>
         </>
@@ -403,21 +416,3 @@ const NewJobPage = ({user}) => {
 }
 
 export default NewJobPage
-
-export const getServerSideProps = withSession(async function ({ req, res }) {
-    const user = req.session.get("user");
-
-    if (user === undefined) {
-        req.session.set('intended', '/jobs/new');
-        await req.session.save();
-        
-        res.setHeader('location', '/login');
-        res.statusCode = 302;
-        res.end();
-        return { props: {} };
-    }
-
-    return {
-        props: { user: req.session.get("user") },
-    };
-});
