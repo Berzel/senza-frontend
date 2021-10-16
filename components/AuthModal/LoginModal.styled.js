@@ -3,28 +3,25 @@ import tw from "twin.macro";
 
 const LoginModalStyles = styled.div`
     ${tw`fixed top-0 bottom-0 right-0 left-0 flex flex-col`}
-
-    @media screen and (min-width: 1280px) {
-        background-color: rgba(31,41,55,0.95);
-    }
+    background-color: rgba(31,41,55,0.95);
 
     .form {
-        ${tw`relative mt-auto max-h-screen overflow-y-auto bg-gray-50 rounded-t-xl`}
+        ${tw`relative mt-auto max-h-screen overflow-y-auto rounded-t-xl`}
 
         @media screen and (min-width: 1280px) {
-            max-width: 500px;
+            max-width: 400px;
             ${tw`mx-auto mt-16 rounded-t-lg rounded-b-lg bg-transparent shadow-lg`}
         }
 
         .heading {
-            ${tw`bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-xl px-3 py-4 text-white`}
+            ${tw`bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-xl px-3 pt-6 pb-10 text-white`}
 
             @media screen and (min-width: 1280px) {
                 ${tw`rounded-none`}
             }
 
             .title {
-                ${tw`font-semibold text-xl mb-2 capitalize`}
+                ${tw`font-semibold text-2xl mb-2 capitalize`}
                 @media screen and (min-width: 1280px) {
                     ${tw`text-3xl mb-4`}
                 }
@@ -32,7 +29,7 @@ const LoginModalStyles = styled.div`
         }
 
         .section {
-            ${tw`my-6`}
+            ${tw`py-8 mt-0  bg-gray-50`}
 
             @media screen and (min-width: 1280px) {
                 ${tw`border-0 mt-0 pt-8 rounded-t-none bg-gray-50 mb-0 pb-8`}

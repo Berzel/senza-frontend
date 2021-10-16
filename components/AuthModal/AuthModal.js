@@ -35,8 +35,8 @@ const AuthModal = ({close}) => {
     }
 
     return (
-        <LoginModalStyles>
-            <form action="#" method="POST" className="form" onSubmit={handleSubmit}>
+        <LoginModalStyles onClick={close}>
+            <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>
                     <p className="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis non dolores asperiores.</p>
