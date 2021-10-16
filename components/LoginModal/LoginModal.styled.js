@@ -9,7 +9,7 @@ const LoginModalStyles = styled.div`
             ${tw`bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-xl px-3 py-4 text-white`}
 
             .title {
-                ${tw`font-semibold text-xl mb-2`}
+                ${tw`font-semibold text-xl mb-2 capitalize`}
             }
         }
 
@@ -29,12 +29,20 @@ const LoginModalStyles = styled.div`
                 ${tw`block w-full border p-3 rounded-lg`}
             }
             .submit {
-                ${tw`bg-blue-400 font-semibold text-white shadow-lg block mt-8 border-none`}
+                ${tw`bg-blue-400 font-semibold text-white shadow-lg block mt-8 border-none capitalize`}
             }
         }
 
         .forgot-password {
             ${tw`text-right mr-1 text-blue-400 mt-1`}
+        }
+
+        .register {
+            ${tw`text-center mt-8`}
+
+            &-btn {
+                ${tw`text-blue-400`}
+            }
         }
     }
 `
