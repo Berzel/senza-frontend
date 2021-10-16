@@ -5,7 +5,7 @@ const LoginModalStyles = styled.div`
     ${tw`fixed top-0 bottom-0 right-0 left-0 flex flex-col`}
 
     .form {
-        ${tw`mt-auto max-h-screen overflow-y-auto bg-gray-50 rounded-t-xl`}
+        ${tw`relative mt-auto max-h-screen overflow-y-auto bg-gray-50 rounded-t-xl`}
 
         .heading {
             ${tw`bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-xl px-3 py-4 text-white`}
@@ -44,6 +44,14 @@ const LoginModalStyles = styled.div`
 
             &-btn {
                 ${tw`text-blue-400`}
+            }
+        }
+
+        .close-btn {
+            ${tw`flex items-center justify-center pb-6 cursor-pointer`}
+            
+            > button {
+                ${tw`inline-block bg-gray-300 rounded-full text-gray-50 h-1 w-8 overflow-hidden`}
             }
         }
     }

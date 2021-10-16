@@ -2,7 +2,7 @@ import LoginModalStyles from "./LoginModal.styled"
 import Link from "next/link"
 import { useState } from "react"
 
-const LoginModal = () => {
+const AuthModal = ({close}) => {
     const [mode, setMode] = useState('login')
     const toggleMode = () => {
         if (mode === "login") setMode("register")
@@ -13,6 +13,11 @@ const LoginModal = () => {
         <LoginModalStyles>
             <form action="/login" method="POST" className="form">
                 <div className="heading">
+                    <div className="close-btn" draggable="true" onDragStart={() => {}} onDragEnd={close}>
+                        <button>
+                            Close
+                        </button>
+                    </div>
                     <h2 className="title">{mode}</h2>
                     <p className="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis non dolores asperiores.</p>
                 </div>
@@ -77,4 +82,4 @@ const LoginModal = () => {
     )
 }
 
-export default LoginModal
+export default AuthModal

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import CreateJobStyles from "../../components/CreateJob/CreateJob.styled";
 import useUser from "../../lib/useUser";
-import LoginModal from "../../components/LoginModal/LoginModal";
+import AuthModal from "../../components/AuthModal/AuthModal";
 
 const Main = styled.main`
     & > *+* {
@@ -23,7 +23,7 @@ const NewJobPage = () => {
     const [job_title, setJobTitle] = useState('');
     const [skills, setSkills] = useState(['', '', '']);
     const [responsibilities, setResponsibilities] = useState(['', '', '']);
-    const [showLoginForm, setShowLoginForm] = useState(false);
+    const [showAuthModal, setShowAuthModal] = useState(false);
 
     const addSkill = e => {
         e.preventDefault();
@@ -67,8 +67,8 @@ const NewJobPage = () => {
         event.preventDefault()
         
         if (!user & !loginError) {
-            if (!showLoginForm) {
-                setShowLoginForm(true)
+            if (!showAuthModal) {
+                setShowAuthModal(true)
             }
         }
     }
@@ -407,7 +407,7 @@ const NewJobPage = () => {
                                 </form>
                             </div>
                         </div>
-                        { showLoginForm && (<LoginModal />) }
+                        { showAuthModal && (<AuthModal close={() => setShowAuthModal(false)} />) }
                     </CreateJobStyles>
                 </Main>
             </Container>
