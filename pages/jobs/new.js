@@ -407,8 +407,8 @@ const NewJobPage = () => {
                                 </form>
                             </div>
                         </div>
+                        { showLoginForm && (<LoginModal />) }
                     </CreateJobStyles>
-                    { showLoginForm && (<LoginModal />) }
                 </Main>
             </Container>
         </>
