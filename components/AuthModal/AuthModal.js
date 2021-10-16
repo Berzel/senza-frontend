@@ -1,23 +1,43 @@
 import LoginModalStyles from "./LoginModal.styled"
 import Link from "next/link"
 import { useState } from "react"
+import useUser from "../../lib/useUser"
+import axios from "axios"
 
 const AuthModal = ({close}) => {
-    const [mode, setMode] = useState('login')
+    const [mode, setMode] = useState('login');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [password_confirmation, setPasswordConfirmation] = useState('');
+    const {user, setUser, loginError} = useUser();
+
+    // We don't wan't to show the modals if user is 
+    // already logged in
+    if (user) close();
+
     const toggleMode = () => {
         if (mode === "login") setMode("register")
         if (mode === "register") setMode("login")
     }
 
+    const handleSubmit = async event => {
+        event.preventDefault();
+
+        if (mode === "register") {
+            await axios.post('/api/register', {email, phone, password, password_confirmation});
+        }
+
+        await axios.post('/api/login', {username, password});
+        setUser('/api/user');
+        close();
+    }
+
     return (
         <LoginModalStyles>
-            <form action="/login" method="POST" className="form">
+            <form action="/login" method="POST" className="form" onSubmit={handleSubmit}>
                 <div className="heading">
-                    <div className="close-btn" draggable="true" onDragStart={() => {}} onDragEnd={close}>
-                        <button>
-                            Close
-                        </button>
-                    </div>
                     <h2 className="title">{mode}</h2>
                     <p className="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis non dolores asperiores.</p>
                 </div>

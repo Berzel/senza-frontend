@@ -18,7 +18,7 @@ const Main = styled.main`
 
 const NewJobPage = () => {
     const router = useRouter();
-    const {user, setUser, loginError} = useUser();
+    const { user } = useUser();
     const [company_name, setCompanyName] = useState('');
     const [job_title, setJobTitle] = useState('');
     const [skills, setSkills] = useState(['', '', '']);
@@ -66,11 +66,13 @@ const NewJobPage = () => {
     const postJob = event => {
         event.preventDefault()
         
-        if (!user & !loginError) {
-            if (!showAuthModal) {
-                setShowAuthModal(true)
-            }
+        // If the user is not logged in and the login modal is hidden then show it so
+        // they can log in
+        if (!user && !showAuthModal) {
+            return setShowAuthModal(true)
         }
+
+        alert(user.email);
     }
     
     return (

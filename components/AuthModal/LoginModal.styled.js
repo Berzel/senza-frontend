@@ -46,14 +46,6 @@ const LoginModalStyles = styled.div`
                 ${tw`text-blue-400`}
             }
         }
-
-        .close-btn {
-            ${tw`flex items-center justify-center pb-6 cursor-pointer`}
-            
-            > button {
-                ${tw`inline-block bg-gray-300 rounded-full text-gray-50 h-1 w-8 overflow-hidden`}
-            }
-        }
     }
 `
 
