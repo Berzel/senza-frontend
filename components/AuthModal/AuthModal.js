@@ -36,7 +36,7 @@ const AuthModal = ({close}) => {
 
     return (
         <LoginModalStyles>
-            <form action="/login" method="POST" className="form" onSubmit={handleSubmit}>
+            <form action="#" method="POST" className="form" onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>
                     <p className="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis non dolores asperiores.</p>
