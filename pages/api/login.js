@@ -1,3 +1,4 @@
+import axios from "axios";
 import { withIronSession } from "next-iron-session";
 
 async function login(req, res) {
@@ -7,14 +8,12 @@ async function login(req, res) {
         }).end(JSON.stringify({success: false, message: `HTTP method [${req.method}] not allowed.`}));
     }
 
-    // Get user details from the database
+    const response = await axios.post(`${process.env.AUTH_SERVICE_URL}/token`, req.body, {auth: {
+        username: process.env.APP_NAME,
+        password: process.env.APP_SECRET
+    }}).then(r => r.data)
 
-    // Save user data to request session
-    req.session.set('user', {
-        id: 1,
-        is_admin: true,
-        email: 'berzel.best@gmail.com',
-    });
+    req.session.set('token', response);
 
     const redirect_url = req.session.get('intended') ?? '/';
     req.session.set('intended', null);
@@ -23,7 +22,7 @@ async function login(req, res) {
     return res.writeHead(200, {
         'Location' : redirect_url,
         'Content-Type': 'application/json'
-    }).end(JSON.stringify({message: "Logged in.", redirect_url}));
+    }).end(JSON.stringify({...response, redirect_url}));
 }
 
 export default withIronSession(login, {

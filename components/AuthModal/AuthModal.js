@@ -38,11 +38,12 @@ const AuthModal = ({close}) => {
 
         console.log({email, phone, password, password_confirmation});
         if (mode === "register") {
-            // await axios.post('/api/register', {email, phone, password, password_confirmation});
+            const registerResponse = await axios.post('/api/register', {email, phone, password, password_confirmation});
         }
 
-        // await axios.post('/api/login', {username, password});
-        // setUser('/api/user');
+        const loginResponse = await axios.post('/api/login', {email, phone, password}).then(r => r.data);
+        localStorage.setItem('token', loginResponse.data.token);
+        setTimeout(() => setUser('/api/user'), 1);
         close();
     }
 
