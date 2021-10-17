@@ -13,6 +13,7 @@ const AuthModal = ({close}) => {
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const {user, setUser, loginError} = useUser();
     const [validationErrors, setValidationErrors] = useState({});
+    const [validationTimers, setValidationTimers] = useState({});
 
     // We don't wan't to show the modals if user is 
     // already logged in
@@ -25,18 +26,49 @@ const AuthModal = ({close}) => {
 
     const onEmailChange = e => {
         setEmail(e.target.value)
-        setUsername(e.target.value)
+    
+        // We do not wan't to perfom any validation if input length is < 5
+        if (e.target.value.length < 5) {
+            return;
+        }
+
+        // If we had previously set a timer we should clear it
+        if (validationTimers?.emailTimer) {
+            clearTimeout(validationTimers?.emailTimer)
+        }
+
+        // Set the new timer
+        setValidationTimers({...validationTimers, emailTimer: setTimeout(async () => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/helpers/check-email?email=${e.target.value}`).then(r => r.data)
+            if (response.exists) setValidationErrors({...validationErrors, email: response.message})
+            if (!response.exists) setValidationErrors({...validationErrors, email: null})
+        }, 1000)})
     }
 
     const onPhoneChange = e => {
         setPhone(e.target.value)
-        setUsername(e.target.value)
+    
+        // We do not wan't to perfom any validation if input length is < 5: Phone numbers inc country code should be longer than 5
+        if (e.target.value.length < 5) {
+            return;
+        }
+
+        // If we had previously set a timer we should clear it
+        if (validationTimers?.phoneTimer) {
+            clearTimeout(validationTimers?.phoneTimer)
+        }
+
+        // Set the new timer
+        setValidationTimers({...validationTimers, phoneTimer: setTimeout(async () => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/helpers/check-phone?phone=${encodeURIComponent(e.target.value)}`).then(r => r.data)
+            if (response.exists) setValidationErrors({...validationErrors, phone: response.message})
+            if (!response.exists) setValidationErrors({...validationErrors, phone: null})
+        }, 1000)})
     }
 
     const handleSubmit = async event => {
         event.preventDefault();
 
-        console.log({email, phone, password, password_confirmation});
         if (mode === "register") {
             const registerResponse = await axios.post('/api/register', {email, phone, password, password_confirmation});
         }
