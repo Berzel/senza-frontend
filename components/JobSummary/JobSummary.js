@@ -3,7 +3,7 @@ import JobSummaryStyles from "./JobSummary.styled";
 import JobSummaryDetails from "./JobSummaryDetails";
 
 const updateActiveJob = e => {
-    if (window.innerWidth >= 1280) {
+    if (window.innerWidth >= 1024) {
         console.log('Desktop')
         e.preventDefault()
     }
