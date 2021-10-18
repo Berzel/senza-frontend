@@ -74,10 +74,39 @@ const AuthModal = ({close}) => {
         }, 50)})
     }
 
+    const onPasswordChange = e => {
+        let value = e.target.value
+        setPassword(value)
+
+        if (value.length < 6) {
+            return setValidationErrors({...validationErrors, password: 'The password must be at least 6 characters long.'})
+        }
+
+        setValidationErrors({...validationErrors, password: null})
+    }
+
+    const onPasswordConfirmationChange = e => {
+        let value = e.target.value
+        setPasswordConfirmation(value)
+
+        if (value.length < 6) {
+            return setValidationErrors({...validationErrors, password_confirmation: 'The password confirmation must be at least 6 characters long.'})
+        }
+
+        if (value !== password) {
+            return setValidationErrors({...validationErrors, password: 'The password confirmation does not match.'})
+        }
+
+        setValidationErrors({...validationErrors, password_confirmation: null, password: null})
+    }
+
     const onUsernameChange = e => {
         const value = e.target.value;
+        isNaN(value.replaceAll(/\+|\s/g, "")) 
+            ? setUsername('email') 
+            : setUsername('phone');
+
         setUsernameValue(value);
-        isNaN(value.replaceAll(/\+|\s/g, "")) ? setUsername('email') : setUsername('phone'); 
     }
 
     const handleSubmit = async event => {
@@ -164,7 +193,7 @@ const AuthModal = ({close}) => {
                             id="password" 
                             name="password" 
                             value={password} 
-                            onChange={e => setPassword(e.target.value)} 
+                            onChange={onPasswordChange} 
                             className={`input ${validationErrors?.password ? 'has-error' : ''}`}
                             placeholder="********" 
                             required />
@@ -190,7 +219,7 @@ const AuthModal = ({close}) => {
                                     id="password_confirmation" 
                                     name="password_confirmation" 
                                     value={password_confirmation} 
-                                    onChange={e => setPasswordConfirmation(e.target.value)} 
+                                    onChange={onPasswordConfirmationChange} 
                                     className={`input ${validationErrors?.password_confirmation ? 'has-error' : ''}`}
                                     placeholder="********"
                                     required />
