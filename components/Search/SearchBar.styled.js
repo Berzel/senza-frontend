@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SearchBarStyles = styled.div`
   ${tw`mx-3 -mt-5 rounded-lg shadow-lg overflow-hidden`}
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
       ${tw`shadow-none py-10 mx-0 px-3`}
       width: 80%;
   }
@@ -13,7 +13,7 @@ const SearchBarStyles = styled.div`
     ${tw`flex justify-between`}
 
     >*+*{
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`ml-4`}
         }
     }
@@ -21,12 +21,12 @@ const SearchBarStyles = styled.div`
       .group {
         ${tw`flex flex-grow`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`rounded-lg shadow-lg`}
         }
 
         > input {
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`rounded-r-lg`}
             }
         }
@@ -35,7 +35,7 @@ const SearchBarStyles = styled.div`
       .group.location, .group.submit {
           ${tw`hidden`}
 
-          @media screen and (min-width: 1280px) {
+          @media screen and (min-width: 1024px) {
               ${tw`flex`}
           }
       }
@@ -44,7 +44,7 @@ const SearchBarStyles = styled.div`
         width: 2em;
         ${tw`flex items-center bg-gray-50 justify-center`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`rounded-l-lg`}
         }
 

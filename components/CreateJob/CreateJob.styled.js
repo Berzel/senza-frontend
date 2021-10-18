@@ -27,14 +27,14 @@ const CreateJobStyles = styled.div`
 .form-container {
     ${tw`mt-12 p-3 border-t`}
 
-    @media screen and (min-width: 1280px) {
+    @media screen and (min-width: 1024px) {
         ${tw`flex justify-between space-x-3 mt-24`}
     }
 
     .left {
         display: none;
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             display: block;
             flex-grow: 1;
         }
@@ -47,14 +47,14 @@ const CreateJobStyles = styled.div`
     .right {
         flex-basis: 100%;
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             flex-basis: 65%;
         }
     }
 }
 
 .form {
-    @media screen and (min-width: 1280px) {
+    @media screen and (min-width: 1024px) {
         ${tw`-mt-16 bg-gray-50`}
     }
 
@@ -63,7 +63,7 @@ const CreateJobStyles = styled.div`
     }
 
     .section {
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`border p-3 rounded-lg`}
         }
 
@@ -74,7 +74,7 @@ const CreateJobStyles = styled.div`
         .title {
             ${tw`font-semibold text-2xl border-b pb-4 pt-2`}
 
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`border-none`}
             }
         }

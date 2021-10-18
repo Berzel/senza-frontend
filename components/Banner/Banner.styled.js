@@ -6,7 +6,7 @@ const BannerStyles = styled.div`
     ${tw`bg-gradient-to-b from-gray-800 to-gray-700`}
 
 
-    @media screen and (min-width: 1280px) {
+    @media screen and (min-width: 1024px) {
         ${tw`py-16`}
         background-image: none;
         background-color: transparent;
@@ -17,7 +17,7 @@ const BannerStyles = styled.div`
         line-height: 1.75rem;
         max-width: 12em;
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`text-5xl`}
             max-width: 12em;
         }
@@ -27,7 +27,7 @@ const BannerStyles = styled.div`
         ${tw`mt-8 text-gray-100`}
         max-width: 20em;
 
-        @media screen and (min-width: 1280px) {            
+        @media screen and (min-width: 1024px) {            
             ${tw`mt-10 text-xl`}
             max-width: 25em;
         }

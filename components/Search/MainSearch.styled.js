@@ -9,7 +9,7 @@ const MainSearchStyles = styled.div`
     .title {
         ${tw`mb-3 font-semibold`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             display: none;
         }
     }
@@ -17,7 +17,7 @@ const MainSearchStyles = styled.div`
     .form {
         ${tw` border-2 border-gray-800 rounded-lg`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`flex justify-between`}
         }
 
@@ -31,7 +31,7 @@ const MainSearchStyles = styled.div`
             > input {
                 ${tw`block w-full p-3 px-1 rounded-r-lg outline-none`} 
 
-                @media screen and (min-width: 1280px) {
+                @media screen and (min-width: 1024px) {
                     ${tw`p-2 px-3`}
                 }
 
@@ -44,7 +44,7 @@ const MainSearchStyles = styled.div`
         .group.btn {
             display: none;
 
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                display: block;
             }
         }
@@ -53,7 +53,7 @@ const MainSearchStyles = styled.div`
             width: 2rem;
             ${tw`p-2 flex bg-white rounded-l-lg`}
 
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 width: 2.5rem;
                 ${tw`p-3`}
             }
@@ -65,7 +65,7 @@ const MainSearchStyles = styled.div`
 
         .group.location {
             ${tw`border-t border-gray-300`}
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`border-l-2 border-t-0 border-gray-800`}
             }
         }
@@ -78,7 +78,7 @@ const MainSearchStyles = styled.div`
     .filters {
         ${tw`block w-full bg-gray-800 rounded-lg p-3 mt-3 text-white font-semibold`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             display: none;
         }
     }

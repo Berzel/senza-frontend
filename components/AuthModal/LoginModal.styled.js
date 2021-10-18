@@ -8,7 +8,7 @@ const LoginModalStyles = styled.div`
     .form {
         ${tw`relative mt-auto max-h-screen overflow-y-auto rounded-t-xl`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             max-width: 400px;
             ${tw`mx-auto mt-16 rounded-t-lg rounded-b-lg bg-transparent shadow-lg`}
         }
@@ -16,13 +16,13 @@ const LoginModalStyles = styled.div`
         .heading {
             ${tw`bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-xl px-3 pt-6 pb-10 text-white`}
 
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`rounded-none`}
             }
 
             .title {
                 ${tw`font-semibold text-2xl mb-2 capitalize`}
-                @media screen and (min-width: 1280px) {
+                @media screen and (min-width: 1024px) {
                     ${tw`text-3xl mb-4`}
                 }
             }
@@ -31,7 +31,7 @@ const LoginModalStyles = styled.div`
         .section {
             ${tw`py-8 mt-0  bg-gray-50`}
 
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`border-0 mt-0 pt-8 rounded-t-none bg-gray-50 mb-0 pb-8`}
             }
 
@@ -42,7 +42,7 @@ const LoginModalStyles = styled.div`
 
         .group {
             ${tw`px-3`}
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`px-0`}
             }
             .label {

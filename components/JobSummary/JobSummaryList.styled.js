@@ -9,18 +9,18 @@ const JobListStyles = styled.div`
     .jobs {
         ${tw`m-3`}
 
-        @media screen and (min-width: 1280px) {
+        @media screen and (min-width: 1024px) {
             ${tw`flex m-3 mb-0`}
         }
 
         >*+*{
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`ml-3`}
             }
         }
 
         .list {
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 width: 25rem;
             }
         
@@ -32,7 +32,7 @@ const JobListStyles = styled.div`
         .detail {
             display: none;
 
-            @media screen and (min-width: 1280px) {
+            @media screen and (min-width: 1024px) {
                 ${tw`block flex-grow bg-gray-50 border rounded-lg p-2 sticky`}
                 top: 3.3rem;
                 height: 94vh;
