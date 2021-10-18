@@ -77,27 +77,13 @@ const AuthModal = ({close}) => {
     const onPasswordChange = e => {
         let value = e.target.value
         setPassword(value)
+        setPasswordConfirmation(value)
 
         if (value.length < 6) {
             return setValidationErrors({...validationErrors, password: 'The password must be at least 6 characters long.'})
         }
 
         setValidationErrors({...validationErrors, password: null})
-    }
-
-    const onPasswordConfirmationChange = e => {
-        let value = e.target.value
-        setPasswordConfirmation(value)
-
-        if (value.length < 6) {
-            return setValidationErrors({...validationErrors, password_confirmation: 'The password confirmation must be at least 6 characters long.'})
-        }
-
-        if (value !== password) {
-            return setValidationErrors({...validationErrors, password: 'The password confirmation does not match.'})
-        }
-
-        setValidationErrors({...validationErrors, password_confirmation: null, password: null})
     }
 
     const onUsernameChange = e => {
@@ -210,23 +196,7 @@ const AuthModal = ({close}) => {
                             )
                         }
                     </div>
-                    {
-                        mode === 'register' && (
-                            <div className="group">
-                                <label htmlFor="password_confirmation" className="label">Password Confirmation</label>
-                                <input 
-                                    type="password"  
-                                    id="password_confirmation" 
-                                    name="password_confirmation" 
-                                    value={password_confirmation} 
-                                    onChange={onPasswordConfirmationChange} 
-                                    className={`input ${validationErrors?.password_confirmation ? 'has-error' : ''}`}
-                                    placeholder="********"
-                                    required />
-                                { validationErrors?.password_confirmation && <span className="error-msg">{validationErrors?.password_confirmation}</span> }
-                            </div>
-                        )
-                    }
+
                     <div className="group">
                         <input type="submit" className="input submit" value={mode} />
                     </div>

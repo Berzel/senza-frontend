@@ -66,8 +66,6 @@ const NewJobPage = () => {
     const postJob = event => {
         event.preventDefault()
         
-        // If the user is not logged in and the login modal is hidden then show it so
-        // they can log in
         if (!user && !showAuthModal) {
             return setShowAuthModal(true)
         }
