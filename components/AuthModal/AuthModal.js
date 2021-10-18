@@ -42,7 +42,7 @@ const AuthModal = ({close}) => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/helpers/check-email?email=${e.target.value}`).then(r => r.data)
             if (response.exists) setValidationErrors({...validationErrors, email: response.message})
             if (!response.exists) setValidationErrors({...validationErrors, email: null})
-        }, 1000)})
+        }, 50)})
     }
 
     const onPhoneChange = e => {
@@ -63,14 +63,28 @@ const AuthModal = ({close}) => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/helpers/check-phone?phone=${encodeURIComponent(e.target.value)}`).then(r => r.data)
             if (response.exists) setValidationErrors({...validationErrors, phone: response.message})
             if (!response.exists) setValidationErrors({...validationErrors, phone: null})
-        }, 1000)})
+        }, 50)})
     }
 
     const handleSubmit = async event => {
         event.preventDefault();
 
         if (mode === "register") {
-            const registerResponse = await axios.post('/api/register', {email, phone, password, password_confirmation});
+            try {
+                const registerResponse = await axios.post('/api/register', {email, phone, password, password_confirmation});
+            } catch (err) {
+                if (err.response && err.response.status === 422) {
+                    let newValidationErrors = {...validationErrors};
+
+                    Object.keys(err.response.data.errors).forEach(key => {
+                        newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                    })
+
+                    setValidationErrors(newValidationErrors)
+                }
+
+                return; // If an error happens there's no need to try and log in automatically
+            }
         }
 
         const loginResponse = await axios.post('/api/login', {email, phone, password}).then(r => r.data);
