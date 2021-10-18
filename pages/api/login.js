@@ -8,21 +8,29 @@ async function login(req, res) {
         }).end(JSON.stringify({success: false, message: `HTTP method [${req.method}] not allowed.`}));
     }
 
-    const response = await axios.post(`${process.env.AUTH_SERVICE_URL}/token`, req.body, {auth: {
-        username: process.env.APP_NAME,
-        password: process.env.APP_SECRET
-    }}).then(r => r.data)
-
-    req.session.set('token', response);
-
-    const redirect_url = req.session.get('intended') ?? '/';
-    req.session.set('intended', null);
-    await req.session.save();
-
-    return res.writeHead(200, {
-        'Location' : redirect_url,
-        'Content-Type': 'application/json'
-    }).end(JSON.stringify({...response, redirect_url}));
+    try {
+        const response = await axios.post(`${process.env.AUTH_SERVICE_URL}/token`, req.body, {auth: {
+            username: process.env.APP_NAME,
+            password: process.env.APP_SECRET
+        }}).then(r => r.data)
+    
+        req.session.set('token', response);
+    
+        const redirect_url = req.session.get('intended') ?? '/';
+        req.session.set('intended', null);
+        await req.session.save();
+    
+        return res.writeHead(200, {
+            'Location' : redirect_url,
+            'Content-Type': 'application/json'
+        }).end(JSON.stringify({...response, redirect_url}));
+    } catch (err) {
+        if (err.response) {
+            return res.writeHead(err.response.status, {
+                ...err.response.headers
+            }).end(JSON.stringify(err.response.data))
+        }
+    }
 }
 
 export default withIronSession(login, {

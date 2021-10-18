@@ -8,7 +8,8 @@ const AuthModal = ({close}) => {
     const [mode, setMode] = useState('login');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState('email');
+    const [usernameValue, setUsernameValue] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const {user, setUser, loginError} = useUser();
@@ -20,12 +21,16 @@ const AuthModal = ({close}) => {
     if (user) close();
 
     const toggleMode = () => {
+        setValidationErrors({});
         if (mode === "login") setMode("register")
         if (mode === "register") setMode("login")
     }
 
     const onEmailChange = e => {
-        setEmail(e.target.value)
+        let email = e.target.value;
+        setEmail(email)
+        setUsername("email");
+        setUsernameValue(email);
     
         // We do not wan't to perfom any validation if input length is < 5
         if (e.target.value.length < 5) {
@@ -46,7 +51,10 @@ const AuthModal = ({close}) => {
     }
 
     const onPhoneChange = e => {
-        setPhone(e.target.value)
+        let phone = e.target.value;
+        setPhone(phone)
+        setUsername("phone");
+        setUsernameValue(phone);
     
         // We do not wan't to perfom any validation if input length is < 5: Phone numbers inc country code should be longer than 5
         if (e.target.value.length < 5) {
@@ -66,8 +74,15 @@ const AuthModal = ({close}) => {
         }, 50)})
     }
 
+    const onUsernameChange = e => {
+        const value = e.target.value;
+        setUsernameValue(value);
+        isNaN(value.replaceAll(/\+|\s/g, "")) ? setUsername('email') : setUsername('phone'); 
+    }
+
     const handleSubmit = async event => {
         event.preventDefault();
+        setValidationErrors({});
 
         if (mode === "register") {
             try {
@@ -87,10 +102,26 @@ const AuthModal = ({close}) => {
             }
         }
 
-        const loginResponse = await axios.post('/api/login', {email, phone, password}).then(r => r.data);
-        localStorage.setItem('token', loginResponse.data.token);
-        setTimeout(() => setUser('/api/user'), 1);
-        close();
+        try {
+            let loginData = {};
+            loginData['password'] = password;
+            loginData[username] = usernameValue;
+            const loginResponse = await axios.post('/api/login', loginData).then(r => r.data);
+            localStorage.setItem('auth_token', loginResponse.data.token);
+            setTimeout(() => setUser('/api/user'), 1);
+            close();
+        } catch (err) {
+            if (err.response && err.response.status === 422) {
+                let newValidationErrors = {...validationErrors};
+
+                Object.keys(err.response.data.errors).forEach(key => {
+                    newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                })
+
+                newValidationErrors.username = newValidationErrors?.phone ?? newValidationErrors.email;
+                setValidationErrors(newValidationErrors)
+            }
+        }
     }
 
     return (
@@ -105,7 +136,7 @@ const AuthModal = ({close}) => {
                         mode === "login" && (
                             <div className="group">
                                 <label htmlFor="username" className="label">Email / Phone</label>
-                                <input type="text" className={`input ${validationErrors?.username ? 'has-error' : null}`} name="username" value={username} onChange={e => setUsername(e.target.value)} id="username" placeholder="you@email.com" required/>
+                                <input type={username === 'phone' ? 'tel' : 'email'} className={`input ${validationErrors?.username ? 'has-error' : ''}`} name={username} value={usernameValue} onChange={onUsernameChange} id="username" placeholder="you@email.com" required/>
                                 { validationErrors?.username && <span className="error-msg">{validationErrors?.username}</span> }
                             </div>
                         )
@@ -115,12 +146,12 @@ const AuthModal = ({close}) => {
                             <>
                                 <div className="group">
                                     <label htmlFor="email" className="label">Email</label>
-                                    <input type="email" className={`input ${validationErrors?.email ? 'has-error' : null}`} name="email" value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
+                                    <input type="email" className={`input ${validationErrors?.email ? 'has-error' : ''}`} name="email" value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
                                     { validationErrors?.email && <span className="error-msg">{validationErrors?.email}</span> }
                                 </div>
                                 <div className="group">
                                     <label htmlFor="phone" className="label">Phone number</label>
-                                    <input type="text" className={`input ${validationErrors?.phone ? 'has-error' : null}`} name="phone" value={phone} onChange={onPhoneChange} id="phone" placeholder="+263783632563" required/>
+                                    <input type="text" className={`input ${validationErrors?.phone ? 'has-error' : ''}`} name="phone" value={phone} onChange={onPhoneChange} id="phone" placeholder="+263783632563" required/>
                                     { validationErrors?.phone && <span className="error-msg">{validationErrors?.phone}</span> }
                                 </div>
                             </>
@@ -134,7 +165,7 @@ const AuthModal = ({close}) => {
                             name="password" 
                             value={password} 
                             onChange={e => setPassword(e.target.value)} 
-                            className={`input ${validationErrors?.password ? 'has-error' : null}`}
+                            className={`input ${validationErrors?.password ? 'has-error' : ''}`}
                             placeholder="********" 
                             required />
                         { validationErrors?.password && <span className="error-msg">{validationErrors?.password}</span> }
@@ -160,7 +191,7 @@ const AuthModal = ({close}) => {
                                     name="password_confirmation" 
                                     value={password_confirmation} 
                                     onChange={e => setPasswordConfirmation(e.target.value)} 
-                                    className={`input ${validationErrors?.password_confirmation ? 'has-error' : null}`}
+                                    className={`input ${validationErrors?.password_confirmation ? 'has-error' : ''}`}
                                     placeholder="********"
                                     required />
                                 { validationErrors?.password_confirmation && <span className="error-msg">{validationErrors?.password_confirmation}</span> }
