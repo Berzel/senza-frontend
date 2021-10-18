@@ -165,7 +165,7 @@ const AuthModal = ({close}) => {
                         mode === "login" && (
                             <div className="group">
                                 <label htmlFor="username" className="label">Email / Phone</label>
-                                <input type={username === 'phone' ? 'tel' : 'email'} className={`input ${validationErrors?.username ? 'has-error' : ''}`} name={username} value={usernameValue} onChange={onUsernameChange} id="username" placeholder="you@email.com" required/>
+                                <input type={username === 'phone' ? 'text' : 'email'} className={`input ${validationErrors?.username ? 'has-error' : ''}`} name={username} value={usernameValue} onChange={onUsernameChange} id="username" placeholder="you@email.com" required/>
                                 { validationErrors?.username && <span className="error-msg">{validationErrors?.username}</span> }
                             </div>
                         )
