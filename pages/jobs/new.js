@@ -346,7 +346,7 @@ const NewJobPage = () => {
                                             }
                                             <div className="more-btn">
                                                 <a onClick={addResponsibitity}>
-                                                    +1 Responsibility
+                                                    +
                                                 </a>
                                             </div>
                                         </div>
@@ -371,7 +371,7 @@ const NewJobPage = () => {
                                             }
                                             <div className="more-btn">
                                                 <a onClick={addSkill}>
-                                                    +1 Qualification / Skill
+                                                    +
                                                 </a>
                                             </div>
                                         </div>

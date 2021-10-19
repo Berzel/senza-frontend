@@ -124,10 +124,10 @@ const CreateJobStyles = styled.div`
     }
 
     .more-btn {
-        ${tw`text-right text-white`}
+        ${tw`text-center text-white`}
 
         > a {
-            ${tw`bg-gray-800 rounded p-2 px-4 cursor-pointer`}
+            ${tw`bg-gray-800 rounded-full p-4 inline-block h-12 w-12 mb-10 flex items-center justify-center mx-auto shadow-lg cursor-pointer`}
         }
     }
 
