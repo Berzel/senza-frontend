@@ -24,6 +24,7 @@ const NewJobPage = () => {
     const [skills, setSkills] = useState(['', '', '']);
     const [responsibilities, setResponsibilities] = useState(['', '', '']);
     const [showAuthModal, setShowAuthModal] = useState(false);
+    const [minSkillCount] = useState(3);
 
     const addSkill = e => {
         e.preventDefault();
@@ -38,7 +39,7 @@ const NewJobPage = () => {
     }
 
     const removeSkill = key => {
-        if (skills.length < 4) return;
+        if (skills.length <= minSkillCount) return;
         let newSkills = [...skills]
         newSkills = newSkills.filter((skill, index) => key !== index)
         setSkills(newSkills)
@@ -57,7 +58,7 @@ const NewJobPage = () => {
     }
 
     const removeResponsibility = key => {
-        if (responsibilities.length < 4) return;
+        if (responsibilities.length <= minSkillCount) return;
         let newResponsibilities = [...responsibilities]
         newResponsibilities = newResponsibilities.filter((res, index) => key !== index)
         setResponsibilities(newResponsibilities)
@@ -331,10 +332,10 @@ const NewJobPage = () => {
                                                             type="text" 
                                                             id={`job-responsibility-${key}`} 
                                                             name={`responsibilities[${key}]`} 
-                                                            placeholder={`Responsibility #${key+1}`}/>
-                                                        <a className="remove-btn" onClick={() => removeResponsibility(key)}>
-                                                            x
-                                                        </a>
+                                                            placeholder={`Responsibility #${key+1}`} required/>
+                                                        {
+                                                            key >= minSkillCount && <a className="remove-btn" onClick={() => removeResponsibility(key)}>x</a>
+                                                        }
                                                     </div>
                                                 ))
                                             }
@@ -356,10 +357,10 @@ const NewJobPage = () => {
                                                             type="text" 
                                                             id={`job-skill-${key}`} 
                                                             name={`skills[${key}]`} 
-                                                            placeholder={`Qualification #${key+1}`}/>
-                                                        <a className="remove-btn" onClick={() => removeSkill(key)}>
-                                                            x
-                                                        </a>
+                                                            placeholder={`Qualification #${key+1}`} required/>
+                                                        {
+                                                            key >= minSkillCount && <a className="remove-btn" onClick={() => removeSkill(key)}>x</a>
+                                                        }
                                                     </div>
                                                 ))
                                             }
