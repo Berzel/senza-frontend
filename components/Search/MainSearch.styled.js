@@ -18,7 +18,7 @@ const MainSearchStyles = styled.div`
         ${tw` border-2 border-gray-800 rounded-lg`}
 
         @media screen and (min-width: 1024px) {
-            ${tw`flex justify-between`}
+            ${tw`flex justify-between bg-gray-800 overflow-hidden`}
         }
 
         .group {
@@ -45,7 +45,7 @@ const MainSearchStyles = styled.div`
             display: none;
 
             @media screen and (min-width: 1024px) {
-               display: block;
+               ${tw`bg-gray-800 flex flex-grow`}
             }
         }
 
@@ -63,15 +63,42 @@ const MainSearchStyles = styled.div`
             }
         }
 
+        .group.query {
+            .icon {
+                @media screen and (min-width: 1024px) {
+                    ${tw`rounded-r-none`}
+                }
+            }
+
+            input {
+                @media screen and (min-width: 1024px) {
+                    ${tw`rounded-none`}
+                }
+            }
+        }
+
         .group.location {
             ${tw`border-t border-gray-300`}
+
             @media screen and (min-width: 1024px) {
-                ${tw`border-l-2 border-t-0 border-gray-800`}
+                ${tw`border-l-2 border-t-0 border-gray-800 rounded-none`}
+            }
+
+            .icon {
+                @media screen and (min-width: 1024px) {
+                    ${tw`rounded-none`}
+                }
+            }
+
+            input {
+                @media screen and (min-width: 1024px) {
+                    ${tw`rounded-none`}
+                }
             }
         }
 
         .group .btn {
-            ${tw`p-2 px-3 bg-gray-800 w-full block text-gray-50 text-lg font-semibold`}
+            ${tw`p-2 px-3 border-none bg-gray-800 w-full block text-gray-50 text-lg font-semibold`}
         }
     }
 
