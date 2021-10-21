@@ -34,8 +34,8 @@ const JobListStyles = styled.div`
 
             @media screen and (min-width: 1024px) {
                 ${tw`block flex-grow bg-gray-50 border rounded-lg p-2 sticky`}
+                height: calc(100vh - 3.8rem);
                 top: 3.3rem;
-                height: 94vh;
             }
         }
 
