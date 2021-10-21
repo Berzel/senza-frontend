@@ -134,8 +134,8 @@ const CreateJobStyles = styled.div`
     .list {
         ${tw`flex items-center space-x-2 relative`}
 
-        .action-btn {
-            ${tw`bg-red-500 p-2 rounded-full w-6 h-6 flex items-center justify-center text-white cursor-pointer font-bold absolute right-2`}
+        .remove-btn {
+            ${tw`bg-gray-600 rounded-full w-6 h-6 flex items-center justify-center text-white cursor-pointer font-semibold absolute right-2`}
         }
     }
 }

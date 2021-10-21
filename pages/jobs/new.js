@@ -332,7 +332,7 @@ const NewJobPage = () => {
                                                             id={`job-responsibility-${key}`} 
                                                             name={`responsibilities[${key}]`} 
                                                             placeholder={`Responsibility #${key+1}`}/>
-                                                        <a className="action-btn" onClick={() => removeResponsibility(key)}>
+                                                        <a className="remove-btn" onClick={() => removeResponsibility(key)}>
                                                             x
                                                         </a>
                                                     </div>
@@ -357,7 +357,7 @@ const NewJobPage = () => {
                                                             id={`job-skill-${key}`} 
                                                             name={`skills[${key}]`} 
                                                             placeholder={`Qualification #${key+1}`}/>
-                                                        <a className="action-btn" onClick={() => removeSkill(key)}>
+                                                        <a className="remove-btn" onClick={() => removeSkill(key)}>
                                                             x
                                                         </a>
                                                     </div>
