@@ -9,6 +9,7 @@ import { useState } from "react";
 import CreateJobStyles from "../../components/CreateJob/CreateJob.styled";
 import useUser from "../../lib/useUser";
 import AuthModal from "../../components/AuthModal/AuthModal";
+import axios from "axios";
 
 const Main = styled.main`
     & > *+* {
@@ -16,14 +17,14 @@ const Main = styled.main`
     }
 `;
 
-const NewJobPage = () => {
+const NewJobPage = ({countries}) => {
     const router = useRouter();
     const { user } = useUser();
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [job, setJob] = useState(typeof window === 'object' ? JSON.parse(localStorage.getItem('job')) : {});
     const [company, setCompany] = useState(typeof window === 'object' ? JSON.parse(localStorage.getItem('company')) : {});
-    const [skills, setSkills] = useState(job?.qualifications ?? ['', '', '']);
-    const [responsibilities, setResponsibilities] = useState(job?.responsibilities ?? ['', '', '']);
+    const [skills, setSkills] = useState(['', '', '']);
+    const [responsibilities, setResponsibilities] = useState(['', '', '']);
 
     const updateCompany = newCompanyDetails => {
         setCompany(newCompanyDetails);
@@ -88,7 +89,7 @@ const NewJobPage = () => {
             return setShowAuthModal(true)
         }
 
-        alert(user.email);
+        console.log(company, job);
     }
     
     return (
@@ -160,12 +161,14 @@ const NewJobPage = () => {
                                                 <select 
                                                     className="input" 
                                                     id="company_country" 
-                                                    value={company?.country ?? ''} 
-                                                    onChange={e => updateCompany({...company, country: e.target.value})} 
+                                                    value={company?.country_id ?? '1'} 
+                                                    onChange={e => updateCompany({...company, country_id: e.target.value})} 
                                                     name="company_country" required>
-                                                        <option value="">Select Country</option>
-                                                        <option value="zambia">Zambia</option>
-                                                        <option value="zimbabwe">Zimbabwe</option>
+                                                        {
+                                                            countries && countries.map(country => (
+                                                                <option key={country.id} value={country.id}>{country.name}</option>
+                                                            ))
+                                                        }
                                                 </select>
                                             </div>
                                         </div>
@@ -431,12 +434,14 @@ const NewJobPage = () => {
                                                     <select 
                                                         className="input" 
                                                         name="job_country" 
-                                                        value={job?.country}
-                                                        onChange={e => updateJob({...job, country: e.target.value})}
+                                                        value={job?.country_id ?? '1'}
+                                                        onChange={e => updateJob({...job, country_id: e.target.value})}
                                                         id="job_country">
-                                                            <option value="">Anywhere</option>
-                                                            <option value="zambia">Zambia</option>
-                                                            <option value="zimbabwe">Zimbabwe</option>
+                                                            {
+                                                                countries && countries.map(country => (
+                                                                    <option key={country.id} value={country.id}>{country.name}</option>
+                                                                ))
+                                                            }
                                                     </select>
                                                 </div>
                                                 <div className="group">
@@ -471,15 +476,11 @@ const NewJobPage = () => {
                                                     </div>
                                                 ))
                                             }
-                                            {
-                                                typeof window === 'object' && (
-                                                    <div className="more-btn">
-                                                        <a onClick={addResponsibitity}>
-                                                            +
-                                                        </a>
-                                                    </div>
-                                                )
-                                            }
+                                            <div className="more-btn">
+                                                <a onClick={addResponsibitity}>
+                                                    +
+                                                </a>
+                                            </div>
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">Skills &amp; Qualifications</h3>
@@ -498,15 +499,11 @@ const NewJobPage = () => {
                                                     </div>
                                                 ))
                                             }
-                                            {
-                                                typeof window == 'object' && (
-                                                    <div className="more-btn">
-                                                        <a onClick={addSkill}>
-                                                            +
-                                                        </a>
-                                                    </div>
-                                                )
-                                            }
+                                            <div className="more-btn">
+                                                <a onClick={addSkill}>
+                                                    +
+                                                </a>
+                                            </div>
                                         </div>
                                         <div className="sub-section">
                                             <h3 className="small-title">How to apply</h3>
@@ -568,3 +565,13 @@ const NewJobPage = () => {
 }
 
 export default NewJobPage
+
+export async function getStaticProps(context) {
+    const countries = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/countries/all`).then(r => r.data)
+
+    return {
+        props: {
+            countries
+        },
+    }
+}
