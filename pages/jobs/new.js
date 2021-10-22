@@ -17,7 +17,7 @@ const Main = styled.main`
     }
 `;
 
-const NewJobPage = ({countries, sectors}) => {
+const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const router = useRouter();
     const { user } = useUser();
     const [showAuthModal, setShowAuthModal] = useState(false);
@@ -297,13 +297,11 @@ const NewJobPage = ({countries, sectors}) => {
                                                     value={job?.level ?? ''}
                                                     onChange={e => updateJob({...job, level: e.target.value})}
                                                     id="job_level" required>
-                                                        <option value="">Pick a level</option>
-                                                        <option value="intern">Internship</option>
-                                                        <option value="graduate-trainee">Graduate Trainee</option>
-                                                        <option value="entry-level">Entry-Level</option>
-                                                        <option value="intermediate">Intermediate</option>
-                                                        <option value="mid-level">Mid-Level</option>
-                                                        <option value="senior">Senior</option>
+                                                        {
+                                                            jobLevels && jobLevels.map(level => (
+                                                                <option key={level.id} value={level.id}>{level.display_name}</option>
+                                                            ))
+                                                        }
                                                 </select>
                                             </div>
                                             <div className="group">
@@ -316,13 +314,11 @@ const NewJobPage = ({countries, sectors}) => {
                                                     value={job?.contract_type ?? ''}
                                                     onChange={e => updateJob({...job, contract_type: e.target.value})} 
                                                     id="contract_type" required>
-                                                        <option value="">Pick a contract type</option>
-                                                        <option value="fixed-term">Fixed Term</option>
-                                                        <option value="part-time">Part Time</option>
-                                                        <option value="full-time">Full Time</option>
-                                                        <option value="temporary">Temporary</option>
-                                                        <option value="zero-hours">Zero Hours</option>
-                                                        <option value="apprenticeship">Apprenticeship</option>
+                                                        {
+                                                            contractTypes && contractTypes.map(type => (
+                                                                <option key={type.id} value={type.id}>{type.display_name}</option>
+                                                            ))
+                                                        }
                                                 </select>
                                             </div>
                                         </div>
@@ -571,11 +567,15 @@ export default NewJobPage
 export async function getStaticProps(context) {
     const countries = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/countries/all`).then(r => r.data)
     const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
+    const jobLevels = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/levels/all`).then(r => r.data)
+    const contractTypes = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/contract-types/all`).then(r => r.data)
 
     return {
         props: {
             countries,
-            sectors
+            sectors,
+            jobLevels,
+            contractTypes
         },
     }
 }
