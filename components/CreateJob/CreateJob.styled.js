@@ -99,7 +99,7 @@ const CreateJobStyles = styled.div`
     .group {
 
         .label {
-            ${tw`ml-0.5 block mb-1`}
+            ${tw`ml-0.5 block mb-1 text-sm`}
         }
 
         .input {
