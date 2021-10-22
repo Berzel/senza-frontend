@@ -6,7 +6,7 @@ const CategoryRow = ({items}) => (
         <ul className="row">
             {
                 items.map(item => (
-                    <li>
+                    <li key={item.id}>
                         <Category category={item} />
                     </li>
                 ))

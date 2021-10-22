@@ -9,6 +9,7 @@ import NavBar from '../components/NavBar/NavBar';
 import Banner from '../components/Banner/Banner';
 import Container from '../components/Container/Container';
 import Header from '../components/Header/Header';
+import axios from 'axios';
 
 const Main = styled.main`
   & > * {
@@ -16,48 +17,8 @@ const Main = styled.main`
   }
 `;
 
-export default function Home() {
+export default function Home({sectors}) {
   const jobs = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {},{}, {}, {},{}, {}, {},{}, {}, {},{}, {},];
-
-  // Hint: Category names should make sense when someone searches for {category} jobs in {location}
-  const categories = [
-    'Accountancy & Accounting',
-    'Admin & Administration',
-    'Automotive',
-    'Aviation',
-    'Banking',
-    'Charity & Volunteer',
-    'Cleaning',
-    'Construction',
-    'Customer Services',
-    'Design',
-    'Education',
-    'Engineering',
-    'Environmental',
-    'Finance',
-    'Healthcare',
-    'Hospitality',
-    'Information Technology',
-    'Legal',
-    'Leisure & Sports',
-    'Logistics, Transport & Distribution',
-    'Managerial',
-    'Manufacturing',
-    'Marketing',
-    'Multilingual',
-    'Health Services',
-    'Procurement',
-    'Public Sector',
-    'Recruitment',
-    'Retail',
-    'Sales',
-    'Science',
-    'Seasonal',
-    'Security & Emergency',
-    'Travel & Tourism',
-    'Warehouse',
-    'Work from Home'
-  ];
 
   return (
     <>
@@ -75,11 +36,21 @@ export default function Home() {
       </Header>
       <Container>
         <Main>
-          <CategoryList categories={categories} />
+          <CategoryList categories={sectors} />
           <PostJobBanner />
           <JobSummaryList title='Latest jobs feed' jobs={jobs}/>
         </Main>
       </Container>
     </>
   )
+}
+
+export async function getStaticProps(context) {
+  const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
+
+  return {
+      props: {
+          sectors
+      },
+  }
 }

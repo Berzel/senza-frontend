@@ -17,7 +17,7 @@ const Main = styled.main`
     }
 `;
 
-const NewJobPage = ({countries}) => {
+const NewJobPage = ({countries, sectors}) => {
     const router = useRouter();
     const { user } = useUser();
     const [showAuthModal, setShowAuthModal] = useState(false);
@@ -278,9 +278,11 @@ const NewJobPage = ({countries}) => {
                                                     value={job?.sector ?? ''}
                                                     onChange={e => updateJob({...job, sector: e.target.value})}
                                                     id="job_sector" required>
-                                                        <option value="">Pick a sector</option>
-                                                        <option value="acccounting">Accounting</option>
-                                                        <option value="education">Education</option>
+                                                        {
+                                                            sectors && sectors.map(sector => (
+                                                                <option key={sector.id} value={sector.id}>{sector.display_name}</option>
+                                                            ))
+                                                        }
                                                 </select>
                                             </div>
                                         </div>
@@ -568,10 +570,12 @@ export default NewJobPage
 
 export async function getStaticProps(context) {
     const countries = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/countries/all`).then(r => r.data)
+    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
 
     return {
         props: {
-            countries
+            countries,
+            sectors
         },
     }
 }

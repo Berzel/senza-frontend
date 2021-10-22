@@ -22,8 +22,8 @@ const CategoryList = ({categories}) => {
             </div> */}
             <ul className="lists">
                 {
-                    rows.map(row => (
-                        <li>
+                    rows.map((row, index) => (
+                        <li key={index}>
                             <CategoryRow items={row} />
                         </li>
                     ))
