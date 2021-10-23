@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const Main = styled.div`
     ${tw`min-h-screen bg-blue-50 flex`}
@@ -97,7 +98,7 @@ const Bottom = styled.div`
                     display: inline-block;
 
                     > svg {
-                        ${tw`fill-current text-blue-600`}
+                        ${tw`fill-current text-blue-400`}
                     }
                 }
             }
@@ -105,7 +106,7 @@ const Bottom = styled.div`
     }
 `;
 
-const Single = () => {
+const Single = ({job}) => {
     const router = useRouter()
 
     return (
@@ -137,7 +138,7 @@ const Single = () => {
                                     <p className="type">3 years</p>
                                     <p className="type">Full-time</p>
                                 </div>
-                                <h1 className="title">Software developer</h1>
+                                <h1 className="title">{job.title}</h1>
                                 <p className="range">$5.5K - $7.5K / month</p>
                             </div>
                             <div className="right">
@@ -157,151 +158,49 @@ const Single = () => {
                                 Job Description
                             </h2>
                             <div className="body">
-                                <p>
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error eos reprehenderit praesentium ad sit, enim illo iusto debitis voluptates! Est similique quibusdam ex? Voluptate, eveniet.
-                                </p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quas voluptatem at adipisci, quam nostrum facilis illo pariatur quibusdam dicta! Quia illum sit minima ad ab laborum eligendi cupiditate inventore!</p>
+                                {job.description}
                             </div>
                         </div>
                         <div>
                             <h2 className="title">
-                                Responsibilities
+                                Duties &amp; Responsibilities
                             </h2>
                             <ul className="body">
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed officia consequatur modi.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet.
-                                    </div>
-                                </li>
+                                {
+                                    job.responsibilities.map(res => (
+                                        <li key={res.id} className="item">
+                                            <div className="left">
+                                                <i className="item-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                                                </i>
+                                            </div>
+                                            <div>
+                                                {res.value}
+                                            </div>
+                                        </li>
+                                    ))
+                                }
                             </ul>
                         </div>
                         <div>
                             <h2 className="title">
-                                Required Skills
+                                Qualifications &amp; Experience
                             </h2>
                             <ul className="body">
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores ratione perferendis explicabo officia voluptates veniam inventore modi quibusdam quas doloremque.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet consectetur.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet.
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h2 className="title">
-                                Qualifications
-                            </h2>
-                            <ul className="body">
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem, ipsum dolor sit amet consectetur.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet consectetur.
-                                    </div>
-                                </li>
-                                <li className="item">
-                                    <div className="left">
-                                        <i className="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        Lorem ipsum dolor sit amet.
-                                    </div>
-                                </li>
+                                {
+                                    job.qualifications.map(qualification => (
+                                        <li key={qualification.id} className="item">
+                                            <div className="left">
+                                                <i className="item-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                                                </i>
+                                            </div>
+                                            <div>
+                                                {qualification.value}
+                                            </div>
+                                        </li>
+                                    ))
+                                }
                             </ul>
                         </div>
                     </Bottom>
@@ -313,3 +212,24 @@ const Single = () => {
 }
 
 export default Single
+
+export async function getStaticPaths() {
+    const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data)
+    const paths = latestJobs?.data?.map((job) => ({
+        params: { slug: job.slug },
+    }));
+
+    return { paths, fallback: 'blocking' };
+}
+
+export async function getStaticProps({ params }) {
+    const job = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/${params.slug}`).then(r => r.data)
+
+    return {
+        props: {
+            job
+        },
+
+        revalidate: 60
+    }
+}
