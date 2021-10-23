@@ -87,7 +87,6 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             return setShowAuthModal(true)
         }
 
-        console.log(company, job);
     }
     
     return (
@@ -342,7 +341,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="negotiable"
                                                     checked={!!job?.salary?.negotiable} 
                                                     onChange={e => updateJob({...job, salary: {...job?.salary, negotiable: e.target.checked}})}
-                                                    id="negotiable" required/>
+                                                    id="negotiable"/>
                                                 <label htmlFor="negotiable" className="check-label">Salary is negotiable?</label>
                                             </div>
                                             <div className="row">
@@ -468,7 +467,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             name={`responsibilities[${key}]`} 
                                                             placeholder={`Responsibility #${key+1}`} required/>
                                                         {
-                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => e.preventDefault() && removeResponsibility(key)}>x</a>
+                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
                                                         }
                                                     </div>
                                                 ))
@@ -493,7 +492,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             name={`qualifications[${key}]`} 
                                                             placeholder={`Qualification #${key+1}`} required/>
                                                         {
-                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => e.preventDefault() && removeSkill(key)}>x</a>
+                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
                                                         }
                                                     </div>
                                                 ))
