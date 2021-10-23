@@ -5,14 +5,14 @@ import JobListStyles from "./JobSummaryList.styled";
 
 const JobSummaryList = ({title, jobs}) => {
 
-    const [allPages, setAllPages] = useState([jobs]);
     const [scrolledTo, setScrolledTo] = useState(0);
-    const getAllJobs = () => allPages.reduce((allJobs, el) => allJobs.concat(el.data), []);
+    const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
+    const getAllJobs = () => allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []);
     const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
 
     const getNextPage = async () => {
         const previousPage = allPages[allPages.length - 1];
-        if (!previousPage.next_page_url) return;
+        if (!previousPage?.next_page_url) return;
         const nextPage = await axios.get(`${previousPage.next_page_url}&size=${previousPage.per_page}`).then(r => r.data)
         setAllPages([...allPages, nextPage]);
     }
@@ -54,8 +54,8 @@ const JobSummaryList = ({title, jobs}) => {
                 <ul className="list">
                     {
                         getAllJobs().map(job => (
-                            <li key={job.id}>
-                                <JobSummary setActiveJob={setActiveJob} job={job} active={activeJob.id === job.id} />
+                            <li key={job?.id}>
+                                <JobSummary setActiveJob={setActiveJob} job={job} active={activeJob?.id === job?.id} />
                             </li>)
                         )
                     }

@@ -13,8 +13,6 @@ const Main = styled.main`
     }
 `;
 
-const jobs = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {},{}, {}, {},{}, {}, {},{}, {}, {},{}, {},];
-
 const SearchPage = () => (
     <>
         <Head>
@@ -30,7 +28,7 @@ const SearchPage = () => (
         <Container>
             <Main>
                 <MainSearch />
-                <JobSummaryList title={'Software developer jobs'} jobs={jobs} />
+                <JobSummaryList title={'Software developer jobs'} />
             </Main>
         </Container>
     </>
