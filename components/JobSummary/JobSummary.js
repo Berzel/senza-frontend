@@ -13,7 +13,7 @@ const JobSummary = ({setActiveJob, job, active}) => {
 
     return (
         <JobSummaryStyles active={active}>
-            <Link href={`/job/software-developer-${Math.random(3).toString(36).substring(9)}`}>
+            <Link href={`/job/${job.slug}`}>
                 <a className={`link`} onClick={updateActiveJob}>
                     <JobSummaryDetails job={job} />
                 </a>
