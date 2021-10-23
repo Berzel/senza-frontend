@@ -21,19 +21,17 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const router = useRouter();
     const { user } = useUser();
     const [showAuthModal, setShowAuthModal] = useState(false);
-    const [job, setJob] = useState(typeof window === 'object' ? JSON.parse(localStorage.getItem('job')) : {});
-    const [company, setCompany] = useState(typeof window === 'object' ? JSON.parse(localStorage.getItem('company')) : {});
+    const [job, setJob] = useState({});
+    const [company, setCompany] = useState({});
     const [skills, setSkills] = useState(['', '', '']);
     const [responsibilities, setResponsibilities] = useState(['', '', '']);
 
     const updateCompany = newCompanyDetails => {
         setCompany(newCompanyDetails);
-        localStorage.setItem('company', JSON.stringify(newCompanyDetails));
     }
 
     const updateJob = newJobDetails => {
         setJob(newJobDetails)
-        localStorage.setItem('job', JSON.stringify(newJobDetails));
     }
 
     const addSkill = e => {
@@ -142,28 +140,28 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </h2>
                                         <div className="row">
                                             <div className="group">
-                                                <label htmlFor="company_name" className="label">
+                                                <label htmlFor="name" className="label">
                                                     Company name
                                                 </label>
                                                 <input 
                                                     className="input" 
                                                     type="text" 
-                                                    id="company_name" 
-                                                    name="company_name" 
+                                                    id="name" 
+                                                    name="name" 
                                                     value={company?.name ?? ''} 
                                                     onChange={e => updateCompany({...company, name: e.target.value})} 
                                                     placeholder="Company name" required/>
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="company_country" className="label">
+                                                <label htmlFor="country_id" className="label">
                                                     Company country
                                                 </label>
                                                 <select 
                                                     className="input" 
-                                                    id="company_country" 
+                                                    id="country_id" 
                                                     value={company?.country_id ?? '1'} 
                                                     onChange={e => updateCompany({...company, country_id: e.target.value})} 
-                                                    name="company_country" required>
+                                                    name="country_id" required>
                                                         {
                                                             countries && countries.map(country => (
                                                                 <option key={country.id} value={country.id}>{country.name}</option>
@@ -180,73 +178,73 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             <input className="input" type="file" id="company_logo" name="company_logo" placeholder="Upload logo"/>
                                         </div>
                                         <div className="group">
-                                            <label htmlFor="company_description" className="label">
-                                                Company description
+                                            <label htmlFor="about" className="label">
+                                                About your company
                                             </label>
                                             <textarea 
                                                 rows="5" 
                                                 className="input" 
-                                                name="company_about" 
-                                                id="company_description" 
+                                                name="about" 
+                                                id="about" 
                                                 value={company?.about ?? ''} 
                                                 onChange={e => updateCompany({...company, about: e.target.value})} 
-                                                placeholder="Briefly describe your company" required>
+                                                placeholder="What is your company all about?" required>
                                             </textarea>
                                         </div>
                                         <div className="row">
                                             <div className="group">
-                                                <label htmlFor="company_website" className="label">
+                                                <label htmlFor="website" className="label">
                                                     Company website
                                                 </label>
                                                 <input 
                                                     type="url" 
                                                     className="input"
-                                                    id="company_website" 
-                                                    name="company_website" 
+                                                    id="website" 
+                                                    name="website" 
                                                     value={company?.website ?? ''}
                                                     onChange={e => updateCompany({...company, website: e.target.value})}
                                                     placeholder="www.company.com"/>
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="company_email" className="label">
+                                                <label htmlFor="contact_email" className="label">
                                                     Contact email
                                                 </label>
                                                 <input 
                                                     className="input" 
                                                     type="email" 
-                                                    id="company_email" 
-                                                    name="company_email"
-                                                    value={company?.email ?? ''}
-                                                    onChange={e => updateCompany({...company, email: e.target.value})} 
+                                                    id="contact_email" 
+                                                    name="contact_email"
+                                                    value={company?.contact_email ?? ''}
+                                                    onChange={e => updateCompany({...company, contact_email: e.target.value})} 
                                                     placeholder="someone@company.com"/>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="group">
-                                                <label htmlFor="company_twitter" className="label">
+                                                <label htmlFor="twitter_handle" className="label">
                                                     Twitter handle
                                                 </label>
                                                 <input 
                                                     className="input" 
                                                     type="text" 
-                                                    id="company_twitter" 
-                                                    name="company_twitter"
-                                                    value={company?.twitter ?? ''}
-                                                    onChange={e => updateCompany({...company, twitter: e.target.value})} 
+                                                    id="twitter_handle" 
+                                                    name="twitter_handle"
+                                                    value={company?.twitter_handle ?? ''}
+                                                    onChange={e => updateCompany({...company, twitter_handle: e.target.value})} 
                                                     placeholder="@CompanyName"/>
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="company_facebook" className="label">
+                                                <label htmlFor="facebook_page" className="label">
                                                     Facebook
                                                 </label>
                                                 <input 
                                                     className="input" 
                                                     type="text" 
-                                                    id="company_facebook" 
-                                                    name="company_facebook"
-                                                    value={company?.facebook ?? ''}
-                                                    onChange={e => updateCompany({...company, facebook: e.target.value})} 
-                                                    placeholder="Facebook page"/>
+                                                    id="facebook_page" 
+                                                    name="facebook_page"
+                                                    value={company?.facebook_page ?? ''}
+                                                    onChange={e => updateCompany({...company, facebook_page: e.target.value})} 
+                                                    placeholder="Company facebook page"/>
                                             </div>
                                         </div>
                                     </div>
@@ -256,28 +254,28 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </h2>
                                         <div className="row">
                                             <div className="group">
-                                                <label htmlFor="job_title" className="label">
+                                                <label htmlFor="title" className="label">
                                                     Job title / role
                                                 </label>
                                                 <input 
                                                     className="input" 
                                                     type="text" 
-                                                    id="job_title" 
-                                                    name="job_title" 
+                                                    id="title" 
+                                                    name="title" 
                                                     value={job?.title ?? ''} 
                                                     onChange={e => updateJob({...job, title: e.target.value})} 
                                                     placeholder="Web Developer, etc" required/>
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="job_sector" className="label">
+                                                <label htmlFor="sector_id" className="label">
                                                     Industry sector
                                                 </label>
                                                 <select 
                                                     className="input" 
-                                                    name="job_sector" 
-                                                    value={job?.sector ?? ''}
-                                                    onChange={e => updateJob({...job, sector: e.target.value})}
-                                                    id="job_sector" required>
+                                                    name="sector_id" 
+                                                    value={job?.sector_id ?? ''}
+                                                    onChange={e => updateJob({...job, sector_id: e.target.value})}
+                                                    id="sector_id" required>
                                                         {
                                                             sectors && sectors.map(sector => (
                                                                 <option key={sector.id} value={sector.id}>{sector.display_name}</option>
@@ -288,15 +286,15 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </div>
                                         <div className="row">
                                             <div className="group">
-                                                <label htmlFor="job_level" className="label">
+                                                <label htmlFor="level_id" className="label">
                                                     Job level
                                                 </label>
                                                 <select 
                                                     className="input" 
-                                                    name="job_level"
-                                                    value={job?.level ?? ''}
-                                                    onChange={e => updateJob({...job, level: e.target.value})}
-                                                    id="job_level" required>
+                                                    name="level_id"
+                                                    value={job?.level_id ?? ''}
+                                                    onChange={e => updateJob({...job, level_id: e.target.value})}
+                                                    id="level_id" required>
                                                         {
                                                             jobLevels && jobLevels.map(level => (
                                                                 <option key={level.id} value={level.id}>{level.display_name}</option>
@@ -305,15 +303,15 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 </select>
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="job_type" className="label">
+                                                <label htmlFor="contract_type_id" className="label">
                                                     Contract type
                                                 </label>
                                                 <select 
                                                     className="input" 
-                                                    name="contract_type"
-                                                    value={job?.contract_type ?? ''}
-                                                    onChange={e => updateJob({...job, contract_type: e.target.value})} 
-                                                    id="contract_type" required>
+                                                    name="contract_type_id"
+                                                    value={job?.contract_type_id ?? ''}
+                                                    onChange={e => updateJob({...job, contract_type_id: e.target.value})} 
+                                                    id="contract_type_id" required>
                                                         {
                                                             contractTypes && contractTypes.map(type => (
                                                                 <option key={type.id} value={type.id}>{type.display_name}</option>
@@ -323,14 +321,14 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                         </div>
                                         <div className="group">
-                                            <label htmlFor="job_description" className="label">
+                                            <label htmlFor="description" className="label">
                                                 Job description
                                             </label>
                                             <textarea 
                                                 rows="8" 
                                                 className="input" 
-                                                name="job_description" 
-                                                id="job_description"
+                                                name="description" 
+                                                id="description"
                                                 value={job?.description ?? ''}
                                                 onChange={e => updateJob({...job, description: e.target.value})} 
                                                 placeholder="Job description goes here" required/>
@@ -341,49 +339,49 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             <div className="check-group">
                                                 <input 
                                                     type="checkbox" 
-                                                    name="is_salary_negotiable"
+                                                    name="negotiable"
                                                     checked={!!job?.salary?.negotiable} 
                                                     onChange={e => updateJob({...job, salary: {...job?.salary, negotiable: e.target.checked}})}
-                                                    id="is_salary_negotiable" required/>
-                                                <label htmlFor="is_salary_negotiable" className="check-label">Salary is negotiable?</label>
+                                                    id="negotiable" required/>
+                                                <label htmlFor="negotiable" className="check-label">Salary is negotiable?</label>
                                             </div>
                                             <div className="row">
                                                 <div className="group">
-                                                    <label htmlFor="salary_min" className="label">
+                                                    <label htmlFor="salary.min" className="label">
                                                         Min
                                                     </label>
                                                     <input 
                                                         className="input" 
                                                         type="number" 
-                                                        id="salary_min" 
-                                                        name="salary_min" 
+                                                        id="salary.min" 
+                                                        name="salary.min" 
                                                         value={job?.salary?.min ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, min: e.target.value}})}
                                                         placeholder="250" required/>
                                                 </div>
                                                 <div className="group">
-                                                    <label htmlFor="salary_max" className="label">
+                                                    <label htmlFor="salary.max" className="label">
                                                         Max
                                                     </label>
                                                     <input 
                                                         className="input" 
                                                         type="number"
-                                                        id="salary_max" 
-                                                        name="salary_max" 
+                                                        id="salary.max" 
+                                                        name="salary.max" 
                                                         value={job?.salary?.max ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, max: e.target.value}})}
                                                         placeholder="10000" required/>
                                                 </div>
                                                 <div className="group">
-                                                    <label htmlFor="salary_currency" className="label">
+                                                    <label htmlFor="salary.currency" className="label">
                                                         Currency
                                                     </label>
                                                     <select 
                                                         className="input" 
-                                                        name="salary_currency" 
+                                                        name="salary.currency" 
                                                         value={job?.salary?.currency ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, currency: e.target.value}})}
-                                                        id="salary_currency" required>
+                                                        id="salary.currency" required>
                                                             <option value="">Currency</option>
                                                             <option value="usd">USD</option>
                                                             <option value="zwl">ZWL</option>
@@ -392,16 +390,15 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     </select>
                                                 </div>
                                                 <div className="group">
-                                                    <label htmlFor="salary_interval" className="label">
+                                                    <label htmlFor="salary.period" className="label">
                                                         Interval
                                                     </label>
                                                     <select 
                                                         className="input" 
-                                                        name="salary_interval"
-                                                        value={job?.salary?.interval ?? ''}
-                                                        onChange={e => updateJob({...job, salary: {...job?.salary, interval: e.target.value}})} 
-                                                        id="salary_interval" required>
-                                                            <option value="">Set interval</option>
+                                                        name="salary.period"
+                                                        value={job?.salary?.period ?? ''}
+                                                        onChange={e => updateJob({...job, salary: {...job?.salary, period: e.target.value}})} 
+                                                        id="salary.period" required>
                                                             <option value="hourly">Hourly</option>
                                                             <option value="daily">Daily</option>
                                                             <option value="weekly">Weekly</option>
@@ -426,15 +423,15 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             <div className="row">
                                                 <div className="group">
-                                                    <label htmlFor="job_country" className="label">
+                                                    <label htmlFor="country_id" className="label">
                                                         Country
                                                     </label>
                                                     <select 
                                                         className="input" 
-                                                        name="job_country" 
+                                                        name="country_id" 
                                                         value={job?.country_id ?? '1'}
                                                         onChange={e => updateJob({...job, country_id: e.target.value})}
-                                                        id="job_country">
+                                                        id="country_id">
                                                             {
                                                                 countries && countries.map(country => (
                                                                     <option key={country.id} value={country.id}>{country.name}</option>
@@ -443,14 +440,14 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     </select>
                                                 </div>
                                                 <div className="group">
-                                                    <label htmlFor="job_city" className="label">
+                                                    <label htmlFor="city" className="label">
                                                         City / Town
                                                     </label>
                                                     <input 
                                                         className="input" 
                                                         type="text" 
-                                                        id="job_city" 
-                                                        name="job_city" 
+                                                        id="city" 
+                                                        name="city" 
                                                         value={job?.city ?? ''}
                                                         onChange={e => updateJob({...job, city: e.target.value})}
                                                         placeholder="Enter town or city name"/>
@@ -467,15 +464,17 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             value={res} 
                                                             onChange={e => updateResponsibility(key, e.target.value)} 
                                                             type="text" 
-                                                            id={`job-responsibility-${key}`} 
+                                                            id={`responsibilities[${key}]`} 
                                                             name={`responsibilities[${key}]`} 
                                                             placeholder={`Responsibility #${key+1}`} required/>
-                                                        <a className="remove-btn" onClick={() => removeResponsibility(key)}>x</a>
+                                                        {
+                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => e.preventDefault() && removeResponsibility(key)}>x</a>
+                                                        }
                                                     </div>
                                                 ))
                                             }
                                             <div className="more-btn">
-                                                <a onClick={addResponsibitity}>
+                                                <a href="#" onClick={addResponsibitity}>
                                                     +
                                                 </a>
                                             </div>
@@ -490,15 +489,17 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             value={skill} 
                                                             onChange={e => updateSkill(key, e.target.value)} 
                                                             type="text" 
-                                                            id={`job-skill-${key}`} 
-                                                            name={`skills[${key}]`} 
+                                                            id={`qualifications[${key}]`} 
+                                                            name={`qualifications[${key}]`} 
                                                             placeholder={`Qualification #${key+1}`} required/>
-                                                        <a className="remove-btn" onClick={() => removeSkill(key)}>x</a>
+                                                        {
+                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => e.preventDefault() && removeSkill(key)}>x</a>
+                                                        }
                                                     </div>
                                                 ))
                                             }
                                             <div className="more-btn">
-                                                <a onClick={addSkill}>
+                                                <a href="#" onClick={addSkill}>
                                                     +
                                                 </a>
                                             </div>
@@ -506,14 +507,14 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         <div className="sub-section">
                                             <h3 className="small-title">How to apply</h3>
                                             <div className="group">
-                                                <label htmlFor="application_instruction" className="label">
+                                                <label htmlFor="application_instructions" className="label">
                                                     Application instructions
                                                 </label>
                                                 <textarea 
                                                     rows="5" 
                                                     className="input" 
-                                                    name="application_instruction" 
-                                                    id="application_instruction"
+                                                    name="application_instructions" 
+                                                    id="application_instructions"
                                                     value={job?.application_instructions ?? ''}
                                                     onChange={e => updateJob({...job, application_instructions: e.target.value})} 
                                                     placeholder="How should candidates apply?" required/>
@@ -541,7 +542,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="url"
                                                     id="application_link" 
                                                     name="application_link"
-                                                    value={job?.application_link}
+                                                    value={job?.application_link ?? ''}
                                                     onChange={e => updateJob({...job, application_link: e.target.value})} 
                                                     placeholder="Application link"/>
                                             </div>
