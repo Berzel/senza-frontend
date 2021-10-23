@@ -17,8 +17,7 @@ const Main = styled.main`
   }
 `;
 
-export default function Home({sectors}) {
-  const jobs = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {},{}, {}, {},{}, {}, {},{}, {}, {},{}, {},];
+export default function Home({sectors, latestJobs}) {
 
   return (
     <>
@@ -38,7 +37,7 @@ export default function Home({sectors}) {
         <Main>
           <CategoryList categories={sectors} />
           <PostJobBanner />
-          <JobSummaryList title='Latest jobs feed' jobs={jobs}/>
+          <JobSummaryList title='Latest jobs feed' jobs={latestJobs}/>
         </Main>
       </Container>
     </>
@@ -47,10 +46,14 @@ export default function Home({sectors}) {
 
 export async function getStaticProps(context) {
   const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
+  const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data)
 
   return {
       props: {
-          sectors
+          sectors,
+          latestJobs
       },
+
+      revalidate: 60*60*4 // revalidate page after 4 hours
   }
 }

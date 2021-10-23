@@ -2,19 +2,20 @@ import Link from "next/link";
 import JobSummaryStyles from "./JobSummary.styled";
 import JobSummaryDetails from "./JobSummaryDetails";
 
-const updateActiveJob = e => {
-    if (window.innerWidth >= 1024) {
-        console.log('Desktop')
-        e.preventDefault()
-    }
-}
+const JobSummary = ({setActiveJob, job, active}) => {
 
-const JobSummary = () => {
+    const updateActiveJob = e => {
+        if (window.innerWidth >= 1024) {
+            e.preventDefault();
+            setActiveJob(job);
+        }
+    }
+
     return (
-        <JobSummaryStyles>
+        <JobSummaryStyles active={active}>
             <Link href={`/job/software-developer-${Math.random(3).toString(36).substring(9)}`}>
-                <a className="link" onClick={updateActiveJob}>
-                    <JobSummaryDetails />
+                <a className={`link`} onClick={updateActiveJob}>
+                    <JobSummaryDetails job={job} />
                 </a>
             </Link>
         </JobSummaryStyles>

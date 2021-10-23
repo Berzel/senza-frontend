@@ -1,14 +1,29 @@
-const JobSummaryDetails = () => {
+const JobSummaryDetails = ({job}) => {
+    const formatPeriod = period => {
+        const values = {
+            hourly: 'hour',
+            daily: 'day',
+            weekly: 'week',
+            'bi-weekly': 'fortnight',
+            monthly: 'month',
+            yearly: 'year'
+        };
+
+        return values[period];
+    }
+
+    const formatter = Intl.NumberFormat('en', { notation: 'compact' });
+
     return (
         <>
             <div className="top">
                 <div className="left">
                     <div className="pills">
-                        <span className="type">entry-level</span>
-                        <span className="type">full-time</span>
+                        <span className="type">{job.level.display_name}</span>
+                        <span className="type">{job.contract_type.display_name}</span>
                     </div>
-                    <h3 className="title">Software Developer</h3>
-                    <div className="salary">$5.5K - $7.5K / month</div>
+                    <h3 className="title">{job.title}</h3>
+                    <div className="salary">${formatter.format(job.salary.min)} - ${formatter.format(job.salary.max)} / {`${formatPeriod(job.salary.period)}`}</div>
                 </div>
                 <div className="right">
                     <div className="company-logo">
@@ -24,10 +39,10 @@ const JobSummaryDetails = () => {
                             <path d="m184.08 64.008c-39.704 0-72 32.304-72 72s32.296 72 72 72 72-32.304 72-72-32.296-72-72-72zm0 128c-30.872 0-56-25.12-56-56s25.128-56 56-56 56 25.12 56 56-25.128 56-56 56z"/>
                         </svg>
                     </i>
-                    <p className="location">Harare, Remote</p>
+                    <p className="location">{job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}</p>
                 </div>
                 <div className="right">
-                    <p className="company-name">Maverik Inc</p>
+                    <p className="company-name">{job.company.name}</p>
                 </div>
             </div>
         </>
