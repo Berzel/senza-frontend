@@ -9,9 +9,13 @@ export default withSession(async (req, res) => {
     return res.json(null);
   }
 
-  const response = await axios.get(`${process.env.AUTH_SERVICE_URL}/user`, {headers: {
-      'Authorization': `Bearer ${token}`
-  }}).then(r => r.data)
+  try {
+    const response = await axios.get(`${process.env.AUTH_SERVICE_URL}/user`, {headers: {
+        'Authorization': `Bearer ${token}`
+    }}).then(r => r.data)
 
-  return res.json(response.data)
+    return res.json(response.data)
+  } catch (error) {
+    return res.json(null);
+  }
 });
