@@ -80,13 +80,22 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         updateJob({...job, responsibilities: newResponsibilities})
     }
     
-    const postJob = event => {
+    const postJob = async (event) => {
         event.preventDefault()
         
         if (!user && !showAuthModal) {
             return setShowAuthModal(true)
         }
 
+        if (user) {
+            let config = {headers: {
+                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+            }};
+
+            let company_id = company?.id ?? await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
+            let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
+            
+        }
     }
     
     return (
@@ -168,13 +177,6 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         }
                                                 </select>
                                             </div>
-                                        </div>
-
-                                        <div className="group">
-                                            <label htmlFor="company_logo" className="label">
-                                                Company logo
-                                            </label>
-                                            <input className="input" type="file" id="company_logo" name="company_logo" placeholder="Upload logo"/>
                                         </div>
                                         <div className="group">
                                             <label htmlFor="about" className="label">
@@ -381,7 +383,6 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         value={job?.salary?.currency ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, currency: e.target.value}})}
                                                         id="salary.currency" required>
-                                                            <option value="">Currency</option>
                                                             <option value="usd">USD</option>
                                                             <option value="zwl">ZWL</option>
                                                             <option value="eur">EUR</option>
