@@ -46,7 +46,7 @@ export default function Home({sectors, latestJobs}) {
 
 export async function getStaticProps(context) {
   const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
-  const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data)
+  const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest?size=15`).then(r => r.data)
 
   return {
       props: {
