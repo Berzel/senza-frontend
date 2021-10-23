@@ -183,7 +183,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="name" 
                                                     value={company?.name ?? ''} 
                                                     onChange={e => updateCompany({...company, name: e.target.value})} 
-                                                    placeholder="Company name" required disabled={!!company?.id} />
+                                                    placeholder="Company name" disabled={!!company?.id} />
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="country_id" className="label">
@@ -194,7 +194,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     id="country_id" 
                                                     value={company?.country_id ?? '1'} 
                                                     onChange={e => updateCompany({...company, country_id: e.target.value})} 
-                                                    name="country_id" required disabled={!!company?.id}>
+                                                    name="country_id" disabled={!!company?.id}>
                                                         {
                                                             countries && countries.map(country => (
                                                                 <option key={country.id} value={country.id}>{country.name}</option>
@@ -214,7 +214,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 id="about" 
                                                 value={company?.about ?? ''} 
                                                 onChange={e => updateCompany({...company, about: e.target.value})} 
-                                                placeholder="What is your company all about?" required disabled={!!company?.id}>
+                                                placeholder="What is your company all about?" disabled={!!company?.id}>
                                             </textarea>
                                         </div>
                                         <div className="row">
@@ -290,7 +290,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="title" 
                                                     value={job?.title ?? ''} 
                                                     onChange={e => updateJob({...job, title: e.target.value})} 
-                                                    placeholder="Web Developer, etc" required/>
+                                                    placeholder="Web Developer, etc"/>
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="sector_id" className="label">
@@ -301,7 +301,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="sector_id" 
                                                     value={job?.sector_id ?? ''}
                                                     onChange={e => updateJob({...job, sector_id: e.target.value})}
-                                                    id="sector_id" required>
+                                                    id="sector_id">
                                                         {
                                                             sectors && sectors.map(sector => (
                                                                 <option key={sector.id} value={sector.id}>{sector.display_name}</option>
@@ -320,7 +320,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="level_id"
                                                     value={job?.level_id ?? ''}
                                                     onChange={e => updateJob({...job, level_id: e.target.value})}
-                                                    id="level_id" required>
+                                                    id="level_id">
                                                         {
                                                             jobLevels && jobLevels.map(level => (
                                                                 <option key={level.id} value={level.id}>{level.display_name}</option>
@@ -337,7 +337,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="contract_type_id"
                                                     value={job?.contract_type_id ?? ''}
                                                     onChange={e => updateJob({...job, contract_type_id: e.target.value})} 
-                                                    id="contract_type_id" required>
+                                                    id="contract_type_id">
                                                         {
                                                             contractTypes && contractTypes.map(type => (
                                                                 <option key={type.id} value={type.id}>{type.display_name}</option>
@@ -357,7 +357,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 id="description"
                                                 value={job?.description ?? ''}
                                                 onChange={e => updateJob({...job, description: e.target.value})} 
-                                                placeholder="Job description goes here" required/>
+                                                placeholder="Job description goes here"/>
                                         </div>
 
                                         <div>
@@ -383,7 +383,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         name="salary.min" 
                                                         value={job?.salary?.min ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, min: e.target.value}})}
-                                                        placeholder="250" required/>
+                                                        placeholder="250"/>
                                                 </div>
                                                 <div className="group">
                                                     <label htmlFor="salary.max" className="label">
@@ -396,7 +396,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         name="salary.max" 
                                                         value={job?.salary?.max ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, max: e.target.value}})}
-                                                        placeholder="10000" required/>
+                                                        placeholder="10000"/>
                                                 </div>
                                                 <div className="group">
                                                     <label htmlFor="salary.currency" className="label">
@@ -407,7 +407,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         name="salary.currency" 
                                                         value={job?.salary?.currency ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, currency: e.target.value}})}
-                                                        id="salary.currency" required>
+                                                        id="salary.currency">
                                                             <option value="usd">USD</option>
                                                             <option value="zwl">ZWL</option>
                                                             <option value="eur">EUR</option>
@@ -423,7 +423,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         name="salary.period"
                                                         value={job?.salary?.period ?? ''}
                                                         onChange={e => updateJob({...job, salary: {...job?.salary, period: e.target.value}})} 
-                                                        id="salary.period" required>
+                                                        id="salary.period">
                                                             <option value="hourly">Hourly</option>
                                                             <option value="daily">Daily</option>
                                                             <option value="weekly">Weekly</option>
@@ -491,7 +491,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             type="text" 
                                                             id={`responsibilities[${key}]`} 
                                                             name={`responsibilities[${key}]`} 
-                                                            placeholder={`Responsibility #${key+1}`} required/>
+                                                            placeholder={`Responsibility #${key+1}`}/>
                                                         {
                                                             responsibilities.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
                                                         }
@@ -516,7 +516,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             type="text" 
                                                             id={`qualifications[${key}]`} 
                                                             name={`qualifications[${key}]`} 
-                                                            placeholder={`Qualification #${key+1}`} required/>
+                                                            placeholder={`Qualification #${key+1}`}/>
                                                         {
                                                             skills.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
                                                         }
@@ -542,7 +542,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     id="application_instructions"
                                                     value={job?.application_instructions ?? ''}
                                                     onChange={e => updateJob({...job, application_instructions: e.target.value})} 
-                                                    placeholder="How should candidates apply?" required/>
+                                                    placeholder="How should candidates apply?"/>
                                             </div>
                                             <div className="row">
                                             <div className="group">
