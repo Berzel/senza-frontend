@@ -13,7 +13,7 @@ const JobSummaryList = ({title, jobs}) => {
     const getNextPage = async () => {
         const previousPage = allPages[allPages.length - 1];
         if (!previousPage?.next_page_url) return;
-        const nextPage = await axios.get(`${previousPage.next_page_url}&size=${previousPage.per_page}`).then(r => r.data)
+        const nextPage = await axios.get(`${previousPage.next_page_url}&size=${previousPage.per_page}`.replace('http', 'https')).then(r => r.data)
         setAllPages([...allPages, nextPage]);
     }
 
@@ -21,7 +21,7 @@ const JobSummaryList = ({title, jobs}) => {
         const lastPage = allPages[allPages.length - 1];
         
         if (!!lastPage?.first_page_url) {
-            const firstPage = await axios.get(`${lastPage.first_page_url}&size=${lastPage.per_page}`).then(r => r.data)
+            const firstPage = await axios.get(`${lastPage.first_page_url}&size=${lastPage.per_page}`.replace('http', 'https')).then(r => r.data)
             setAllPages([firstPage]);
         }
 
