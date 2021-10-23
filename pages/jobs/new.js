@@ -87,7 +87,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             return setShowAuthModal(true)
         }
 
-        if (user) {
+        if (user && localStorage.getItem('auth_token')) {
             let config = {headers: {
                 'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
             }};
@@ -468,7 +468,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             name={`responsibilities[${key}]`} 
                                                             placeholder={`Responsibility #${key+1}`} required/>
                                                         {
-                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
+                                                            responsibilities.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
                                                         }
                                                     </div>
                                                 ))
@@ -493,7 +493,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             name={`qualifications[${key}]`} 
                                                             placeholder={`Qualification #${key+1}`} required/>
                                                         {
-                                                            key >= 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
+                                                            skills.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
                                                         }
                                                     </div>
                                                 ))
