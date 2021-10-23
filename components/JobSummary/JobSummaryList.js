@@ -18,13 +18,6 @@ const JobSummaryList = ({title, jobs}) => {
     }
 
     useEffect(async () => {
-        const lastPage = allPages[allPages.length - 1];
-        
-        if (!!lastPage?.first_page_url) {
-            const firstPage = await axios.get(`${lastPage.first_page_url}&size=${lastPage.per_page}`.replace('http', 'https')).then(r => r.data)
-            setAllPages([firstPage]);
-        }
-
         if (getAllJobs().length > 0) {
             setActiveJob(getAllJobs()[0])
         }
