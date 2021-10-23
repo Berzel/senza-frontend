@@ -5,7 +5,7 @@ import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateJobStyles from "../../components/CreateJob/CreateJob.styled";
 import useUser from "../../lib/useUser";
 import AuthModal from "../../components/AuthModal/AuthModal";
@@ -20,11 +20,27 @@ const Main = styled.main`
 const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const router = useRouter();
     const { user } = useUser();
-    const [showAuthModal, setShowAuthModal] = useState(false);
     const [job, setJob] = useState({});
     const [company, setCompany] = useState({});
     const [skills, setSkills] = useState(['', '', '']);
+    const [userCompanies, setUserCompanies] = useState([]);
+    const [showAuthModal, setShowAuthModal] = useState(false);
     const [responsibilities, setResponsibilities] = useState(['', '', '']);
+
+    useEffect(async () => {
+        if (user) {
+            let config = {headers: {
+                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+            }};
+
+            const companies = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/user/companies/all`, config).then(r => r.data);
+            setUserCompanies(companies)
+            
+            if (companies.length > 0) {
+                setCompany(companies[0])
+            }
+        }
+    }, [user])
 
     const updateCompany = newCompanyDetails => {
         setCompany(newCompanyDetails);
@@ -94,7 +110,6 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
 
             let company_id = company?.id ?? await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
             let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
-            
         }
     }
     
@@ -146,6 +161,16 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         <h2 className="title">
                                             Company Details
                                         </h2>
+                                        {
+                                            userCompanies && (
+                                                <ul className="company_list">
+                                                    {userCompanies.map(currentCompany => (
+                                                        <li className={`company_list_item ${company.id === currentCompany.id ? 'active' : ''}`} onClick={e => setCompany(currentCompany)} key={currentCompany.id}>{currentCompany.name}</li>
+                                                    ))}
+                                                    <li className={`company_list_item ${!company?.id ? 'active' : ''}`} onClick={e => setCompany({})} >Add Company</li>
+                                                </ul>
+                                            )
+                                        }
                                         <div className="row">
                                             <div className="group">
                                                 <label htmlFor="name" className="label">
@@ -158,7 +183,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="name" 
                                                     value={company?.name ?? ''} 
                                                     onChange={e => updateCompany({...company, name: e.target.value})} 
-                                                    placeholder="Company name" required/>
+                                                    placeholder="Company name" required disabled={!!company?.id} />
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="country_id" className="label">
@@ -169,7 +194,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     id="country_id" 
                                                     value={company?.country_id ?? '1'} 
                                                     onChange={e => updateCompany({...company, country_id: e.target.value})} 
-                                                    name="country_id" required>
+                                                    name="country_id" required disabled={!!company?.id}>
                                                         {
                                                             countries && countries.map(country => (
                                                                 <option key={country.id} value={country.id}>{country.name}</option>
@@ -189,7 +214,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 id="about" 
                                                 value={company?.about ?? ''} 
                                                 onChange={e => updateCompany({...company, about: e.target.value})} 
-                                                placeholder="What is your company all about?" required>
+                                                placeholder="What is your company all about?" required disabled={!!company?.id}>
                                             </textarea>
                                         </div>
                                         <div className="row">
@@ -204,7 +229,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="website" 
                                                     value={company?.website ?? ''}
                                                     onChange={e => updateCompany({...company, website: e.target.value})}
-                                                    placeholder="www.company.com"/>
+                                                    placeholder="www.company.com" disabled={!!company?.id} />
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="contact_email" className="label">
@@ -217,7 +242,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="contact_email"
                                                     value={company?.contact_email ?? ''}
                                                     onChange={e => updateCompany({...company, contact_email: e.target.value})} 
-                                                    placeholder="someone@company.com"/>
+                                                    placeholder="someone@company.com" disabled={!!company?.id} />
                                             </div>
                                         </div>
                                         <div className="row">
@@ -232,7 +257,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="twitter_handle"
                                                     value={company?.twitter_handle ?? ''}
                                                     onChange={e => updateCompany({...company, twitter_handle: e.target.value})} 
-                                                    placeholder="@CompanyName"/>
+                                                    placeholder="@CompanyName" disabled={!!company?.id} />
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="facebook_page" className="label">
@@ -245,7 +270,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="facebook_page"
                                                     value={company?.facebook_page ?? ''}
                                                     onChange={e => updateCompany({...company, facebook_page: e.target.value})} 
-                                                    placeholder="Company facebook page"/>
+                                                    placeholder="Company facebook page" disabled={!!company?.id}/>
                                             </div>
                                         </div>
                                     </div>
