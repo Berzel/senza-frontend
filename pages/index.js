@@ -54,6 +54,6 @@ export async function getStaticProps(context) {
           latestJobs
       },
 
-      revalidate: 60*60*4 // revalidate page after 4 hours
+      revalidate: 60*5
   }
 }
