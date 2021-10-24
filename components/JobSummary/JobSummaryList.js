@@ -125,6 +125,12 @@ const JobSummaryList = ({title, jobs}) => {
                                         }
                                     </ul>
                                 </div>
+                                <div>
+                                    <h4 className="detail_sub_title">How to apply</h4>
+                                    <p className="detail_body">
+                                        {activeJob.application_instructions}
+                                    </p>
+                                </div>
                             </div>
                         )
                     }
