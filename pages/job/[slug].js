@@ -216,6 +216,14 @@ const Single = ({job}) => {
                                 }
                             </ul>
                         </div>
+                        <div>
+                            <h2 className="title">
+                                How to apply
+                            </h2>
+                            <div className="body">
+                                {job.application_instructions}
+                            </div>
+                        </div>
                     </Bottom>
                 </Main>
                 <ApplyLink />

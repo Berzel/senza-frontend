@@ -23,6 +23,7 @@ const JobSummaryStyles = styled.div`
 
     .location, .company-name {
         ${tw`text-xs`}
+        ${tw`text-gray-600 ml-1`}
     }
 
     .pills {
@@ -50,10 +51,6 @@ const JobSummaryStyles = styled.div`
             height: 0.75em;
             ${tw`text-gray-600 fill-current`}
         }
-    }
-
-    .location {
-        ${tw`text-gray-600 ml-1`}
     }
 
     .bottom {
