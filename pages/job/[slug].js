@@ -31,6 +31,9 @@ const Top = styled.div`
 
     .details {
         ${tw`flex justify-between`}
+        .left {
+            ${tw`flex-grow`}
+        }
 
         .pills {
             ${tw`flex`}
@@ -44,7 +47,7 @@ const Top = styled.div`
         }
         .title {
             ${tw`font-semibold mt-2 text-lg`}
-            max-width: 95%;
+            max-width: 92%;
         }
         .range{
             ${tw`text-gray-800 mt-2`}
