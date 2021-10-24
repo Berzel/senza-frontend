@@ -44,16 +44,11 @@ const Top = styled.div`
         }
         .title {
             ${tw`font-semibold mt-2 text-lg`}
+            max-width: 95%;
         }
         .range{
             ${tw`text-gray-800 mt-2`}
             font-size: 0.95rem;
-        }
-        .logo {
-            width: 4rem;
-            height: 4rem;
-            font-size: 3.2rem;
-            ${tw`bg-gray-700 text-gray-100 font-bold flex justify-center items-center rounded-lg shadow-md hidden`}
         }
     }
 
@@ -160,11 +155,6 @@ const Single = ({job}) => {
                                 </div>
                                 <h1 className="title">{job.title}</h1>
                                 <p className="range">${formatter.format(job.salary.min)} - ${formatter.format(job.salary.max)} / {`${formatPeriod(job.salary.period)}`}</p>
-                            </div>
-                            <div className="right">
-                                <div className="logo">
-                                    {job.company.name[0].toUpperCase()}
-                                </div>
                             </div>
                         </div>
                         <div className="location">
