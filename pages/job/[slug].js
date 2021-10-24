@@ -40,13 +40,14 @@ const Top = styled.div`
         }
 
         .type {
-            ${tw`text-xs text-black bg-blue-200 inline-block rounded-lg px-2 py-1`}
+            ${tw`text-sm text-black bg-blue-200 inline-block rounded-lg px-2 py-1`}
         }
         .title {
             ${tw`font-semibold mt-2 text-lg`}
         }
         .range{
-            ${tw`text-sm text-gray-800 mt-0.5`}
+            ${tw`text-gray-800 mt-0.5`}
+            font-size: 0.95rem;
         }
         .logo {
             width: 4rem;
@@ -57,10 +58,16 @@ const Top = styled.div`
     }
 
     .location {
-        ${tw`flex justify-between text-xs mt-3 text-gray-800 mb-3`}
+        ${tw`flex justify-between text-sm text-gray-600 my-4`}
 
-        .company-name {
-            ${tw`text-gray-900`}
+        > * {
+            ${tw`flex items-center space-x-1`}
+        }
+
+        svg {
+            width: 0.8em;
+            height: 0.8em;
+            ${tw`fill-current`}
         }
     }
 `;
@@ -161,8 +168,16 @@ const Single = ({job}) => {
                             </div>
                         </div>
                         <div className="location">
-                            <p>{job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}</p>
-                            <p className="company-name">{job.company.name}</p>
+                            <p>
+                                <svg enableBackground="new 0 0 368.16 368.16" version="1.1" viewBox="0 0 368.16 368.16">
+                                    <path d="m184.08 0c-74.992 0-136 61.008-136 136 0 24.688 11.072 51.24 11.536 52.36 3.576 8.488 10.632 21.672 15.72 29.4l93.248 141.29c3.816 5.792 9.464 9.112 15.496 9.112s11.68-3.32 15.496-9.104l93.256-141.3c5.096-7.728 12.144-20.912 15.72-29.4 0.464-1.112 11.528-27.664 11.528-52.36 0-74.992-61.008-136-136-136zm109.72 182.15c-3.192 7.608-9.76 19.872-14.328 26.8l-93.256 141.3c-1.84 2.792-2.424 2.792-4.264 0l-93.256-141.3c-4.568-6.928-11.136-19.2-14.328-26.808-0.136-0.328-10.288-24.768-10.288-46.144 0-66.168 53.832-120 120-120s120 53.832 120 120c0 21.408-10.176 45.912-10.28 46.152z"/>
+                                    <path d="m184.08 64.008c-39.704 0-72 32.304-72 72s32.296 72 72 72 72-32.304 72-72-32.296-72-72-72zm0 128c-30.872 0-56-25.12-56-56s25.128-56 56-56 56 25.12 56 56-25.128 56-56 56z"/>
+                                </svg>
+                                <span>
+                                    {job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}
+                                </span>
+                            </p>
+                            <p>1 day ago</p>
                         </div>
                     </Top>
                     <Bottom>
