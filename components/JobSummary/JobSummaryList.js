@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
+import Link from "next/link";
 
-const JobSummaryList = ({title, jobs}) => {
+const JobSummaryList = ({title, jobs, showLoadMore}) => {
 
     const [scrolledTo, setScrolledTo] = useState(0);
     const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
@@ -23,7 +24,7 @@ const JobSummaryList = ({title, jobs}) => {
             setActiveJob(getAllJobs()[0])
         }
 
-        document.addEventListener('scroll', () => {
+        const scrollListener = () => {
             let ticking = false;
             let lastScrollPos = 0;
 
@@ -37,7 +38,13 @@ const JobSummaryList = ({title, jobs}) => {
             }
 
             ticking = true;
-        })
+        };
+
+        document.addEventListener('scroll', scrollListener)
+
+        return () => {
+            document.removeEventListener('scroll', scrollListener)
+        }
     }, [])
 
     useEffect(() => {
@@ -70,6 +77,17 @@ const JobSummaryList = ({title, jobs}) => {
                             <li key={job?.id}>
                                 <JobSummary setActiveJob={setActiveJob} job={job} active={activeJob?.id === job?.id} />
                             </li>)
+                        )
+                    }
+                    {
+                        showLoadMore && activeJob?.next_page_url && (
+                            <li>
+                                <Link href={`/jobs/${activeJob?.sector?.slug}/${jobs.current_page + 1}`}>
+                                    <a className="more">
+                                        More
+                                    </a>
+                                </Link>
+                            </li>
                         )
                     }
                 </ul>
