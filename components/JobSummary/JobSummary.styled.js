@@ -22,8 +22,7 @@ const JobSummaryStyles = styled.div`
     }
 
     .location, .company-name {
-        ${tw`text-xs`}
-        ${tw`text-gray-600 ml-1`}
+        ${tw`text-sm text-gray-600 ml-1`}
     }
 
     .pills {
@@ -42,13 +41,14 @@ const JobSummaryStyles = styled.div`
     }
 
     .salary {
-        ${tw`text-sm text-gray-600 mt-0.5`}
+        ${tw`text-gray-600 mt-0.5`};
+        font-size: 0.95rem;
     }
 
     .pin {
         > svg {
-            width: 0.75em;
-            height: 0.75em;
+            width: 0.8em;
+            height: 0.8em;
             ${tw`text-gray-600 fill-current`}
         }
     }
