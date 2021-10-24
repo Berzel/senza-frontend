@@ -46,14 +46,14 @@ const Top = styled.div`
             ${tw`font-semibold mt-2 text-lg`}
         }
         .range{
-            ${tw`text-gray-800 mt-0.5`}
+            ${tw`text-gray-800 mt-2`}
             font-size: 0.95rem;
         }
         .logo {
             width: 4rem;
             height: 4rem;
             font-size: 3.2rem;
-            ${tw`bg-gray-700 text-gray-100 font-bold flex justify-center items-center rounded-lg shadow-md`}
+            ${tw`bg-gray-700 text-gray-100 font-bold flex justify-center items-center rounded-lg shadow-md hidden`}
         }
     }
 
@@ -241,7 +241,7 @@ const Single = ({job}) => {
                         </div>
                     </Bottom>
                 </Main>
-                <ApplyLink />
+                <ApplyLink job={job} />
             </Container>
         </>
     )

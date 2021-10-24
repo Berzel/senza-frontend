@@ -1,13 +1,21 @@
-import Link from "next/link";
 import ApplyLinkStyles from "./ApplyLink.styled";
 
-const ApplyLink = () => (
+const ApplyLink = ({job}) => (
     <ApplyLinkStyles>
-        <Link href={`/job/software-developer-${Math.random(3).toString(36).substring(9)}/apply`} scroll={false}>
-            <a className="link">
-                Apply Now
-            </a>
-        </Link>
+        {
+            job.application_link && (
+                <a className="link" href={job.application_link} target="_blank">
+                    Apply now
+                </a>
+            )
+        }
+        {
+            (job.application_email && !job.application_link) && (
+                <a className="link" href={`mailto:${job.application_email}`} target="_blank">
+                    Apply with email
+                </a>
+            )
+        }
     </ApplyLinkStyles>
 )
 
