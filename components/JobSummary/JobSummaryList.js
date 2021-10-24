@@ -72,11 +72,11 @@ const JobSummaryList = ({title, jobs}) => {
                             </li>)
                         )
                     }
-                    <li>
+                    {/* <li>
                         <button className="more" onClick={fetchNextJobs}>
                             More
                         </button>
-                    </li>
+                    </li> */}
                 </ul>
                 <Scrollbars id="job.details.container" renderThumbVertical={renderThumb} autoHide autoHideTimeout={2000} className="scrollbars" style={{height: 'calc(100vh - 4rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
                     {

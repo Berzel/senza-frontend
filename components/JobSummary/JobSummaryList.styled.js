@@ -39,6 +39,10 @@ const JobListStyles = styled.div`
             > *+* {
                 ${tw`mt-3`}
             }
+
+            >*:last-child {
+                ${tw`mb-5`}
+            }
         }
 
         .scrollbars {
