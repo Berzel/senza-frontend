@@ -37,7 +37,7 @@ export const getServerSideProps = async ({ res }) => {
             ${
                 allJobs.map(job => (
                     `<url>
-                        <loc>https://senza.vercel.app/jobs/${job.slug}</loc>
+                        <loc>https://senza.vercel.app/job/${job.slug}</loc>
                         <lastmod>${new Date(job.updated_at).toISOString()}</lastmod>
                         <changefreq>daily</changefreq>
                         <priority>1.0</priority>
