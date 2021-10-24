@@ -603,5 +603,6 @@ export async function getStaticProps(context) {
             jobLevels,
             contractTypes
         },
+        revalidate: 60
     }
 }

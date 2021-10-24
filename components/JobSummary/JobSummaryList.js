@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import styled from "styled-components";
-import tw from "twin.macro";
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 
