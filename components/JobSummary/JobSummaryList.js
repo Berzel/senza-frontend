@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
+import styled from "styled-components";
+import tw from "twin.macro";
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 
@@ -19,13 +21,6 @@ const JobSummaryList = ({title, jobs}) => {
     }
 
     useEffect(async () => {
-        const lastPage = allPages[allPages.length - 1];
-        
-        if (!!lastPage?.first_page_url) {
-            const firstPage = await axios.get(`${lastPage.first_page_url}&size=${lastPage.per_page}`.replace('http', 'https')).then(r => r.data)
-            setAllPages([firstPage]);
-        }
-
         if (getAllJobs().length > 0) {
             setActiveJob(getAllJobs()[0])
         }
@@ -55,6 +50,12 @@ const JobSummaryList = ({title, jobs}) => {
         getNextPage()
     }
 
+    const renderThumb = () => {
+        return (
+            <div className="scroll_thumb"></div>
+        )
+    }
+
     return (
         <JobListStyles>
             <h2 className="title">{title}</h2>
@@ -73,7 +74,7 @@ const JobSummaryList = ({title, jobs}) => {
                         </button>
                     </li>
                 </ul>
-                <Scrollbars className="scrollbars" style={{height: 'calc(100vh - 3.8rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
+                <Scrollbars renderThumbVertical={renderThumb} autoHide autoHideTimeout={2000} className="scrollbars" style={{height: 'calc(100vh - 3.8rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
                     {
                         activeJob && (
                             <div className="detail">

@@ -6,6 +6,17 @@ const JobListStyles = styled.div`
         ${tw`px-3 font-semibold py-2 bg-gray-50 border-b border-t sticky top-0`}
     }
 
+    .scroll_thumb {
+        ${tw`bg-blue-200 rounded-lg`}
+        width: 3px;
+        cursor: pointer;
+
+        &:hover {
+            width: 5px;
+            ${tw`bg-blue-300`}
+        }
+    }
+
     .jobs {
         ${tw`m-3`}
 
