@@ -75,9 +75,55 @@ const JobSummaryList = ({title, jobs}) => {
                 <div className="detail">
                     {
                         activeJob && (
-                            <div>
-                                {activeJob.title}
-                            </div>
+                            <>
+                                <div>
+                                    <h3 className="detail_title">
+                                        {activeJob.title}
+                                    </h3>
+                                </div>
+                                <div>
+                                    <h4 className="detail_sub_title">Job Description</h4>
+                                    <p className="detail_body">
+                                        {
+                                            activeJob.description.split('\n\n').map((text, key) => (
+                                                <p className="detail_text" key={key}>
+                                                    {text}
+                                                </p>
+                                            ))
+                                        }
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 className="detail_sub_title">Duties &amp; Responsibilities</h4>
+                                    <ul className="detail_body detail_items">
+                                        {
+                                            activeJob.responsibilities.map(r => (
+                                                <li className="detail_item" key={r.id}>
+                                                    <svg className="detail_item_pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                                                    <span>
+                                                        {r.value}
+                                                    </span>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 className="detail_sub_title">Experience &amp; Qualifications</h4>
+                                    <ul className="detail_body detail_items">
+                                        {
+                                            activeJob.qualifications.map(q => (
+                                                <li className="detail_item" key={q.id}>
+                                                    <svg className="detail_item_pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                                                    <span>
+                                                        {q.value}
+                                                    </span>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </>
                         )
                     }
                     {

@@ -22,6 +22,7 @@ const JobListStyles = styled.div`
         .list {
             @media screen and (min-width: 1024px) {
                 width: 25rem;
+                flex-shrink: 0;
             }
         
             > *+* {
@@ -33,9 +34,55 @@ const JobListStyles = styled.div`
             display: none;
 
             @media screen and (min-width: 1024px) {
-                ${tw`block flex-grow bg-gray-50 border rounded-lg p-2 sticky`}
+                ${tw`block flex-grow bg-gray-50 border rounded-lg p-3 sticky overflow-auto`}
                 height: calc(100vh - 3.8rem);
                 top: 3.3rem;
+
+                &::-webkit-scrollbar {
+                    width: 4px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    ${tw`bg-transparent`}
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    ${tw`bg-blue-300 rounded-lg`}
+                }
+            }
+
+            >*+*{
+                ${tw`mt-8`}
+            }
+
+            &_title {
+                ${tw`font-semibold text-2xl`}
+            }
+
+            &_sub_title {
+                ${tw`font-semibold`}
+            }
+
+            &_body {
+                ${tw`mt-2`}
+
+                >*+*{
+                    ${tw`mt-2`}
+                }
+            }
+
+            &_items {
+                >*+*{
+                    ${tw`mt-2`}
+                }
+            }
+
+            &_item {
+                ${tw`flex items-start space-x-2`}
+
+                &_pointer {
+                    ${tw`inline-block w-3 fill-current text-blue-400 mt-1 flex-shrink-0`}
+                }
             }
         }
 
