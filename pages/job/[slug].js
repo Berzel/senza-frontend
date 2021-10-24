@@ -250,7 +250,7 @@ const Single = ({job}) => {
 export default Single
 
 export async function getStaticPaths() {
-    const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`.replace('http', 'https')).then(r => r.data)
+    const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data)
     const paths = latestJobs?.data?.map((job) => ({
         params: { slug: job.slug },
     }));
@@ -259,7 +259,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const job = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/${params.slug}`.replace('http', 'https')).then(r => r.data)
+    const job = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/${params.slug}`).then(r => r.data)
 
     return {
         props: {
