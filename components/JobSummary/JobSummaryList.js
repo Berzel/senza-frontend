@@ -44,6 +44,12 @@ const JobSummaryList = ({title, jobs}) => {
         getNextPage()
     }, [scrolledTo])
 
+    useEffect(() => {
+        setTimeout(() => {
+            document.getElementById('job.details.container').firstChild.scrollTop = 0
+        }, 0);
+    }, [activeJob])
+
     const fetchNextJobs = e => {
         getNextPage()
     }
@@ -72,7 +78,7 @@ const JobSummaryList = ({title, jobs}) => {
                         </button>
                     </li>
                 </ul>
-                <Scrollbars renderThumbVertical={renderThumb} autoHide autoHideTimeout={2000} className="scrollbars" style={{height: 'calc(100vh - 3.8rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
+                <Scrollbars id="job.details.container" renderThumbVertical={renderThumb} autoHide autoHideTimeout={2000} className="scrollbars" style={{height: 'calc(100vh - 3.8rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
                     {
                         activeJob && (
                             <div className="detail">
@@ -83,15 +89,15 @@ const JobSummaryList = ({title, jobs}) => {
                                 </div>
                                 <div>
                                     <h4 className="detail_sub_title">Job Description</h4>
-                                    <p className="detail_body">
+                                    <div className="detail_body">
                                         {
                                             activeJob.description.split('\n\n').map((text, key) => (
-                                                <p className="detail_text" key={key}>
-                                                    {text.split('\n').map(e => (<p>{e}</p>))}
-                                                </p>
+                                                <div className="detail_text" key={key}>
+                                                    {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                                </div>
                                             ))
                                         }
-                                    </p>
+                                    </div>
                                 </div>
                                 <div>
                                     <h4 className="detail_sub_title">Duties &amp; Responsibilities</h4>
@@ -125,15 +131,15 @@ const JobSummaryList = ({title, jobs}) => {
                                 </div>
                                 <div>
                                     <h4 className="detail_sub_title">How to apply</h4>
-                                    <p className="detail_body">
+                                    <div className="detail_body">
                                         {
                                             activeJob.application_instructions.split('\n\n').map((text, key) => (
-                                                <p className="detail_text" key={key}>
-                                                    {text.split('\n').map(e => (<p>{e}</p>))}
-                                                </p>
+                                                <div className="detail_text" key={key}>
+                                                    {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                                </div>
                                             ))
                                         }
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         )
