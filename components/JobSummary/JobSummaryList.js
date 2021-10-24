@@ -5,9 +5,10 @@ import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 import Link from "next/link";
 
-const JobSummaryList = ({title, jobs, showLoadMore}) => {
+const JobSummaryList = ({title, jobs, isSector}) => {
 
     const [scrolledTo, setScrolledTo] = useState(0);
+    const [showMoreBtn, setShowMoreBtn] = useState(isSector);
     const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
     const getAllJobs = () => allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []);
     const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
@@ -20,6 +21,8 @@ const JobSummaryList = ({title, jobs, showLoadMore}) => {
     }
 
     useEffect(async () => {
+        setShowMoreBtn(false); // we don't want the load more button to show in browser
+
         if (getAllJobs().length > 0) {
             setActiveJob(getAllJobs()[0])
         }
@@ -80,7 +83,7 @@ const JobSummaryList = ({title, jobs, showLoadMore}) => {
                         )
                     }
                     {
-                        showLoadMore && activeJob?.next_page_url && (
+                        showMoreBtn && jobs?.next_page_url && (
                             <li>
                                 <Link href={`/jobs/${activeJob?.sector?.slug}/${jobs.current_page + 1}`}>
                                     <a className="more">

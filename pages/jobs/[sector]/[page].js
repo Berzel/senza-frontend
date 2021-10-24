@@ -31,7 +31,7 @@ const CategoryPage = ({sector}) => {
             <Container>
                 <Main>
                     <MainSearch />
-                    <JobSummaryList title={`${sector.display_name} Jobs`} jobs={sector.latestJobs} showLoadMore={true} />
+                    <JobSummaryList title={`${sector.display_name} Jobs`} jobs={sector.latestJobs} isSector={true} />
                 </Main>
             </Container>
         </>

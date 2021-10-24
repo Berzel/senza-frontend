@@ -31,7 +31,7 @@ const CategoryPage = ({sector}) => {
             <Container>
                 <Main>
                     <MainSearch />
-                    <JobSummaryList title={`${sector.display_name} Jobs`} jobs={sector.latestJobs} showLoadMore={true} />
+                    <JobSummaryList title={`${sector.display_name} Jobs`} jobs={sector.latestJobs} isSector={true} />
                 </Main>
             </Container>
         </>
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const sector = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/${params.sector}`).then(r => r.data)
-    sector.latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/${params.sector}/jobs?size=1`).then(r => r.data)
+    sector.latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/${params.sector}/jobs`).then(r => r.data)
 
     return {
         props: {
