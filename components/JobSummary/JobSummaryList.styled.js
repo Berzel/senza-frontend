@@ -30,25 +30,21 @@ const JobListStyles = styled.div`
             }
         }
 
-        .detail {
+        .scrollbars {
             display: none;
 
             @media screen and (min-width: 1024px) {
                 ${tw`block flex-grow bg-gray-50 border rounded-lg p-3 sticky overflow-auto`}
                 height: calc(100vh - 3.8rem);
                 top: 3.3rem;
+            }
+        }
 
-                &::-webkit-scrollbar {
-                    width: 4px;
-                }
+        .detail {
+            display: none;
 
-                &::-webkit-scrollbar-track {
-                    ${tw`bg-transparent`}
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    ${tw`bg-blue-300 rounded-lg`}
-                }
+            @media screen and (min-width: 1024px) {
+                ${tw`block p-3`}
             }
 
             >*+*{

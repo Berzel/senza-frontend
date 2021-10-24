@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Scrollbars from "react-custom-scrollbars-2";
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 
@@ -72,10 +73,10 @@ const JobSummaryList = ({title, jobs}) => {
                         </button>
                     </li>
                 </ul>
-                <div className="detail">
+                <Scrollbars className="scrollbars" style={{height: 'calc(100vh - 3.8rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
                     {
                         activeJob && (
-                            <>
+                            <div className="detail">
                                 <div>
                                     <h3 className="detail_title">
                                         {activeJob.title}
@@ -123,7 +124,7 @@ const JobSummaryList = ({title, jobs}) => {
                                         }
                                     </ul>
                                 </div>
-                            </>
+                            </div>
                         )
                     }
                     {
@@ -133,7 +134,7 @@ const JobSummaryList = ({title, jobs}) => {
                             </h1>
                         )
                     }
-                </div>
+                </Scrollbars>
             </div>
         </JobListStyles>
     )
