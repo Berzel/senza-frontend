@@ -91,6 +91,10 @@ const JobListStyles = styled.div`
                     ${tw`inline-block w-3 fill-current text-blue-400 mt-1 flex-shrink-0`}
                 }
             }
+
+            &_apply_btn {
+                ${tw`bg-blue-400 text-white p-4 rounded-lg shadow-lg block w-full text-center font-semibold mb-4`}
+            }
         }
 
         .more {

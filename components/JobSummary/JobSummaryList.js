@@ -78,7 +78,7 @@ const JobSummaryList = ({title, jobs}) => {
                         </button>
                     </li>
                 </ul>
-                <Scrollbars id="job.details.container" renderThumbVertical={renderThumb} autoHide autoHideTimeout={2000} className="scrollbars" style={{height: 'calc(100vh - 3.8rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
+                <Scrollbars id="job.details.container" renderThumbVertical={renderThumb} autoHide autoHideTimeout={2000} className="scrollbars" style={{height: 'calc(100vh - 4rem)', flexGrow: '1', position: 'sticky', top: '3.5rem'}} universal>
                     {
                         activeJob && (
                             <div className="detail">
@@ -140,6 +140,22 @@ const JobSummaryList = ({title, jobs}) => {
                                             ))
                                         }
                                     </div>
+                                </div>
+                                <div>
+                                    {
+                                        activeJob.application_link && (
+                                            <a className="detail_apply_btn" href={activeJob.application_link} target="_blank">
+                                                Apply now
+                                            </a>
+                                        )
+                                    }
+                                    {
+                                        (activeJob.application_email && !activeJob.application_link) && (
+                                            <a className="detail_apply_btn" href={`mailto:${activeJob.application_email}`} target="_blank">
+                                                Apply with email
+                                            </a>
+                                        )
+                                    }
                                 </div>
                             </div>
                         )
