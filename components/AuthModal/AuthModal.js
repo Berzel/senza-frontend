@@ -187,7 +187,7 @@ const AuthModal = ({close}) => {
                         {
                             mode === "login" && (
                                 <div className="forgot-password">
-                                    <Link href="#">
+                                    <Link href="#" scroll={false}>
                                         <a>
                                             Forgot password?
                                         </a>

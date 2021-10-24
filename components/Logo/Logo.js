@@ -2,7 +2,7 @@ import LogoStyles from "./Logo.styled"
 import Link from "next/link";
 
 const Logo = () => (
-    <Link href="/">
+    <Link href="/" scroll={false}>
        <a>
             <LogoStyles>
                 <i className="img">

@@ -40,10 +40,10 @@ const Top = styled.div`
         }
 
         .type {
-            ${tw`text-xs text-black bg-blue-200 inline-block rounded px-2 py-1`}
+            ${tw`text-xs text-black bg-blue-200 inline-block rounded-lg px-2 py-1`}
         }
         .title {
-            ${tw`font-semibold mt-1`}
+            ${tw`font-semibold mt-2 text-lg`}
         }
         .range{
             ${tw`text-sm text-gray-800 mt-0.5`}
@@ -108,6 +108,19 @@ const Bottom = styled.div`
 
 const Single = ({job}) => {
     const router = useRouter()
+    const formatter = Intl.NumberFormat('en', { notation: 'compact' });
+    const formatPeriod = period => {
+        const values = {
+            hourly: 'hour',
+            daily: 'day',
+            weekly: 'week',
+            'bi-weekly': 'fortnight',
+            monthly: 'month',
+            yearly: 'year'
+        };
+
+        return values[period];
+    }
 
     return (
         <>
@@ -135,21 +148,21 @@ const Single = ({job}) => {
                         <div className="details">
                             <div className="left">
                                 <div className="pills">
-                                    <p className="type">3 years</p>
-                                    <p className="type">Full-time</p>
+                                    <p className="type">{job.level.display_name}</p>
+                                    <p className="type">{job.contract_type.display_name}</p>
                                 </div>
                                 <h1 className="title">{job.title}</h1>
-                                <p className="range">$5.5K - $7.5K / month</p>
+                                <p className="range">${formatter.format(job.salary.min)} - ${formatter.format(job.salary.max)} / {`${formatPeriod(job.salary.period)}`}</p>
                             </div>
                             <div className="right">
                                 <div className="logo">
-                                    M
+                                    {job.company.name[0].toUpperCase()}
                                 </div>
                             </div>
                         </div>
                         <div className="location">
-                            <p>Harare, Remote</p>
-                            <p className="company-name">Maverik Inc</p>
+                            <p>{job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}</p>
+                            <p className="company-name">{job.company.name}</p>
                         </div>
                     </Top>
                     <Bottom>

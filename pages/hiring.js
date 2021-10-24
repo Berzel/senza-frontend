@@ -40,7 +40,7 @@ const Hiring = () => {
                     <NavBar />
                     <Banner title="We're here to make hiring easier." description={description}/>
                     <NewJobLink>
-                        <Link href="/jobs/new">
+                        <Link href="/jobs/new" scroll={false}>
                             <a className="link">
                                 Post a job now
                             </a>

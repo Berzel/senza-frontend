@@ -27,7 +27,7 @@ const JobSummaryDetails = ({job}) => {
                 </div>
                 <div className="right">
                     <div className="company-logo">
-                        MV
+                    {job.company.name[0].toUpperCase()}
                     </div>
                 </div>
             </div>
