@@ -126,7 +126,13 @@ const JobSummaryList = ({title, jobs}) => {
                                 <div>
                                     <h4 className="detail_sub_title">How to apply</h4>
                                     <p className="detail_body">
-                                        {activeJob.application_instructions}
+                                        {
+                                            activeJob.application_instructions.split('\n\n').map((text, key) => (
+                                                <p className="detail_text" key={key}>
+                                                    {text.split('\n').map(e => (<p>{e}</p>))}
+                                                </p>
+                                            ))
+                                        }
                                     </p>
                                 </div>
                             </div>

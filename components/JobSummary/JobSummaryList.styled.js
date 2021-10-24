@@ -74,7 +74,7 @@ const JobListStyles = styled.div`
                 ${tw`mt-2`}
 
                 >*+*{
-                    ${tw`mt-2`}
+                    ${tw`mt-4`}
                 }
             }
 
