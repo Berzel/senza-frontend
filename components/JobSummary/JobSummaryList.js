@@ -87,7 +87,7 @@ const JobSummaryList = ({title, jobs}) => {
                                         {
                                             activeJob.description.split('\n\n').map((text, key) => (
                                                 <p className="detail_text" key={key}>
-                                                    {text}
+                                                    {text.split('\n').map(e => (<p>{e}</p>))}
                                                 </p>
                                             ))
                                         }
