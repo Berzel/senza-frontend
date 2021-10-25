@@ -1,6 +1,8 @@
 import MainSearchStyles from "./MainSearch.styled"
 
-const MainSearch = () => {
+const MainSearch = ({query, location, setQuery, setLocation}) => {
+
+
     return (
         <MainSearchStyles>
             <h1 className="title">
@@ -21,7 +23,7 @@ const MainSearch = () => {
                             </g>
                         </svg>
                     </i>
-                    <input className="query" type="text" name="q" placeholder="Job title or keyword" />
+                    <input className="query" type="text" name="q" value={query} onChange={e => setQuery(e.target.value)} placeholder="Job title or keyword" />
                 </div>
                 <div className="group location">
                     <i className="icon">
@@ -30,7 +32,7 @@ const MainSearch = () => {
                             <path d="m184.08 64.008c-39.704 0-72 32.304-72 72s32.296 72 72 72 72-32.304 72-72-32.296-72-72-72zm0 128c-30.872 0-56-25.12-56-56s25.128-56 56-56 56 25.12 56 56-25.128 56-56 56z"/>
                         </svg>
                     </i>
-                    <input className="location" type="text" name="location" placeholder="Location" />
+                    <input className="location" type="text" name="location" value={location} onChange={e => setLocation(e.target.value)} placeholder="Location" />
                 </div>
                 <div className="group btn">
                     <button className="btn">Search</button>

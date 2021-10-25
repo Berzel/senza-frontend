@@ -8,13 +8,13 @@ import useUser from "../../lib/useUser";
 import AuthModal from "../AuthModal/AuthModal";
 
 const JobSummaryList = ({title, jobs, isSector}) => {
-
     const { user } = useUser();
     const [scrolledTo, setScrolledTo] = useState(0);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [showMoreBtn, setShowMoreBtn] = useState(isSector);
     const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
-    const [activeJob, setActiveJob] = useState(allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []).length > 0 ? allPages.reduce((allJobs, el) => allJobs.concat(el?.data), [])[0] : null)
+    const getAllJobs = () => allPages.filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), []);
+    const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
 
     const getNextPage = async () => {
         const previousPage = allPages[allPages.length - 1];
@@ -26,10 +26,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     useEffect(async () => {
         setShowMoreBtn(false); // we don't want the load more button to show in browser
 
-        if (allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []).length > 0) {
-            setActiveJob(allPages.reduce((allJobs, el) => allJobs.concat(el?.data), [])[0])
-        }
-
+        // For infinite scrolling
         const scrollListener = () => {
             let ticking = false;
             let lastScrollPos = 0;
@@ -52,6 +49,11 @@ const JobSummaryList = ({title, jobs, isSector}) => {
             document.removeEventListener('scroll', scrollListener)
         }
     }, [])
+
+    useEffect(() => {
+        setAllPages([jobs])
+        setActiveJob([jobs].filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), [])[0])
+    }, [jobs])
 
     useEffect(() => {
         getNextPage()
@@ -79,7 +81,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
             <div className="jobs">
                 <ul className="list">
                     {
-                        allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []).map(job => (
+                        getAllJobs().length > 0 && getAllJobs().map(job => (
                             <li key={job?.id}>
                                 <JobSummary setActiveJob={setActiveJob} job={job} active={activeJob?.id === job?.id} />
                             </li>)
