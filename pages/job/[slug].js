@@ -7,6 +7,7 @@ import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import useUser from '../../lib/useUser';
 
 const Main = styled.div`
     ${tw`min-h-screen bg-blue-50 flex`}
@@ -113,6 +114,8 @@ const Bottom = styled.div`
 
 const Single = ({job}) => {
     const router = useRouter()
+    const { user } = useUser()
+
     const formatter = Intl.NumberFormat('en', { notation: 'compact' });
     const formatPeriod = period => {
         const values = {
@@ -230,20 +233,24 @@ const Single = ({job}) => {
                                 }
                             </ul>
                         </div>
-                        <div>
-                            <h2 className="title">
-                                How to apply
-                            </h2>
-                            <div className="body">
-                                {
-                                    job.application_instructions.split('\n\n').map((text, key) => (
-                                        <div className="detail_text" key={key}>
-                                            {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        </div>
+                        {
+                            user && (
+                                <div>
+                                    <h2 className="title">
+                                        How to apply
+                                    </h2>
+                                    <div className="body">
+                                        {
+                                            job.application_instructions.split('\n\n').map((text, key) => (
+                                                <div className="detail_text" key={key}>
+                                                    {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
                     </Bottom>
                 </Main>
                 <ApplyLink job={job} />
