@@ -18,10 +18,31 @@ const Main = styled.main`
 `;
 
 const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
+    const jobDefaults = {
+        sector_id: 37, // Work from home
+        level_id: 4, // Intermediate
+        contract_type_id: 3, // Full time
+        salary: {
+            negotiable: true,
+            min: 250,
+            max: 2500,
+            currency: 'usd',
+            period: 'monthly'
+        },
+        is_remote: true,
+        country_id: 1, // Zimbabwe
+        city: 'Harare',
+        application_link: 'https://www.'
+    };
+
+    const companyDefaults = {
+        country_id: 1 // Zimbabwe
+    };
+
     const router = useRouter();
     const { user } = useUser();
-    const [job, setJob] = useState({});
-    const [company, setCompany] = useState({});
+    const [job, setJob] = useState(jobDefaults);
+    const [company, setCompany] = useState(companyDefaults);
     const [skills, setSkills] = useState(['', '', '']);
     const [userCompanies, setUserCompanies] = useState([]);
     const [showAuthModal, setShowAuthModal] = useState(false);
@@ -145,8 +166,9 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                 New Job Listing
                             </h1>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui quo ad nostrum culpa, 
-                                aperiam numquam animi enim, dolores, neque veritatis eius deleniti voluptas alias reiciendis ab dignissimos unde velit rem.
+                                In order to create a new job posting you must first add or select the company details that you are creating the job offer for.
+                                Job listings will expire after 30 days on our website and after that applications will be closed. 
+                                Fields marked with an asterisk (<span className="input_required">*</span>) are required.
                             </p>
                         </div>
                         <div className="form-container">
@@ -174,7 +196,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         <div className="row">
                                             <div className="group">
                                                 <label htmlFor="name" className="label">
-                                                    Company name
+                                                    Company name <span className="input_required">*</span>
                                                 </label>
                                                 <input 
                                                     className="input" 
@@ -187,7 +209,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="country_id" className="label">
-                                                    Company country
+                                                    Company country <span className="input_required">*</span>
                                                 </label>
                                                 <select 
                                                     className="input" 
@@ -205,7 +227,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </div>
                                         <div className="group">
                                             <label htmlFor="about" className="label">
-                                                About your company
+                                                About your company <span className="input_required">*</span>
                                             </label>
                                             <textarea 
                                                 rows="5" 
@@ -281,7 +303,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         <div className="row">
                                             <div className="group">
                                                 <label htmlFor="title" className="label">
-                                                    Job title / role
+                                                    Job title / role <span className="input_required">*</span>
                                                 </label>
                                                 <input 
                                                     className="input" 
@@ -294,7 +316,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="sector_id" className="label">
-                                                    Industry sector
+                                                    Industry sector <span className="input_required">*</span>
                                                 </label>
                                                 <select 
                                                     className="input" 
@@ -313,7 +335,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         <div className="row">
                                             <div className="group">
                                                 <label htmlFor="level_id" className="label">
-                                                    Job level
+                                                    Job level <span className="input_required">*</span>
                                                 </label>
                                                 <select 
                                                     className="input" 
@@ -330,7 +352,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="contract_type_id" className="label">
-                                                    Contract type
+                                                    Contract type <span className="input_required">*</span>
                                                 </label>
                                                 <select 
                                                     className="input" 
@@ -348,7 +370,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </div>
                                         <div className="group">
                                             <label htmlFor="description" className="label">
-                                                Job description
+                                                Job description <span className="input_required">*</span>
                                             </label>
                                             <textarea 
                                                 rows="8" 
@@ -480,7 +502,10 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                         </div>
                                         <div className="sub-section">
-                                            <h3 className="small-title">Responsibilities</h3>
+                                            <div className="sub-section_heading">
+                                                <h3 className="sub-section_heading_title">Responsibilities</h3>
+                                                <p className="sub-section_heading_text">A minimum of 3 responsibilities</p>
+                                            </div>
                                             {
                                                 responsibilities && responsibilities.map((res, key) => (
                                                     <div className="group list" key={key}>
@@ -505,7 +530,10 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                         </div>
                                         <div className="sub-section">
-                                            <h3 className="small-title">Skills &amp; Qualifications</h3>
+                                            <div className="sub-section_heading">
+                                                <h3 className="sub-section_heading_title">Experience &amp; Qualifications</h3>
+                                                <p className="sub-section_heading_text">A minimum of 3 Qualifications</p>
+                                            </div>
                                             {
                                                 skills && skills.map((skill, key) =>(
                                                     <div className="group list" key={key}>
@@ -530,7 +558,10 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                         </div>
                                         <div className="sub-section">
-                                            <h3 className="small-title">How to apply</h3>
+                                            <div className="sub-section_heading">
+                                                <h3 className="sub-section_heading_title">How to apply</h3>
+                                                <p className="sub-section_heading_text">One of application email / link is required</p>
+                                            </div>
                                             <div className="group">
                                                 <label htmlFor="application_instructions" className="label">
                                                     Application instructions

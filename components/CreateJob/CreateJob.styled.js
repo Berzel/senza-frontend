@@ -2,6 +2,10 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const CreateJobStyles = styled.div`
+.input_required {
+    ${tw`text-red-500`}
+}
+
 .top {
     ${tw`pt-8 px-3`}
 
@@ -81,7 +85,11 @@ const CreateJobStyles = styled.div`
     }
 
     .company_list {
-        ${tw`flex flex-wrap -mt-3`}
+        ${tw`flex flex-wrap mt-1`}
+
+        @media screen and (min-width: 1024px) {
+            ${tw`-mt-3`}
+        }
 
         &_item {
             ${tw`rounded-full text-blue-900 border-2 border-blue-100 py-1 px-3 bg-blue-100 mr-2 mt-3 cursor-pointer`}
@@ -93,6 +101,18 @@ const CreateJobStyles = styled.div`
     }
 
     .sub-section {
+        &_heading {
+            ${tw`ml-0.5 border-b pb-2`}
+
+            &_title {
+                ${tw`font-semibold mb-1`}
+            }
+
+            &_text {
+                ${tw`text-sm`}
+            }
+        }
+
         >*+*{
             ${tw`mt-3`}
         }
@@ -125,10 +145,6 @@ const CreateJobStyles = styled.div`
         .submit {
             ${tw`bg-blue-400 border-blue-400 text-white font-semibold shadow-lg cursor-pointer`}
         }
-    }
-
-    .small-title {
-        ${tw`font-semibold ml-0.5 border-b pb-2`}
     }
 
     .check-group {
