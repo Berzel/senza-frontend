@@ -149,7 +149,7 @@ const AuthModal = ({close}) => {
                 <div className="section">
                     {
                         mode === "login" && (
-                            <div className="group">
+                            <div className="form_group">
                                 <label htmlFor="username" className="label">Email / Phone</label>
                                 <input type={username === 'phone' ? 'text' : 'email'} className={`input ${validationErrors?.username ? 'has-error' : ''}`} name={username} value={usernameValue} onChange={onUsernameChange} id="username" placeholder="you@email.com" required/>
                                 { validationErrors?.username && <span className="error-msg">{validationErrors?.username}</span> }
@@ -159,12 +159,12 @@ const AuthModal = ({close}) => {
                     {
                         mode === "register" && (
                             <>
-                                <div className="group">
+                                <div className="form_group">
                                     <label htmlFor="email" className="label">Email</label>
                                     <input type="email" className={`input ${validationErrors?.email ? 'has-error' : ''}`} name="email" value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
                                     { validationErrors?.email && <span className="error-msg">{validationErrors?.email}</span> }
                                 </div>
-                                <div className="group">
+                                <div className="form_group">
                                     <label htmlFor="phone" className="label">Phone number</label>
                                     <input type="text" className={`input ${validationErrors?.phone ? 'has-error' : ''}`} name="phone" value={phone} onChange={onPhoneChange} id="phone" placeholder="+263783632563" required/>
                                     { validationErrors?.phone && <span className="error-msg">{validationErrors?.phone}</span> }
@@ -172,7 +172,7 @@ const AuthModal = ({close}) => {
                             </>
                         )
                     }
-                    <div className="group">
+                    <div className="form_group">
                         <label htmlFor="password" className="label">Password</label>
                         <input 
                             type="password" 
@@ -197,10 +197,10 @@ const AuthModal = ({close}) => {
                         }
                     </div>
 
-                    <div className="group">
+                    <div className="form_group">
                         <input type="submit" className="input submit" value={mode} />
                     </div>
-                    <div className="group register">
+                    <div className="form_group register">
                         {mode === 'login' ? "Don't" : "Already"} have an account? <br />
                         <button className="register-btn" onClick={e => {e.preventDefault(); toggleMode()}}>
                             {mode === "login" ? "Register" : "Login"} now.

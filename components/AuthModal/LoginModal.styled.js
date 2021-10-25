@@ -40,11 +40,9 @@ const LoginModalStyles = styled.div`
             }
         }
 
-        .group {
+        &_group {
             ${tw`px-3`}
-            @media screen and (min-width: 1024px) {
-                ${tw`px-0`}
-            }
+
             .label {
                 ${tw`text-sm ml-1 mb-1 block`}
             }

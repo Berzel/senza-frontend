@@ -4,10 +4,14 @@ import Scrollbars from "react-custom-scrollbars-2";
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 import Link from "next/link";
+import useUser from "../../lib/useUser";
+import AuthModal from "../AuthModal/AuthModal";
 
 const JobSummaryList = ({title, jobs, isSector}) => {
 
+    const { user } = useUser();
     const [scrolledTo, setScrolledTo] = useState(0);
+    const [showAuthModal, setShowAuthModal] = useState(false);
     const [showMoreBtn, setShowMoreBtn] = useState(isSector);
     const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
     const getAllJobs = () => allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []);
@@ -145,30 +149,41 @@ const JobSummaryList = ({title, jobs, isSector}) => {
                                         }
                                     </ul>
                                 </div>
-                                <div>
-                                    <h4 className="detail_sub_title">How to apply</h4>
-                                    <div className="detail_body">
-                                        {
-                                            activeJob.application_instructions.split('\n\n').map((text, key) => (
-                                                <div className="detail_text" key={key}>
-                                                    {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                </div>
+                                {
+                                    user && (
+                                        <div>
+                                            <h4 className="detail_sub_title">How to apply</h4>
+                                            <div className="detail_body">
+                                                {
+                                                    activeJob.application_instructions.split('\n\n').map((text, key) => (
+                                                        <div className="detail_text" key={key}>
+                                                            {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                }
                                 <div>
                                     {
-                                        activeJob.application_link && (
+                                        user && activeJob.application_link && (
                                             <a className="detail_apply_btn" href={activeJob.application_link} target="_blank">
                                                 Apply now
                                             </a>
                                         )
                                     }
                                     {
-                                        (activeJob.application_email && !activeJob.application_link) && (
+                                        user && activeJob.application_email && !activeJob.application_link && (
                                             <a className="detail_apply_btn" href={`mailto:${activeJob.application_email}`} target="_blank">
                                                 Apply with email
+                                            </a>
+                                        )
+                                    }
+                                    {
+                                        !user && (
+                                            <a className="detail_apply_btn" href="#" onClick={e => {e.preventDefault(); setShowAuthModal(true)}}>
+                                                Login to apply
                                             </a>
                                         )
                                     }
@@ -185,6 +200,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
                     }
                 </Scrollbars>
             </div>
+            { showAuthModal && (<AuthModal close={() => setShowAuthModal(false)} />) }
         </JobListStyles>
     )
 }
