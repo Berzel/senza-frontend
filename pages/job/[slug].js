@@ -179,7 +179,13 @@ const Single = ({job}) => {
                                 Job Description
                             </h2>
                             <div className="body">
-                                {job.description}
+                                {
+                                    job.description.split('\n\n').map((text, key) => (
+                                        <div className="detail_text" key={key}>
+                                            {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                         <div>
@@ -229,7 +235,13 @@ const Single = ({job}) => {
                                 How to apply
                             </h2>
                             <div className="body">
-                                {job.application_instructions}
+                                {
+                                    job.application_instructions.split('\n\n').map((text, key) => (
+                                        <div className="detail_text" key={key}>
+                                            {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </Bottom>
