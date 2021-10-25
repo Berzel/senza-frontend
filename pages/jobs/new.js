@@ -432,7 +432,10 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </div>
 
                                         <div>
-                                            <h3 className="small-title">Salary details</h3>
+                                            <div className="sub-section_heading">
+                                                <h3 className="sub-section_heading_title">Salary details</h3>
+                                                <p className="sub-section_heading_text">Please provide a salary range for this role.</p>
+                                            </div>
                                             <div className="check-group">
                                                 <input 
                                                     type="checkbox" 
@@ -507,7 +510,10 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         </div>
 
                                         <div>
-                                            <h3 className="small-title">Residential preference</h3>
+                                            <div className="sub-section_heading">
+                                                <h3 className="sub-section_heading_title">Residential preference</h3>
+                                                <p className="sub-section_heading_text">Remote workers can work from anywhere.</p>
+                                            </div>
                                             <div className="check-group">
                                                 <input 
                                                     type="checkbox" 
