@@ -1,14 +1,39 @@
+import { useRouter } from "next/router"
+import { useState } from "react"
 import MainSearchStyles from "./MainSearch.styled"
 
 const MainSearch = ({query, location, setQuery, setLocation}) => {
+    const router = useRouter()
+    const [selfQuery, setSelfQuery] = useState(query ?? '')
+    const [selfLocation, setSelfLocation] = useState(location ?? '')
 
+    const handleQueryChange = e => {
+        if (!!setQuery) {
+            setQuery(e.target.value)
+        }
+
+        setSelfQuery(e.target.value)
+    }
+
+    const handleLocationChange = e => {
+        if (!!setLocation) {
+           setLocation(e.target.value)
+        }
+
+        setSelfLocation(e.target.value)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        router.push(`/search?q=${selfQuery}&location=${selfLocation}`)
+    }
 
     return (
         <MainSearchStyles>
             <h1 className="title">
                 Find jobs
             </h1>
-            <form className="form" action="/search">
+            <form id="search-form" className="form" action="/search" onSubmit={handleSubmit}>
                 <div className="group query">
                     <i className="icon">
                         <svg enableBackground="new 0 0 512 512" version="1.1" viewBox="0 0 512 512">
@@ -23,7 +48,7 @@ const MainSearch = ({query, location, setQuery, setLocation}) => {
                             </g>
                         </svg>
                     </i>
-                    <input className="query" type="text" name="q" value={query} onChange={e => setQuery(e.target.value)} placeholder="Job title or keyword" />
+                    <input className="query" type="text" name="q" value={query} onChange={handleQueryChange} placeholder="Job title or keyword" />
                 </div>
                 <div className="group location">
                     <i className="icon">
@@ -32,14 +57,14 @@ const MainSearch = ({query, location, setQuery, setLocation}) => {
                             <path d="m184.08 64.008c-39.704 0-72 32.304-72 72s32.296 72 72 72 72-32.304 72-72-32.296-72-72-72zm0 128c-30.872 0-56-25.12-56-56s25.128-56 56-56 56 25.12 56 56-25.128 56-56 56z"/>
                         </svg>
                     </i>
-                    <input className="location" type="text" name="location" value={location} onChange={e => setLocation(e.target.value)} placeholder="Location" />
+                    <input className="location" type="text" name="location" value={location} onChange={handleLocationChange} placeholder="Location" />
                 </div>
                 <div className="group btn">
                     <button className="btn">Search</button>
                 </div>
             </form>
             <div>
-                <button className="filters">
+                <button form="search-form" className="filters">
                     Search
                 </button>
             </div>

@@ -19,14 +19,25 @@ const Main = styled.main`
 const SearchPage = () => {
     const router = useRouter()
     const [jobs, setJobs] = useState();
+    const [timer, setTimer] = useState(null);
     const [query, setQuery] = useState(router?.query?.q ?? '')
     const [location, setLocation] = useState(router?.query?.location ?? '')
 
     useEffect(async () => {
-        if (query.length > 3 || query.length == 0) {
-            const jobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query}&location=${location}`).then(r => r.data)
-            setJobs(jobs)
+        if (timer) clearTimeout(timer)
+
+        if (query.length > 3) {
+            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query}&location=${location}`).then(r => r.data))}, 1000))
         }
+
+        if (query.length <= 3) {
+            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data))}, 1000))
+        }
+
+        router.replace({
+            pathname: '/search',
+            query: { q: query, location },
+        })
     }, [query, location])
 
     return (
