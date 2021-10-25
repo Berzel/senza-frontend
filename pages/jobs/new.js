@@ -19,9 +19,9 @@ const Main = styled.main`
 
 const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const jobDefaults = {
-        // sector_id: 37, // Work from home
-        // level_id: 4, // Intermediate
-        // contract_type_id: 3, // Full time
+        sector_id: 37, // Work from home
+        level_id: 4, // Intermediate
+        contract_type_id: 3, // Full time
         salary: {
             negotiable: true,
             min: 250,
@@ -29,10 +29,11 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             currency: 'usd',
             period: 'monthly'
         },
+        responsibilities: ['', '', ''],
+        qualifications: ['', '', ''],
         is_remote: true,
         country_id: 1, // Zimbabwe
         city: 'Harare',
-        application_link: 'https://www.'
     };
 
     const companyDefaults = {
@@ -42,12 +43,12 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const router = useRouter();
     const { user } = useUser();
     const [job, setJob] = useState(jobDefaults);
-    const [company, setCompany] = useState(companyDefaults);
-    const [skills, setSkills] = useState(['', '', '']);
     const [userCompanies, setUserCompanies] = useState([]);
+    const [company, setCompany] = useState(companyDefaults);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
-    const [responsibilities, setResponsibilities] = useState(['', '', '']);
+    const [skills, setSkills] = useState(jobDefaults.qualifications);
+    const [responsibilities, setResponsibilities] = useState(jobDefaults.responsibilities);
 
     useEffect(async () => {
         if (user) {
