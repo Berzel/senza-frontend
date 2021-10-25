@@ -19,9 +19,9 @@ const Main = styled.main`
 
 const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const jobDefaults = {
-        sector_id: 37, // Work from home
-        level_id: 4, // Intermediate
-        contract_type_id: 3, // Full time
+        // sector_id: 37, // Work from home
+        // level_id: 4, // Intermediate
+        // contract_type_id: 3, // Full time
         salary: {
             negotiable: true,
             min: 250,
@@ -46,6 +46,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const [skills, setSkills] = useState(['', '', '']);
     const [userCompanies, setUserCompanies] = useState([]);
     const [showAuthModal, setShowAuthModal] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({});
     const [responsibilities, setResponsibilities] = useState(['', '', '']);
 
     useEffect(async () => {
@@ -129,14 +130,23 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                 'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
             }};
 
+            setValidationErrors({});
             let company_id = company?.id;
 
             try {
                 company_id = company_id ?? await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
-            } catch (error) {
+            } catch (err) {
                 if (err.response && err.response.status === 422) {
-                    // A validation error happened when creating the company
+                    let newValidationErrors = {...validationErrors};
+
+                    Object.keys(err.response.data.errors).forEach(key => {
+                        newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                    })
+
+                    setValidationErrors(newValidationErrors)
                 }
+
+                return;
             }
 
             try {
@@ -144,10 +154,18 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                 // Clean up,
                 // Show notifications
                 // Redirect
-            } catch (error) {
+            } catch (err) {
                 if (err.response && err.response.status === 422) {
-                    // A validation error happened when creating the job
+                    let newValidationErrors = {...validationErrors};
+
+                    Object.keys(err.response.data.errors).forEach(key => {
+                        newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                    })
+
+                    setValidationErrors(newValidationErrors)
                 }
+
+                return;
             }
         }
     }
@@ -224,6 +242,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={company?.name ?? ''} 
                                                     onChange={e => updateCompany({...company, name: e.target.value})} 
                                                     placeholder="Company name" disabled={!!company?.id} />
+                                                { validationErrors?.name && <span className="error-msg">{validationErrors?.name}</span> }
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="country_id" className="label">
@@ -241,6 +260,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             ))
                                                         }
                                                 </select>
+                                                { validationErrors?.country_id && <span className="error-msg">{validationErrors?.country_id.replace('country id', 'country')}</span> }
                                             </div>
                                         </div>
                                         <div className="group">
@@ -256,6 +276,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 onChange={e => updateCompany({...company, about: e.target.value})} 
                                                 placeholder="What is your company all about?" disabled={!!company?.id}>
                                             </textarea>
+                                            { validationErrors?.about && <span className="error-msg">{validationErrors?.about}</span> }
                                         </div>
                                         <div className="row">
                                             <div className="group">
@@ -270,6 +291,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={company?.website ?? ''}
                                                     onChange={e => updateCompany({...company, website: e.target.value})}
                                                     placeholder="www.company.com" disabled={!!company?.id} />
+                                                { validationErrors?.website && <span className="error-msg">{validationErrors?.website}</span> }
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="contact_email" className="label">
@@ -283,6 +305,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={company?.contact_email ?? ''}
                                                     onChange={e => updateCompany({...company, contact_email: e.target.value})} 
                                                     placeholder="someone@company.com" disabled={!!company?.id} />
+                                                { validationErrors?.contact_email && <span className="error-msg">{validationErrors?.contact_email}</span> }
                                             </div>
                                         </div>
                                         <div className="row">
@@ -298,6 +321,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={company?.twitter_handle ?? ''}
                                                     onChange={e => updateCompany({...company, twitter_handle: e.target.value})} 
                                                     placeholder="@CompanyName" disabled={!!company?.id} />
+                                                { validationErrors?.twitter_handle && <span className="error-msg">{validationErrors?.twitter_handle}</span> }
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="facebook_page" className="label">
@@ -311,6 +335,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={company?.facebook_page ?? ''}
                                                     onChange={e => updateCompany({...company, facebook_page: e.target.value})} 
                                                     placeholder="Company facebook page" disabled={!!company?.id}/>
+                                                { validationErrors?.facebook_page && <span className="error-msg">{validationErrors?.facebook_page}</span> }
                                             </div>
                                         </div>
                                     </div>
@@ -331,6 +356,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={job?.title ?? ''} 
                                                     onChange={e => updateJob({...job, title: e.target.value})} 
                                                     placeholder="Web Developer, etc"/>
+                                                { validationErrors?.title && <span className="error-msg">{validationErrors?.title}</span> }
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="sector_id" className="label">
@@ -348,6 +374,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             ))
                                                         }
                                                 </select>
+                                                { validationErrors?.sector_id && <span className="error-msg">{validationErrors?.sector_id.replace('sector id', 'sector')}</span> }
                                             </div>
                                         </div>
                                         <div className="row">
@@ -367,6 +394,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             ))
                                                         }
                                                 </select>
+                                                { validationErrors?.level_id && <span className="error-msg">{validationErrors?.level_id.replace('level id', 'level')}</span> }
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="contract_type_id" className="label">
@@ -384,6 +412,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                             ))
                                                         }
                                                 </select>
+                                                { validationErrors?.contract_type_id && <span className="error-msg">{validationErrors?.contract_type_id.replace('contract type id', 'job type')}</span> }
                                             </div>
                                         </div>
                                         <div className="group">
@@ -398,6 +427,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 value={job?.description ?? ''}
                                                 onChange={e => updateJob({...job, description: e.target.value})} 
                                                 placeholder="Job description goes here"/>
+                                            { validationErrors?.description && <span className="error-msg">{validationErrors?.description}</span> }
                                         </div>
 
                                         <div>
@@ -526,18 +556,21 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             {
                                                 responsibilities && responsibilities.map((res, key) => (
-                                                    <div className="group list" key={key}>
-                                                        <input 
-                                                            className="input" 
-                                                            value={res} 
-                                                            onChange={e => updateResponsibility(key, e.target.value)} 
-                                                            type="text" 
-                                                            id={`responsibilities[${key}]`} 
-                                                            name={`responsibilities[${key}]`} 
-                                                            placeholder={`Responsibility #${key+1}`}/>
-                                                        {
-                                                            responsibilities.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
-                                                        }
+                                                    <div key={key}>
+                                                        <div className="group list">
+                                                            <input 
+                                                                className="input" 
+                                                                value={res} 
+                                                                onChange={e => updateResponsibility(key, e.target.value)} 
+                                                                type="text" 
+                                                                id={`responsibilities[${key}]`} 
+                                                                name={`responsibilities[${key}]`} 
+                                                                placeholder={`Responsibility #${key+1}`}/>
+                                                            {
+                                                                responsibilities.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
+                                                            }
+                                                        </div>
+                                                        { validationErrors[`responsibilities.${key}`] && <span className="error-msg">{validationErrors[`responsibilities.${key}`].replace(`responsibilities.${key}`, `responsibility #${key+1}`)}</span> }
                                                     </div>
                                                 ))
                                             }
@@ -554,18 +587,21 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             {
                                                 skills && skills.map((skill, key) =>(
-                                                    <div className="group list" key={key}>
-                                                        <input 
-                                                            className="input" 
-                                                            value={skill} 
-                                                            onChange={e => updateSkill(key, e.target.value)} 
-                                                            type="text" 
-                                                            id={`qualifications[${key}]`} 
-                                                            name={`qualifications[${key}]`} 
-                                                            placeholder={`Qualification #${key+1}`}/>
-                                                        {
-                                                            skills.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
-                                                        }
+                                                    <div  key={key}>
+                                                        <div className="group list">
+                                                            <input 
+                                                                className="input" 
+                                                                value={skill} 
+                                                                onChange={e => updateSkill(key, e.target.value)} 
+                                                                type="text" 
+                                                                id={`qualifications[${key}]`} 
+                                                                name={`qualifications[${key}]`} 
+                                                                placeholder={`Qualification #${key+1}`}/>
+                                                            {
+                                                                skills.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
+                                                            }
+                                                        </div>
+                                                        { validationErrors[`qualifications.${key}`] && <span className="error-msg">{validationErrors[`qualifications.${key}`].replace(`qualifications.${key}`, `qualification #${key+1}`)}</span> }
                                                     </div>
                                                 ))
                                             }
@@ -592,6 +628,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={job?.application_instructions ?? ''}
                                                     onChange={e => updateJob({...job, application_instructions: e.target.value})} 
                                                     placeholder="How should candidates apply?"/>
+                                                { validationErrors?.application_instructions && <span className="error-msg">{validationErrors?.application_instructions}</span> }
                                             </div>
                                             <div className="row">
                                             <div className="group">
@@ -606,6 +643,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={job?.application_email ?? ''}
                                                     onChange={e => updateJob({...job, application_email: e.target.value})} 
                                                     placeholder="Application email"/>
+                                                { validationErrors?.application_email && <span className="error-msg">{validationErrors?.application_email}</span> }
                                             </div>
                                             <div className="group">
                                                 <label htmlFor="application_link" className="label">
@@ -619,6 +657,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     value={job?.application_link ?? ''}
                                                     onChange={e => updateJob({...job, application_link: e.target.value})} 
                                                     placeholder="Application link"/>
+                                                { validationErrors?.application_link && <span className="error-msg">{validationErrors?.application_link}</span> }
                                             </div>
                                             </div>
                                         </div>

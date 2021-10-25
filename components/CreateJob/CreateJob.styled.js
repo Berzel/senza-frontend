@@ -6,6 +6,10 @@ const CreateJobStyles = styled.div`
     ${tw`text-red-500`}
 }
 
+.error-msg {
+    ${tw`text-red-500 text-sm inline-block ml-1`}
+}
+
 .top {
     ${tw`pt-8 px-3`}
 
@@ -119,7 +123,7 @@ const CreateJobStyles = styled.div`
     }
 
     .row {
-        ${tw`space-x-3 flex items-center`}
+        ${tw`space-x-3 flex items-start`}
 
         >*{
             flex-grow: 1;
