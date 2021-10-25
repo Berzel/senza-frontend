@@ -14,8 +14,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [showMoreBtn, setShowMoreBtn] = useState(isSector);
     const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
-    const getAllJobs = () => allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []);
-    const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
+    const [activeJob, setActiveJob] = useState(allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []).length > 0 ? allPages.reduce((allJobs, el) => allJobs.concat(el?.data), [])[0] : null)
 
     const getNextPage = async () => {
         const previousPage = allPages[allPages.length - 1];
@@ -27,8 +26,8 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     useEffect(async () => {
         setShowMoreBtn(false); // we don't want the load more button to show in browser
 
-        if (getAllJobs().length > 0) {
-            setActiveJob(getAllJobs()[0])
+        if (allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []).length > 0) {
+            setActiveJob(allPages.reduce((allJobs, el) => allJobs.concat(el?.data), [])[0])
         }
 
         const scrollListener = () => {
@@ -80,7 +79,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
             <div className="jobs">
                 <ul className="list">
                     {
-                        getAllJobs().map(job => (
+                        allPages.reduce((allJobs, el) => allJobs.concat(el?.data), []).map(job => (
                             <li key={job?.id}>
                                 <JobSummary setActiveJob={setActiveJob} job={job} active={activeJob?.id === job?.id} />
                             </li>)
