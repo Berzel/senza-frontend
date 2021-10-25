@@ -129,8 +129,26 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                 'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
             }};
 
-            let company_id = company?.id ?? await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
-            let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
+            let company_id = company?.id;
+
+            try {
+                company_id = company_id ?? await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
+            } catch (error) {
+                if (err.response && err.response.status === 422) {
+                    // A validation error happened when creating the company
+                }
+            }
+
+            try {
+                let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
+                // Clean up,
+                // Show notifications
+                // Redirect
+            } catch (error) {
+                if (err.response && err.response.status === 422) {
+                    // A validation error happened when creating the job
+                }
+            }
         }
     }
     
