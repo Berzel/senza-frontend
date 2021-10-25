@@ -144,7 +144,7 @@ const AuthModal = ({close}) => {
             <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>
-                    <p className="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis non dolores asperiores.</p>
+                    <p className="body">You must log in first or create an account to continue.</p>
                 </div>
                 <div className="section">
                     {
