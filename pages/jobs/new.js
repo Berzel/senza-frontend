@@ -158,9 +158,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
 
             try {
                 let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
-                // Clean up,
-                // Show notifications
-                // Redirect
+                setJob(jobDefaults)
+                alert(`Job created: ${jobDetails?.data?.title}`)
             } catch (err) {
                 if (err.response && err.response.status === 422) {
                     let newValidationErrors = {...validationErrors};
