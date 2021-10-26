@@ -1,11 +1,15 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import MainSearchStyles from "./MainSearch.styled"
 
 const MainSearch = ({query, location, setQuery, setLocation}) => {
     const router = useRouter()
     const [selfQuery, setSelfQuery] = useState(query ?? '')
     const [selfLocation, setSelfLocation] = useState(location ?? '')
+
+    useEffect(() => {
+        router.prefetch(`/search?q=${query}&location=${location}`)
+    }, [query, location, selfQuery, selfLocation])
 
     const handleQueryChange = e => {
         if (!!setQuery) {

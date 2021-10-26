@@ -1,11 +1,15 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SearchBarStyles from "./SearchBar.styled"
 
 const SearchBar = () => {
     const router = useRouter()
     const [query, setQuery] = useState('')
     const [location, setLocation] = useState('')
+
+    useEffect(() => {
+        router.prefetch(`/search?q=${query}&location=${location}`)
+    }, [query, location])
 
     const handleSubmit = e => {
         e.preventDefault()
