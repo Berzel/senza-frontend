@@ -63,13 +63,15 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     }, [])
 
     /**
-     * If we've a cached version of the list on this page show that instead of the default from props
+     * The cached version should only be used if we're comming from the job details page otherwise use default props
+     * This is to avoid refetching or losing previously fetched data when scrolling
      * 
      * @returns
      */
     useEffect(() => {
+        let previousPage = localStorage.getItem('previousPage')
         const prevPages = localStorage.getItem(`${window.location.href}_all-pages`);
-        setAllPages(JSON.parse(prevPages) ?? [jobs]);
+        setAllPages(previousPage === 'job_details' ? JSON.parse(prevPages) : [jobs]);
     }, [])
 
     /**
