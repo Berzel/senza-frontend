@@ -60,7 +60,9 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     }, [jobs])
 
     useEffect(() => {
-        window.localStorage.setItem(`${window.location.href}_all-pages`, JSON.stringify(allPages))
+        if (window.location.pathname == '/search') {
+            window.localStorage.setItem(`${window.location.href}_all-pages`, JSON.stringify(allPages))
+        }
     }, [allPages])
 
     useEffect(() => {

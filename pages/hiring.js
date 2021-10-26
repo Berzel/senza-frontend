@@ -6,6 +6,7 @@ import Container from "../components/Container/Container";
 import Header from "../components/Header/Header";
 import NavBar from "../components/NavBar/NavBar";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const Main = styled.main`
     & > * {
@@ -26,6 +27,13 @@ const NewJobLink = styled.div`
 `;
 
 const Hiring = () => {
+    useEffect(() => {
+        
+        return () => {
+            localStorage.setItem('previousPage', 'hiring')
+        }
+    })
+    
     const description = "Senza's flexible and scalable solutions make it easier for companies of all sizes to find the best talent in no time while saving costs."
     
     return (

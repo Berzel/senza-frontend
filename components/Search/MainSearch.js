@@ -9,7 +9,7 @@ const MainSearch = ({query, location, setQuery, setLocation}) => {
 
     const handleQueryChange = e => {
         if (!!setQuery) {
-            setQuery(e.target.value)
+            setQuery(e)
         }
 
         setSelfQuery(e.target.value)
@@ -17,7 +17,7 @@ const MainSearch = ({query, location, setQuery, setLocation}) => {
 
     const handleLocationChange = e => {
         if (!!setLocation) {
-           setLocation(e.target.value)
+           setLocation(e)
         }
 
         setSelfLocation(e.target.value)
