@@ -2,7 +2,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const LoginModalStyles = styled.div`
-    ${tw`fixed top-0 bottom-0 right-0 left-0 flex flex-col`}
+    ${tw`fixed top-0 bottom-0 right-0 left-0 flex items-center justify-center flex-col`}
     background-color: rgba(31,41,55,0.95);
 
     .form {
@@ -10,7 +10,7 @@ const LoginModalStyles = styled.div`
 
         @media screen and (min-width: 1024px) {
             max-width: 400px;
-            ${tw`mx-auto mt-16 rounded-t-lg rounded-b-lg bg-transparent shadow-lg`}
+            ${tw`m-auto rounded-t-lg rounded-b-lg bg-transparent shadow-lg`}
         }
 
         .heading {
@@ -32,7 +32,7 @@ const LoginModalStyles = styled.div`
             ${tw`py-8 mt-0  bg-gray-50`}
 
             @media screen and (min-width: 1024px) {
-                ${tw`border-0 mt-0 pt-8 rounded-t-none bg-gray-50 mb-0 pb-8`}
+                ${tw`border-0 mt-0 pt-8 rounded-t-none bg-gray-50 mb-0 pb-8 px-0`}
             }
 
             >*+*{
