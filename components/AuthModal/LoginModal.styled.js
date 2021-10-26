@@ -6,7 +6,7 @@ const LoginModalStyles = styled.div`
     background-color: rgba(31,41,55,0.95);
 
     .form {
-        ${tw`relative mt-auto max-h-screen overflow-y-auto rounded-t-xl`}
+        ${tw`relative mt-auto w-full max-h-screen overflow-y-auto rounded-t-xl`}
 
         @media screen and (min-width: 1024px) {
             max-width: 400px;
