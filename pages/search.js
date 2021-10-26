@@ -28,18 +28,32 @@ const SearchPage = () => {
     const lastPage = prevPages ? prevPages[prevPages.length - 1] : null;
     const [jobs, setJobs] = useState(lastPage && allJobs ? {...lastPage, data: allJobs} : undefined);
 
+    /**
+     * This is just a helper function that fetches the jobs from API
+     * 
+     * @returns
+     */
+    const searchJobs = () => {
+        if (query.length > 3) {
+            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query}&location=${location}`).then(r => r.data))}, 1000))
+        }
+
+        if (query.length <= 3) {
+            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data))}, 1000))
+        }
+    }
+
+    /**
+     * If we are coming from the job details page then we should load existing search results
+     * 
+     * @return
+     */
     useEffect(() => {
         let previousPage = localStorage.getItem('previousPage')
 
         if (!(previousPage === 'job_details')) {
             setJobs(undefined);
-            if (query.length > 3) {
-                setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query}&location=${location}`).then(r => r.data))}, 1000))
-            }
-    
-            if (query.length <= 3) {
-                setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data))}, 1000))
-            }
+            searchJobs()
         }
 
         return () => {
@@ -47,18 +61,15 @@ const SearchPage = () => {
         }
     }, [])
 
+    /**
+     * For real time search on the search page we search everytime input fields change
+     * 
+     * @returns
+     */
     useEffect(() => {
         if (timer) clearTimeout(timer)
 
-        if (search) {
-            if (query.length > 3) {
-                setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query}&location=${location}`).then(r => r.data))}, 1000))
-            }
-    
-            if (query.length <= 3) {
-                setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/latest`).then(r => r.data))}, 1000))
-            }
-        }
+        if (search)  searchJobs()
 
         return () => {
             if (timer) clearTimeout(timer)

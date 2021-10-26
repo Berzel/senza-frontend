@@ -10,7 +10,7 @@ import AuthModal from "../AuthModal/AuthModal";
 const JobSummaryList = ({title, jobs, isSector}) => {
     const { user } = useUser();
     const [allPages, setAllPages] = useState([jobs]);
-    const [scrolledTo, setScrolledTo] = useState(0);
+    const [scrolledDown, setscrolledDown] = useState(0);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [showMoreBtn, setShowMoreBtn] = useState(isSector);
     const getAllJobs = () => allPages.filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), []);
@@ -23,13 +23,21 @@ const JobSummaryList = ({title, jobs, isSector}) => {
         setAllPages([...allPages, nextPage]);
     }
 
-    useEffect(async () => {
-        setShowMoreBtn(false); // we don't want the load more button to show in browser
+    /**
+     * We don't need to show the more button on browser since we'll infinite scroll
+     * 
+     * @returns
+     */
+    useEffect(() => {
+        setShowMoreBtn(false)
+    }, [])
 
-        const prevPages = localStorage.getItem(`${window.location.href}_all-pages`);
-        setAllPages(JSON.parse(prevPages) ?? [jobs]);
-
-        // For infinite scrolling
+    /**
+     * Setting listeners for infinite scroll
+     * 
+     * @returns
+     */
+    useEffect(() => {
         let timer = null;
         let ticking = false;
         let lastScrollPos = 0;
@@ -37,7 +45,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
             if (!ticking) {
                 timer = setTimeout(() => {
                     let currentPos = window.scrollY;
-                    if (currentPos > lastScrollPos) setScrolledTo(currentPos)
+                    if (currentPos > lastScrollPos) setscrolledDown(currentPos)
                     lastScrollPos =  window.scrollY;
                     ticking = false;
                 }, 5000)
@@ -54,21 +62,49 @@ const JobSummaryList = ({title, jobs, isSector}) => {
         }
     }, [])
 
+    /**
+     * If we've a cached version of the list on this page show that instead of the default from props
+     * 
+     * @returns
+     */
+    useEffect(() => {
+        const prevPages = localStorage.getItem(`${window.location.href}_all-pages`);
+        setAllPages(JSON.parse(prevPages) ?? [jobs]);
+    }, [])
+
+    /**
+     * Just to make sure we're up to date with changing props
+     * 
+     * @returns
+     */
     useEffect(() => {
         setAllPages([jobs])
         setActiveJob([jobs].filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), [])[0])
     }, [jobs])
 
+    /**
+     * Whenever the list of job changes we wanna save all the current pages in localstorage
+     * 
+     * @returns
+     */
     useEffect(() => {
-        if (window.location.pathname == '/search') {
-            window.localStorage.setItem(`${window.location.href}_all-pages`, JSON.stringify(allPages))
-        }
+        window.localStorage.setItem(`${window.location.href}_all-pages`, JSON.stringify(allPages))
     }, [allPages])
 
+    /**
+     * Whenever someone scrolls down we want to fetch the next page
+     * 
+     * @returns
+     */
     useEffect(() => {
         getNextPage()
-    }, [scrolledTo])
+    }, [scrolledDown])
 
+    /**
+     * Whenever the active job is changed we wanna scroll the job details container to the top
+     * 
+     * @returns
+     */
     useEffect(() => {
         let timer = null;
 
@@ -85,6 +121,11 @@ const JobSummaryList = ({title, jobs, isSector}) => {
         getNextPage()
     }
 
+    /**
+     * This one is how the custom scroll bar looks
+     * 
+     * @returns 
+     */
     const renderThumb = () => {
         return (
             <div className="scroll_thumb"></div>
