@@ -9,10 +9,10 @@ import AuthModal from "../AuthModal/AuthModal";
 
 const JobSummaryList = ({title, jobs, isSector}) => {
     const { user } = useUser();
+    const [allPages, setAllPages] = useState([jobs]);
     const [scrolledTo, setScrolledTo] = useState(0);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [showMoreBtn, setShowMoreBtn] = useState(isSector);
-    const [allPages, setAllPages] = useState(jobs ? [jobs] : []);
     const getAllJobs = () => allPages.filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), []);
     const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
 
@@ -26,13 +26,16 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     useEffect(async () => {
         setShowMoreBtn(false); // we don't want the load more button to show in browser
 
-        // For infinite scrolling
-        const scrollListener = () => {
-            let ticking = false;
-            let lastScrollPos = 0;
+        const prevPages = localStorage.getItem(`${window.location.href}_all-pages`);
+        setAllPages(JSON.parse(prevPages) ?? [jobs]);
 
+        // For infinite scrolling
+        let timer = null;
+        let ticking = false;
+        let lastScrollPos = 0;
+        const scrollListener = () => {
             if (!ticking) {
-                setTimeout(() => {
+                timer = setTimeout(() => {
                     let currentPos = window.scrollY;
                     if (currentPos > lastScrollPos) setScrolledTo(currentPos)
                     lastScrollPos =  window.scrollY;
@@ -47,6 +50,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
 
         return () => {
             document.removeEventListener('scroll', scrollListener)
+            clearTimeout(timer)
         }
     }, [])
 
@@ -56,13 +60,23 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     }, [jobs])
 
     useEffect(() => {
+        window.localStorage.setItem(`${window.location.href}_all-pages`, JSON.stringify(allPages))
+    }, [allPages])
+
+    useEffect(() => {
         getNextPage()
     }, [scrolledTo])
 
     useEffect(() => {
-        setTimeout(() => {
+        let timer = null;
+
+        timer = setTimeout(() => {
             document.getElementById('job.details.container').firstChild.scrollTop = 0
         }, 0);
+
+        return () => {
+            if (timer) clearTimeout(timer)
+        }
     }, [activeJob])
 
     const fetchNextJobs = e => {
