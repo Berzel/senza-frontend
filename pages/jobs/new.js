@@ -159,6 +159,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             try {
                 let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
                 setJob(jobDefaults)
+                setSkills(jobDefaults.qualifications)
+                setResponsibilities(jobDefaults.responsibilities)
                 alert(`Job created: ${jobDetails?.data?.title}`)
             } catch (err) {
                 if (err.response && err.response.status === 422) {
