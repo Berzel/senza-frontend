@@ -3,14 +3,19 @@ import styled from "styled-components"
 
 const JobSummaryStyles = styled.div`
     ${tw`px-2 py-3 bg-gray-50 border rounded-lg`}
-    ${props => props.active ? tw`shadow border-blue-300` : ''}
+    
+    @media screen and (min-width: 1024px) {
+        ${props => props.active ? tw`shadow border-blue-300` : ''}
+    }
 
     &:hover {
         ${tw`bg-gray-100`}
     }
 
     .link.active {
-        ${tw`bg-gray-100`}
+        @media screen and (min-width: 1024px) {
+            ${tw`bg-gray-100`}
+        }
     }
 
     .link {
