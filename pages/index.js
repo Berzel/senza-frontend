@@ -36,7 +36,7 @@ export default function Home({sectors, latestJobs}) {
       <Header>
         <div className="container">
           <NavBar />
-          <Banner title="Zimbabwe's favourite job board." description="Instantly search over 250,000 live vacancies from all industries across the nation and find the perfect job you desire." />
+          <Banner title="Job hunters, rest and let the jobs find you." description="Instantly search over thousands of live vacancies from all industries across the nation and find the perfect job you desire." />
           <SearchBar />
         </div>
       </Header>
