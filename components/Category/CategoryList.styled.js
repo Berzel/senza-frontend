@@ -2,6 +2,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const CategoryListStyles = styled.div`
+
     :first-child {
         ${tw`py-3`}
         @media screen and (min-width: 1024px) {
