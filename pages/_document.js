@@ -32,7 +32,6 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content="#1f2937" />
           <meta name="google-site-verification" content="RHhlpU0hM9Teo1gKMUS9NdW9eitJnbN7koamuKY3mpo" />
-
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
