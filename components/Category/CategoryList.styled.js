@@ -26,6 +26,20 @@ const CategoryListStyles = styled.div`
             ${tw`mt-2`}
         }
     }
+
+    .columns {
+        ${tw`flex`}
+        height: 15rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .column {
+        &_item {
+            white-space: nowrap;
+            position: relative;
+        }
+    }
 `;
 
 export default CategoryListStyles
