@@ -20,10 +20,10 @@ const CategoryListStyles = styled.div`
 
     .lists {
         cursor: grab;
-        overflow: auto;
+        ${tw`py-10 -my-10 overflow-auto`}
 
         @media screen and (min-width: 1024px) {
-            overflow: hidden;
+            ${tw`overflow-hidden`}
         }
 
         & > * + * {
