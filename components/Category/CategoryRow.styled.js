@@ -7,7 +7,7 @@ const CategoryRowStyles = styled.div`
         display: flex;
 
         & > * + * {
-            ${tw`ml-2`}
+            ${tw`ml-3`}
         }
 
         >*:last-child{

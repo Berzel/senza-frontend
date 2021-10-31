@@ -20,10 +20,14 @@ const CategoryListStyles = styled.div`
 
     .lists {
         cursor: grab;
-        overflow: hidden;
+        overflow: auto;
+
+        @media screen and (min-width: 1024px) {
+            overflow: hidden;
+        }
 
         & > * + * {
-            ${tw`mt-2`}
+            ${tw`mt-3`}
         }
     }
 
