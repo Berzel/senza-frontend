@@ -1,5 +1,6 @@
 import CategoryRow from "./CategoryRow";
 import CategoryListStyles from "./CategoryList.styled";
+import { useEffect, useState } from "react";
 
 const CategoryList = ({categories}) => {
     let rows = [];
@@ -31,6 +32,46 @@ const CategoryList = ({categories}) => {
         }
 
         rows[rowToAdd] = rows[rowToAdd] ? rows[rowToAdd].concat([cat]) : [cat];
+    })
+
+    useEffect(() => {
+        const el = document.getElementById('listsContainer')
+
+        let pos = {
+            x: 0,
+            left: 0
+        };
+
+        const onMouseMove = e => {
+            let dx = e.clientX - pos.x;
+            el.scrollLeft = pos.left - dx
+
+            pos = {
+                x: e.clientX,
+                left: el.scrollLeft
+            }
+        }
+    
+        const onMouseDown = e => {
+            pos = {
+                x: e.clientX,
+                left: el.scrollLeft
+            }
+
+            el.style.cursor = 'grabbing';
+            el.style.userSelect = 'none';
+            el.addEventListener('mousemove', onMouseMove)
+        }
+    
+        const onMouseUp = e => {
+            console.log("Mouse released")
+            el.style.cursor = 'grab';
+            el.style.userSelect = 'auto';
+            el.removeEventListener('mousemove', onMouseMove)
+        }
+
+        el.addEventListener('mousedown', onMouseDown)
+        el.addEventListener('mouseup', onMouseUp)
     })
 
     return (

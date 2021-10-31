@@ -9,6 +9,10 @@ const CategoryRowStyles = styled.div`
         & > * + * {
             ${tw`ml-2`}
         }
+
+        >*:last-child{
+            ${tw`pr-8`}
+        }
     }
 `;
 
