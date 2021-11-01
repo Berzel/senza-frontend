@@ -41,9 +41,13 @@ const CategoryListStyles = styled.div`
         @media screen and (min-width: 1024px) {
             top: calc(50% - 0.95rem);
             ${tw`inline-block absolute w-12 h-12 bg-gray-800 shadow-lg rounded-full text-white p-2 flex items-center justify-center`}
+        }
 
-            > svg {
-                ${tw`fill-current w-3 h-3 text-white`}
+        > svg {
+            ${tw`hidden`}
+
+            @media screen and (min-width: 1024px) {
+                ${tw`fill-current w-3 h-3 text-white inline`}
             }
         }
     }
