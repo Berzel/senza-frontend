@@ -64,7 +64,6 @@ const CategoryList = ({categories}) => {
         }
     
         const onMouseUp = e => {
-            console.log("Mouse released")
             el.style.cursor = 'grab';
             el.style.userSelect = 'auto';
             el.removeEventListener('mousemove', onMouseMove)
@@ -72,7 +71,7 @@ const CategoryList = ({categories}) => {
 
         el.addEventListener('mousedown', onMouseDown)
         el.addEventListener('mouseup', onMouseUp)
-    })
+    }, [])
 
     return (
         <CategoryListStyles>
