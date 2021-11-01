@@ -63,14 +63,14 @@ const CategoryList = ({categories}) => {
             el.addEventListener('mousemove', onMouseMove)
         }
     
-        const onMouseUp = e => {
+        const onMouseUp = () => {
             el.style.cursor = 'grab';
             el.style.userSelect = 'auto';
             el.removeEventListener('mousemove', onMouseMove)
         }
 
         el.addEventListener('mousedown', onMouseDown)
-        el.addEventListener('mouseup', onMouseUp)
+        document.addEventListener('mouseup', onMouseUp)
     }, [])
 
     return (
