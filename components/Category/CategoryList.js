@@ -3,6 +3,9 @@ import CategoryListStyles from "./CategoryList.styled";
 import { useEffect, useState } from "react";
 
 const CategoryList = ({categories}) => {
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const [scrolledToEnd, setScrolledToEnd] = useState(false);
+
     let rows = [];
     let minColWidth = Number.MAX_SAFE_INTEGER;
     let maxRowLength = Number.MIN_SAFE_INTEGER;
@@ -50,6 +53,9 @@ const CategoryList = ({categories}) => {
                 x: e.clientX,
                 left: el.scrollLeft
             }
+
+            setScrollLeft(el.scrollLeft)
+            setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
         }
     
         const onMouseDown = e => {
@@ -57,6 +63,9 @@ const CategoryList = ({categories}) => {
                 x: e.clientX,
                 left: el.scrollLeft
             }
+
+            setScrollLeft(el.scrollLeft)
+            setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
 
             el.style.cursor = 'grabbing';
             el.style.userSelect = 'none';
@@ -73,11 +82,22 @@ const CategoryList = ({categories}) => {
         document.addEventListener('mouseup', onMouseUp)
     }, [])
 
+    const onPrevClick = e => {
+        const el = document.getElementById('listsContainer')
+        el.scrollLeft -= 250;
+        setScrollLeft(el.scrollLeft);
+        setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
+    }
+
+    const onNextClick = e => {
+        const el = document.getElementById('listsContainer')
+        el.scrollLeft += 250;
+        setScrollLeft(el.scrollLeft);
+        setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
+    }
+
     return (
         <CategoryListStyles>
-            {/* <div className="header">
-                <h2>Find jobs by industry</h2>
-            </div> */}
             <ul className="lists" id="listsContainer">
                 {
                     rows.map((row, index) => (
@@ -86,7 +106,15 @@ const CategoryList = ({categories}) => {
                         </li>
                     ))
                 }
+                
             </ul>
+            <button className="pagination prev" onClick={onPrevClick} style={{display: scrollLeft <= 0 ? 'none' : 'flex'}}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z"/></svg>
+            </button>
+
+            <button className="pagination next" onClick={onNextClick} style={{display: scrolledToEnd ? 'none' : 'flex'}}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z"/></svg>
+            </button>
         </CategoryListStyles>
     )
 }
