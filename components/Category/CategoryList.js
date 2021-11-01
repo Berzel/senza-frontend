@@ -1,8 +1,10 @@
 import CategoryRow from "./CategoryRow";
 import CategoryListStyles from "./CategoryList.styled";
 import { useEffect, useState } from "react";
+import anime from "animejs";
 
 const CategoryList = ({categories}) => {
+    categories = categories.concat(categories.filter(cat => cat.display_name != 'Work from Home'));
     const [scrollLeft, setScrollLeft] = useState(0);
     const [scrolledToEnd, setScrolledToEnd] = useState(false);
 
@@ -82,18 +84,38 @@ const CategoryList = ({categories}) => {
         document.addEventListener('mouseup', onMouseUp)
     }, [])
 
+    const updateScroll = () => {
+        setTimeout(() => {
+            const el = document.getElementById('listsContainer')
+            setScrollLeft(el.scrollLeft);
+            setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
+        }, 200)
+    }
+
     const onPrevClick = e => {
         const el = document.getElementById('listsContainer')
-        el.scrollLeft -= 250;
-        setScrollLeft(el.scrollLeft);
-        setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
+
+        anime({
+            targets: el,
+            scrollLeft: el.scrollLeft - 350,
+            round: 1,
+            easing: 'easeOutElastic(1, .6)'
+        });
+
+        updateScroll()
     }
 
     const onNextClick = e => {
         const el = document.getElementById('listsContainer')
-        el.scrollLeft += 250;
-        setScrollLeft(el.scrollLeft);
-        setScrolledToEnd(el.scrollLeft === (el.scrollWidth - el.offsetWidth))
+
+        anime({
+            targets: el,
+            scrollLeft: el.scrollLeft + 350,
+            round: 1,
+            easing: 'easeOutElastic(1, .6)'
+        });
+
+        updateScroll()
     }
 
     return (
