@@ -6,12 +6,12 @@ export default Sitemap
 
 export const getServerSideProps = async ({ req, res }) => {
     const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/sectors`).then(r => r.data)
-    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs?size=1000`).then(r => r.data)];
+    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs?_size=1000`).then(r => r.data)];
     let lastEl = allPages[allPages.length - 1];
     let hostname = `https://${req.headers.host}`;
 
     while (!!lastEl?.next_page_url) {
-        allPages = allPages.concat([await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs?size=1000&page=${lastEl.current_page + 1}`)])
+        allPages = allPages.concat([await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs?s_ize=1000&page=${lastEl.current_page + 1}`)])
         lastEl = allPages[allPages.length - 1]
     }
 
@@ -39,7 +39,7 @@ export const getServerSideProps = async ({ req, res }) => {
                 allJobs.map(job => (
                     `<url>
                         <loc>${hostname}/job/${job.slug}</loc>
-                        <lastmod>${new Date(job.updated_at).toISOString()}</lastmod>
+                        <lastmod>${job.updated_at}</lastmod>
                         <changefreq>daily</changefreq>
                         <priority>1.0</priority>
                     </url>`
