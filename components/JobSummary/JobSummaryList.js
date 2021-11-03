@@ -13,13 +13,16 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     const [scrolledDown, setscrolledDown] = useState(0);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [showMoreBtn, setShowMoreBtn] = useState(isSector);
+    const [awaitingResponse, setAwaitingResrponse] = useState(false)
     const getAllJobs = () => allPages.filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), []);
     const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
 
     const getNextPage = async () => {
         const previousPage = allPages[allPages.length - 1];
+        if (awaitingResponse) return;
         if (!previousPage?.next_page_url) return;
-        const nextPage = await axios.get(`${previousPage.next_page_url}`.replaceAll('http', 'https')).then(r => r.data)
+        setAwaitingResrponse(true);
+        const nextPage = await axios.get(`${previousPage.next_page_url}`.replaceAll('http', 'https')).then(r => {setAwaitingResrponse(false); return r.data})
         setAllPages([...allPages, nextPage]);
     }
 
@@ -42,16 +45,12 @@ const JobSummaryList = ({title, jobs, isSector}) => {
         let ticking = false;
         let lastScrollPos = 0;
         const scrollListener = () => {
-            if (!ticking) {
-                timer = setTimeout(() => {
-                    let currentPos = window.scrollY;
-                    if (currentPos > lastScrollPos) setscrolledDown(currentPos)
-                    lastScrollPos =  window.scrollY;
-                    ticking = false;
-                }, 2500)
-            }
-
-            ticking = true;
+            if (timer) clearTimeout(timer)
+            timer = setTimeout(() => {
+                let currentPos = window.scrollY;
+                if (currentPos > lastScrollPos) setscrolledDown(currentPos)
+                lastScrollPos =  window.scrollY;
+            }, 500)
         };
 
         document.addEventListener('scroll', scrollListener)
