@@ -48,7 +48,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
                     if (currentPos > lastScrollPos) setscrolledDown(currentPos)
                     lastScrollPos =  window.scrollY;
                     ticking = false;
-                }, 5000)
+                }, 1000)
             }
 
             ticking = true;
