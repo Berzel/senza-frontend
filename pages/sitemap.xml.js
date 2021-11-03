@@ -5,16 +5,9 @@ const Sitemap = () => {};
 export default Sitemap
 
 export const getServerSideProps = async ({ req, res }) => {
-    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/sectors`).then(r => r.data)
-    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs?_size=1000`).then(r => r.data)];
-    let lastEl = allPages[allPages.length - 1];
     let hostname = `https://${req.headers.host}`;
-
-    while (!!lastEl?.next_page_url) {
-        allPages = allPages.concat([await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs?s_ize=1000&page=${lastEl.current_page + 1}`)])
-        lastEl = allPages[allPages.length - 1]
-    }
-
+    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/sectors`).then(r => r.data)
+    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs`).then(r => r.data)];
     const allJobs = allPages.reduce((currentJobs, nextEl) => currentJobs.concat(nextEl.data), [])
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -36,7 +29,7 @@ export const getServerSideProps = async ({ req, res }) => {
                 )).join('')
             }
             ${
-                allJobs.map(job => (
+                allJobs.filter(job => !!job.slug).map(job => (
                     `<url>
                         <loc>${hostname}/job/${job.slug}</loc>
                         <lastmod>${job.updated_at}</lastmod>
