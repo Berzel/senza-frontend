@@ -19,7 +19,7 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     const getNextPage = async () => {
         const previousPage = allPages[allPages.length - 1];
         if (!previousPage?.next_page_url) return;
-        const nextPage = await axios.get(`${previousPage.next_page_url}&_size=${previousPage.per_page}`.replaceAll('http', 'https')).then(r => r.data)
+        const nextPage = await axios.get(`${previousPage.next_page_url}`.replaceAll('http', 'https')).then(r => r.data)
         setAllPages([...allPages, nextPage]);
     }
 
