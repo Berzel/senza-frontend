@@ -53,7 +53,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const sector = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/${params.sector}`).then(r => r.data)
-    sector.latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/${params.sector}/jobs?page=${params.page}`).then(r => r.data)
+    sector.latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/${params.sector}/jobs?_sort=latest&_page=${params.page}`).then(r => r.data)
 
     return {
         props: {

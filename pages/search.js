@@ -39,7 +39,7 @@ const SearchPage = () => {
         }
 
         if (query.length <= 3) {
-            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`).then(r => r.data))}, 1000))
+            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs?_sort=latest`).then(r => r.data))}, 1000))
         }
     }
 
