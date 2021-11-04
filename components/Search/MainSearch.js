@@ -3,19 +3,18 @@ import { useEffect, useState } from "react"
 import MainSearchStyles from "./MainSearch.styled"
 
 const MainSearch = () => {
+    const router = useRouter();
     const [query, setQuery] = useState('');
     const [location, setLocation] = useState('');
 
-    const handleQueryChange = e => {
-
-    }
-
-    const handleLocationChange = e => {
-
-    }
+    useEffect(() => {
+        setQuery(router.query.q ?? '')
+        setLocation(router.query.location ?? '')
+    }, [router])
 
     const handleSubmit = e => {
-
+        e.preventDefault();
+        router.push(`/search?q=${query}&location=${location}`);
     }
 
     return (
@@ -38,7 +37,7 @@ const MainSearch = () => {
                             </g>
                         </svg>
                     </i>
-                    <input className="query" type="text" name="q" value={query} onChange={handleQueryChange} placeholder="Job title or keyword" />
+                    <input className="query" type="text" name="q" value={query} onChange={e => setQuery(e.target.value)} placeholder="Job title or keyword" />
                 </div>
                 <div className="group location">
                     <i className="icon">
@@ -47,7 +46,7 @@ const MainSearch = () => {
                             <path d="m184.08 64.008c-39.704 0-72 32.304-72 72s32.296 72 72 72 72-32.304 72-72-32.296-72-72-72zm0 128c-30.872 0-56-25.12-56-56s25.128-56 56-56 56 25.12 56 56-25.128 56-56 56z"/>
                         </svg>
                     </i>
-                    <input className="location" type="text" name="location" value={location} onChange={handleLocationChange} placeholder="Location" />
+                    <input className="location" type="text" name="location" value={location} onChange={e => setLocation(e.target.value)} placeholder="Location" />
                 </div>
                 <div className="group btn">
                     <button className="btn">Search</button>
