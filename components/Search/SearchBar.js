@@ -7,10 +7,6 @@ const SearchBar = () => {
     const [query, setQuery] = useState('')
     const [location, setLocation] = useState('')
 
-    useEffect(() => {
-        router.prefetch(`/search?q=${query}&location=${location}`)
-    }, [query, location])
-
     const handleSubmit = e => {
         e.preventDefault()
         router.push(`/search?q=${query}&location=${location}`)
