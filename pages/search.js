@@ -1,7 +1,4 @@
-import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Container from "../components/Container/Container";
@@ -17,74 +14,6 @@ const Main = styled.main`
 `;
 
 const SearchPage = () => {
-    const router = useRouter()
-    const [timer, setTimer] = useState(null);
-    const [search, setSearch] = useState(false);
-    const [query, setQuery] = useState(router?.query?.q ?? '')
-    const [location, setLocation] = useState(router?.query?.location ?? '')
-
-    const prevPages = typeof window == 'object' ? JSON.parse(localStorage.getItem(`${window.location.href}_all-pages`)) : null;
-    const allJobs = prevPages ? prevPages.filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), []) : null;
-    const lastPage = prevPages ? prevPages[prevPages.length - 1] : null;
-    const [jobs, setJobs] = useState(lastPage && allJobs ? {...lastPage, data: allJobs} : undefined);
-
-    /**
-     * This is just a helper function that fetches the jobs from API
-     * 
-     * @returns
-     */
-    const searchJobs = () => {
-        if (query.length > 3) {
-            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query}&location=${location}`).then(r => r.data))}, 1000))
-        }
-
-        if (query.length <= 3) {
-            setTimer(setTimeout(async () => {setJobs(await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs?_sort=latest`).then(r => r.data))}, 1000))
-        }
-    }
-
-    /**
-     * If we are coming from the job details page then we should load existing search results
-     * 
-     * @return
-     */
-    useEffect(() => {
-        let previousPage = localStorage.getItem('previousPage')
-
-        if (!(previousPage === 'job_details')) {
-            setJobs(undefined);
-            searchJobs()
-        }
-
-        return () => {
-            localStorage.setItem('previousPage', 'search')
-        }
-    }, [])
-
-    /**
-     * For real time search on the search page we search everytime input fields change
-     * 
-     * @returns
-     */
-    useEffect(() => {
-        if (timer) clearTimeout(timer)
-
-        if (search)  searchJobs()
-
-        return () => {
-            if (timer) clearTimeout(timer)
-        }
-    }, [query, location])
-
-    const onQueryChange = e => {
-        setQuery(e.target.value)
-        setSearch(true)
-    }
-
-    const onLocationChange = e => {
-        setLocation(e.target.value)
-        setSearch(true)
-    }
 
     return (
         <>
@@ -100,8 +29,8 @@ const SearchPage = () => {
             </Header>
             <Container>
                 <Main>
-                    <MainSearch query={query} location={location} setQuery={onQueryChange} setLocation={onLocationChange} />
-                    <JobSummaryList title={`${query && query.length > 3 ? 'Search results' : 'Latest jobs'}`} jobs={jobs} />
+                    <MainSearch />
+                    <JobSummaryList title={`Search results`} jobs={jobs} />
                 </Main>
             </Container>
         </>

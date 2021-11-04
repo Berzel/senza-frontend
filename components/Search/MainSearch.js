@@ -2,34 +2,20 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import MainSearchStyles from "./MainSearch.styled"
 
-const MainSearch = ({query, location, setQuery, setLocation}) => {
-    const router = useRouter()
-    const [selfQuery, setSelfQuery] = useState(query ?? '')
-    const [selfLocation, setSelfLocation] = useState(location ?? '')
-
-    useEffect(() => {
-        router.prefetch(`/search?q=${query}&location=${location}`)
-    }, [query, location, selfQuery, selfLocation])
+const MainSearch = () => {
+    const [query, setQuery] = useState('');
+    const [location, setLocation] = useState('');
 
     const handleQueryChange = e => {
-        if (!!setQuery) {
-            setQuery(e)
-        }
 
-        setSelfQuery(e.target.value)
     }
 
     const handleLocationChange = e => {
-        if (!!setLocation) {
-           setLocation(e)
-        }
 
-        setSelfLocation(e.target.value)
     }
 
     const handleSubmit = e => {
-        e.preventDefault()
-        router.push(`/search?q=${selfQuery}&location=${selfLocation}`)
+
     }
 
     return (
