@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useState } from "react";
 import JobSummaryStyles from "./JobSummary.styled";
 import JobSummaryDetails from "./JobSummaryDetails";
+import {DialogOverlay, DialogContent} from '@reach/dialog';
+import "@reach/dialog/styles.css";
 
 const JobSummary = ({setActiveJob, job, active}) => {
     const [showJob, setShowJob] = useState(false);
@@ -30,12 +32,14 @@ const JobSummary = ({setActiveJob, job, active}) => {
             
             {
                 showJob && 
-                <div style={{position: 'fixed', top:0, right: 0, left: 0, bottom: 0, backgroundColor: 'white'}}>
-                    {job.title}
-                    <button onClick={e => setShowJob(false)}>
-                        Close
-                    </button>
-                </div>
+                <DialogOverlay isOpen={showJob} onDismiss={() => setShowJob(false)}>
+                    <DialogContent>
+                        {job.title}
+                        <button onClick={() => setShowJob(false)}>
+                            Close
+                        </button>
+                    </DialogContent>
+                </DialogOverlay>
             }
         </>
     )
