@@ -1,3 +1,4 @@
+import axios from "axios";
 import Head from "next/head";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -13,7 +14,7 @@ const Main = styled.main`
     }
 `;
 
-const SearchPage = () => {
+const SearchPage = ({jobs}) => {
 
     return (
         <>
@@ -38,3 +39,14 @@ const SearchPage = () => {
 }
 
 export default SearchPage
+
+export const getServerSideProps = async ({query}) => {
+
+    const jobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/search?q=${query.q ?? ''}&location=${query.location ?? ''}`).then(r => r.data)
+
+    return {
+        props: {
+            jobs
+        }
+    }
+}
