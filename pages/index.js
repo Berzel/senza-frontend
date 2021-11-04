@@ -60,6 +60,6 @@ export async function getStaticProps(context) {
           sectors,
           latestJobs
       },
-      revalidate: 60
+      revalidate: 30
   }
 }

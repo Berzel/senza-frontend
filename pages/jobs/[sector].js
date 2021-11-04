@@ -64,6 +64,6 @@ export async function getStaticProps({ params }) {
         props: {
             sector
         },
-        revalidate: 60
+        revalidate: 30
     }
 }
