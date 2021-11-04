@@ -3,18 +3,12 @@ import { useEffect, useState } from "react"
 import SearchBarStyles from "./SearchBar.styled"
 
 const SearchBar = () => {
-    const router = useRouter()
     const [query, setQuery] = useState('')
     const [location, setLocation] = useState('')
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        router.push(`/search?q=${query}&location=${location}`)
-    }
-
     return (
         <SearchBarStyles>
-            <form action="/search" className="form" onSubmit={handleSubmit}>
+            <form action="/search" className="form">
                 <div className="group query">
                     <i className="icon">
                         <svg enableBackground="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

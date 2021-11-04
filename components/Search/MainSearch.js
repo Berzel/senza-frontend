@@ -12,17 +12,12 @@ const MainSearch = () => {
         setLocation(router.query.location ?? '')
     }, [router])
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        router.push(`/search?q=${query}&location=${location}`);
-    }
-
     return (
         <MainSearchStyles>
             <h1 className="title">
                 Find jobs
             </h1>
-            <form id="search-form" className="form" action="/search" onSubmit={handleSubmit}>
+            <form id="search-form" className="form" action="/search">
                 <div className="group query">
                     <i className="icon">
                         <svg enableBackground="new 0 0 512 512" version="1.1" viewBox="0 0 512 512">
