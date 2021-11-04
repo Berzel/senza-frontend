@@ -4,6 +4,8 @@ import JobSummaryStyles from "./JobSummary.styled";
 import JobSummaryDetails from "./JobSummaryDetails";
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import "@reach/dialog/styles.css";
+import NavBar from "../NavBar/NavBar";
+import Single from "../../pages/job/[slug]";
 
 const JobSummary = ({setActiveJob, job, active}) => {
     const [showJob, setShowJob] = useState(false);
@@ -33,11 +35,8 @@ const JobSummary = ({setActiveJob, job, active}) => {
             {
                 showJob && 
                 <DialogOverlay isOpen={showJob} onDismiss={() => setShowJob(false)}>
-                    <DialogContent>
-                        {job.title}
-                        <button onClick={() => setShowJob(false)}>
-                            Close
-                        </button>
+                    <DialogContent aria-label={`${job.title} details`}>
+                        <Single job={job} back={() => setShowJob(false)} />
                     </DialogContent>
                 </DialogOverlay>
             }

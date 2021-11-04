@@ -11,6 +11,10 @@ const CustomStyles = createGlobalStyle`
   * {
     font-family: 'Inter', sans-serif;
   }
+
+  [data-reach-dialog-content] {
+    ${tw`w-full p-0 m-0 min-h-screen bg-gray-50`}
+  }
 `
 
 const GlobalStyles = () => (
