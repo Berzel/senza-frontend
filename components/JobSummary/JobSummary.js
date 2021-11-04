@@ -4,7 +4,6 @@ import JobSummaryStyles from "./JobSummary.styled";
 import JobSummaryDetails from "./JobSummaryDetails";
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import "@reach/dialog/styles.css";
-import NavBar from "../NavBar/NavBar";
 import Single from "../../pages/job/[slug]";
 
 const JobSummary = ({setActiveJob, job, active}) => {
@@ -19,6 +18,16 @@ const JobSummary = ({setActiveJob, job, active}) => {
 
         else {
             setShowJob(true)
+            window.history.pushState({}, '', `/job/${job.slug}`)
+
+            const handlePopState = e => {
+                setShowJob(false);
+                setTimeout(() => {
+                    window.removeEventListener('popstate', handlePopState)
+                }, 50)
+            }
+
+            window.addEventListener('popstate', handlePopState); 
         }
     }
 
