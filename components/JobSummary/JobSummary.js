@@ -11,23 +11,20 @@ const JobSummary = ({setActiveJob, job, active}) => {
 
     const updateActiveJob = e => {
         e.preventDefault();
+        setActiveJob(job);
 
-        if (window.innerWidth >= 1024) {
-            setActiveJob(job);
-        }
-
-        else {
+        if (window.innerWidth < 1024) {
             setShowJob(true)
             window.history.pushState({}, '', `/job/${job.slug}`)
-
+    
             const handlePopState = e => {
                 setShowJob(false);
                 setTimeout(() => {
                     window.removeEventListener('popstate', handlePopState)
                 }, 50)
             }
-
-            window.addEventListener('popstate', handlePopState); 
+    
+            window.addEventListener('popstate', handlePopState);
         }
     }
 
@@ -45,7 +42,7 @@ const JobSummary = ({setActiveJob, job, active}) => {
                 showJob && 
                 <DialogOverlay isOpen={showJob} onDismiss={() => setShowJob(false)}>
                     <DialogContent aria-label={`${job.title} details`}>
-                        <Single job={job} back={() => setShowJob(false)} />
+                        <Single job={job} />
                     </DialogContent>
                 </DialogOverlay>
             }
