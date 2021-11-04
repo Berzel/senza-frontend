@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import JobSummaryStyles from "./JobSummary.styled";
 import JobSummaryDetails from "./JobSummaryDetails";
@@ -31,11 +30,9 @@ const JobSummary = ({setActiveJob, job, active}) => {
     return (
         <>
             <JobSummaryStyles active={active}>
-                <Link href={`/job/${job.slug}`} scroll={true}>
-                    <a className={`link`} onClick={updateActiveJob}>
-                        <JobSummaryDetails job={job} />
-                    </a>
-                </Link>
+                <a href={`/job/${job.slug}`} className={`link`} onClick={updateActiveJob}>
+                    <JobSummaryDetails job={job} />
+                </a>
             </JobSummaryStyles>
             
             {
