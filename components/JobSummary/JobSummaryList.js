@@ -42,7 +42,6 @@ const JobSummaryList = ({title, jobs, isSector}) => {
      */
     useEffect(() => {
         let timer = null;
-        let ticking = false;
         let lastScrollPos = 0;
         const scrollListener = () => {
             if (timer) clearTimeout(timer)
@@ -62,18 +61,6 @@ const JobSummaryList = ({title, jobs, isSector}) => {
     }, [])
 
     /**
-     * The cached version should only be used if we're comming from the job details page otherwise use default props
-     * This is to avoid refetching or losing previously fetched data when scrolling
-     * 
-     * @returns
-     */
-    useEffect(() => {
-        let previousPage = localStorage.getItem('previousPage')
-        const prevPages = localStorage.getItem(`${window.location.href}_all-pages`);
-        setAllPages(previousPage === 'job_details' ? JSON.parse(prevPages) : [jobs]);
-    }, [])
-
-    /**
      * Just to make sure we're up to date with changing props
      * 
      * @returns
@@ -82,15 +69,6 @@ const JobSummaryList = ({title, jobs, isSector}) => {
         setAllPages([jobs])
         setActiveJob([jobs].filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), [])[0])
     }, [jobs])
-
-    /**
-     * Whenever the list of job changes we wanna save all the current pages in localstorage
-     * 
-     * @returns
-     */
-    useEffect(() => {
-        window.localStorage.setItem(`${window.location.href}_all-pages`, JSON.stringify(allPages))
-    }, [allPages])
 
     /**
      * Whenever someone scrolls down we want to fetch the next page
@@ -117,10 +95,6 @@ const JobSummaryList = ({title, jobs, isSector}) => {
             if (timer) clearTimeout(timer)
         }
     }, [activeJob])
-
-    const fetchNextJobs = e => {
-        getNextPage()
-    }
 
     /**
      * This one is how the custom scroll bar looks
