@@ -1,6 +1,6 @@
 import LoginModalStyles from "./LoginModal.styled"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useUser from "../../lib/useUser"
 import axios from "axios"
 
@@ -16,8 +16,18 @@ const AuthModal = ({close}) => {
     const [validationErrors, setValidationErrors] = useState({});
     const [validationTimers, setValidationTimers] = useState({});
 
-    // We don't wan't to show the modals if user is 
-    // already logged in
+    useEffect(() => {
+        const handlePopStateChange = e => {
+            close();
+        }
+
+        window.addEventListener('popstate', handlePopStateChange);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopStateChange);
+        }
+    }, [])
+
     if (user) close();
 
     const toggleMode = () => {
