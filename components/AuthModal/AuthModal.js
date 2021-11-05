@@ -17,6 +17,9 @@ const AuthModal = ({close}) => {
     const [validationTimers, setValidationTimers] = useState({});
 
     useEffect(() => {
+        localStorage.setItem('authModalOpen', true)
+        window.history.pushState({}, '', `#auth-modal`)
+
         const handlePopStateChange = e => {
             close();
         }
@@ -150,7 +153,7 @@ const AuthModal = ({close}) => {
     }
 
     return (
-        <LoginModalStyles onClick={close}>
+        <LoginModalStyles onClick={e => {window.history.back(); close()}}>
             <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>

@@ -12,6 +12,11 @@ const JobSummary = ({setActiveJob, job, active}) => {
         e.preventDefault();
         setActiveJob(job);
 
+        if (localStorage.getItem('authModalOpen')) {
+            localStorage.removeItem('authModalOpen')
+            return;
+        }
+
         if (window.innerWidth < 1024) {
             setShowJob(true)
             window.history.pushState({}, '', `/job/${job.slug}`)
