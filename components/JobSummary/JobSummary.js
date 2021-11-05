@@ -12,16 +12,16 @@ const JobSummary = ({setActiveJob, job, active}) => {
         e.preventDefault();
         setActiveJob(job);
 
-        if (localStorage.getItem('authModalOpen')) {
-            localStorage.removeItem('authModalOpen')
-            return;
-        }
-
         if (window.innerWidth < 1024) {
             setShowJob(true)
             window.history.pushState({}, '', `/job/${job.slug}`)
     
             const handlePopState = e => {
+                if (localStorage.getItem('authModalOpen')) {
+                    localStorage.removeItem('authModalOpen')
+                    return;
+                }
+                
                 setShowJob(false);
                 setTimeout(() => {
                     window.removeEventListener('popstate', handlePopState)
