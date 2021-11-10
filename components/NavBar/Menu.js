@@ -17,6 +17,8 @@ const MenuStyles = styled.div`
 
         .menu_wrapper {
             z-index: 10;
+            height: 100vh;
+            width: calc(100vw - 1.25rem);
             ${tw`absolute right-0 pt-3 hidden`}
 
             &.open {
@@ -25,6 +27,7 @@ const MenuStyles = styled.div`
 
             > .items {
                 width: 15rem;
+                margin-left: auto;
                 ${tw`whitespace-nowrap bg-white shadow-lg p-3 rounded space-y-5`}
 
                 > .menu_item {
@@ -81,7 +84,6 @@ const Menu = () => {
 
     useEffect(() => {
         const closeMenu = e => {
-            e.stopPropagation()
             setOpen(false)
         }
 
@@ -125,7 +127,7 @@ const Menu = () => {
                         )
                     }
 
-                    <div className={`menu_wrapper ${open ? 'open' : ''}`}>
+                    <div className={`menu_wrapper ${open ? 'open' : ''}`} onClick={e => {e.stopPropagation(); setOpen(false)}}>
                         <ul className="items">
                             <li className="user_details">
                                 <div className="avatar">
