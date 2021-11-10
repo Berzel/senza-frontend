@@ -22,7 +22,7 @@ const MenuStyles = styled.div`
 
             > .items {
                 min-width: 12rem;
-                ${tw`whitespace-nowrap bg-white shadow-lg p-3 rounded space-y-3`}
+                ${tw`whitespace-nowrap bg-white shadow-lg p-3 rounded space-y-5`}
 
                 > .menu_item {
                     ${tw`flex items-center text-blue-400 space-x-2 cursor-pointer`}
@@ -78,6 +78,18 @@ const Menu = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                             <span>
                                 Login / Register
+                            </span>
+                        </li>
+                        <li className="menu_item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                            <span>
+                                About Senza
+                            </span>
+                        </li>
+                        <li className="menu_item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                            <span>
+                                Contact Us
                             </span>
                         </li>
                         <li className="menu_item">
