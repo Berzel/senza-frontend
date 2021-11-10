@@ -120,13 +120,13 @@ const AuthModal = ({close}) => {
                     let newValidationErrors = {...validationErrors};
 
                     Object.keys(err.response.data.errors).forEach(key => {
-                        newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                        newValidationErrors[key] = err.response.data.errors[key][0];
                     })
 
                     setValidationErrors(newValidationErrors)
                 }
 
-                return; // If an error happens there's no need to try and log in automatically
+                return;
             }
         }
 
@@ -137,6 +137,7 @@ const AuthModal = ({close}) => {
             const loginResponse = await axios.post('/api/login', loginData).then(r => r.data);
             localStorage.setItem('auth_token', loginResponse.data.token);
             setTimeout(() => setUser('/api/user'), 1);
+            window.history.back();
             close();
         } catch (err) {
             if (err.response && err.response.status === 422) {
@@ -153,7 +154,7 @@ const AuthModal = ({close}) => {
     }
 
     return (
-        <LoginModalStyles onClick={e => {window.history.back(); close()}}>
+        <LoginModalStyles style={{margin: 0}} onClick={e => {window.history.back(); close()}}>
             <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>

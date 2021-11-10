@@ -4,6 +4,7 @@ import tw from "twin.macro";
 const LoginModalStyles = styled.div`
     ${tw`fixed top-0 bottom-0 right-0 left-0 flex items-center justify-center flex-col`}
     background-color: rgba(31,41,55,0.95);
+    z-index: 20;
 
     .form {
         ${tw`relative mt-auto w-full max-h-screen overflow-y-auto rounded-t-xl`}
@@ -41,10 +42,10 @@ const LoginModalStyles = styled.div`
         }
 
         &_group {
-            ${tw`px-3`}
+            ${tw`px-3 text-gray-800`}
 
             .label {
-                ${tw`text-sm ml-1 mb-1 block`}
+                ${tw`text-sm ml-1 mb-1 block text-gray-800`}
             }
             .input {
                 ${tw`block w-full border p-3 rounded-lg`}
@@ -65,7 +66,7 @@ const LoginModalStyles = styled.div`
         }
 
         .register {
-            ${tw`text-center mt-8`}
+            ${tw`text-center mt-8 text-gray-800`}
 
             &-btn {
                 ${tw`text-blue-400`}
