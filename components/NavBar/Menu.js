@@ -1,7 +1,8 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 import useUser from "../../lib/useUser"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import Link from 'next/link';
 
 const MenuStyles = styled.div`
     ${tw`flex items-center space-x-4`}
@@ -22,7 +23,7 @@ const MenuStyles = styled.div`
             }
 
             > .items {
-                min-width: 12rem;
+                min-width: 16rem;
                 ${tw`whitespace-nowrap bg-white shadow-lg p-3 rounded space-y-5`}
 
                 > .menu_item {
@@ -37,6 +38,34 @@ const MenuStyles = styled.div`
                 }
             }
         }
+    }
+
+    .user_details {
+        ${tw`text-gray-800 flex items-center space-x-2 border-b pb-4`}
+
+        >.avatar {
+            ${tw`block h-12 w-12`}
+
+            > svg {
+                ${tw`fill-current text-gray-800`}
+            }
+        }
+
+        > .content {
+            .name {
+                ${tw`text-lg`}
+            }
+            .logout {
+                ${tw`text-blue-400`}
+            }
+        }
+    }
+
+    .new-job {
+        ${tw`border-t pt-6`}
+         >.link {
+             ${tw`block w-full bg-blue-400 font-semibold rounded-lg p-4 text-center`}
+         }
     }
 `
 
@@ -62,18 +91,15 @@ const Menu = () => {
             <div className='_user_btn'>
                 {
                     open ? (
-                        // Show the close menu icon
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" onClick={e => {e.stopPropagation(); setOpen(false)}}> 
                             <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
                         </svg>
                     ) : (
                         user ? (
-                            // Show the user icon
                             <svg style={{transform: 'scale(1.6)'}} viewBox="0 0 24 24" onClick={e => {e.stopPropagation(); setOpen(true)}}>
                                 <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/>
                             </svg>
                         ) : (
-                            // Show the hamburger menu icon
                             <svg  viewBox="0 0 512 512" onClick={e => {e.stopPropagation(); setOpen(true)}}>
                                 <g>
                                     <path d="m479.18 91.897h-446.36c-18.131 0-32.821-14.69-32.821-32.82s14.69-32.821 32.821-32.821h446.36c18.13 0 32.82 14.69 32.82 32.821s-14.69 32.82-32.82 32.82z"/>
@@ -88,16 +114,37 @@ const Menu = () => {
 
                 <div className={`menu_wrapper ${open ? 'open' : ''}`}>
                     <ul className="items">
+                        <li className="user_details">
+                            <div className="avatar">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/>
+                                </svg>
+                            </div>
+                            <div className="content">
+                                <p className="name">
+                                    {user ? 'Berzel Best' : 'Guest User'}
+                                </p>
+                                <button className="logout">
+                                    {user ? 'Logout' : 'Login / Register'}
+                                </button>
+                            </div>
+                        </li>
                         <li className="menu_item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                             <span>
-                                Login / Register
+                                My Applications
                             </span>
                         </li>
                         <li className="menu_item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                             <span>
-                                About Senza
+                                Saved Alerts
+                            </span>
+                        </li>
+                        <li className="menu_item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                            <span>
+                                Preferences
                             </span>
                         </li>
                         <li className="menu_item">
@@ -106,17 +153,12 @@ const Menu = () => {
                                 Contact Us
                             </span>
                         </li>
-                        <li className="menu_item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                            <span>
-                                About Senza
-                            </span>
-                        </li>
-                        <li className="menu_item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                            <span>
-                                Contact Us
-                            </span>
+                        <li className="new-job">
+                            <Link href="/hiring">
+                                <a className="link">
+                                    Post a job
+                                </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
