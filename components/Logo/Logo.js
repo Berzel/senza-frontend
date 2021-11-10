@@ -1,11 +1,17 @@
 import LogoStyles from "./Logo.styled"
 import Link from "next/link";
 
-const Logo = () => {
+const Logo = ({setShowJob}) => {
+
+    const handleClick = e => {
+        if (typeof setShowJob === "function") {
+            setShowJob(false);
+        }
+    }
     
     return (
         <Link href="/" scroll={false}>
-           <a>
+           <a onClick={handleClick}>
                 <LogoStyles>
                     <i className="img">
                         <svg width="128pt" height="128pt" version="1.0" viewBox="0 0 128 128">

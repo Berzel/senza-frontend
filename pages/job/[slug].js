@@ -113,7 +113,7 @@ const Bottom = styled.div`
     }
 `;
 
-const Single = ({job}) => {
+const Single = ({job, setShowJob}) => {
     const router = useRouter()
     const { user } = useUser()
 
@@ -146,7 +146,7 @@ const Single = ({job}) => {
     
             <Header>
                 <div className="container">
-                    <NavBar />
+                    <NavBar setShowJob={setShowJob} />
                 </div>
             </Header>
     
