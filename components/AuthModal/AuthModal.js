@@ -136,6 +136,7 @@ const AuthModal = ({close}) => {
             const loginResponse = await axios.post('/api/login', loginData).then(r => r.data);
             localStorage.setItem('auth_token', loginResponse.data.token);
             setTimeout(() => setUser('/api/user'), 1);
+            localStorage.removeItem('authModalOpen')
             close();
         } catch (err) {
             if (err.response && err.response.status === 422) {
@@ -152,7 +153,7 @@ const AuthModal = ({close}) => {
     }
 
     return (
-        <LoginModalStyles style={{margin: 0}} onClick={e => close()}>
+        <LoginModalStyles style={{margin: 0}} onClick={e => {close(); localStorage.removeItem('authModalOpen')}}>
             <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>
