@@ -8,7 +8,6 @@ const Logo = ({isPopup}) => {
 
     const handleClick = e => {
         if(isPopup) {
-            e.stopPropagation();
             router.back();
             return;
         }
