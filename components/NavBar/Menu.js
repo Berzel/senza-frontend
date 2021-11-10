@@ -14,6 +14,7 @@ const MenuStyles = styled.div`
         }
 
         .menu_wrapper {
+            z-index: 100;
             ${tw`absolute right-0 pt-3 hidden`}
 
             &.open {
