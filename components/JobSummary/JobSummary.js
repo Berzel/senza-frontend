@@ -44,7 +44,7 @@ const JobSummary = ({setActiveJob, job, active}) => {
                 showJob && 
                 <DialogOverlay isOpen={showJob} onDismiss={() => setShowJob(false)}>
                     <DialogContent aria-label={`${job.title} details`}>
-                        <Single job={job} />
+                        <Single job={job} isPopup={true} />
                     </DialogContent>
                 </DialogOverlay>
             }

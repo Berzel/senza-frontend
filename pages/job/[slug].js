@@ -113,7 +113,7 @@ const Bottom = styled.div`
     }
 `;
 
-const Single = ({job}) => {
+const Single = ({job, isPopup}) => {
     const router = useRouter()
     const { user } = useUser()
 
@@ -146,7 +146,7 @@ const Single = ({job}) => {
     
             <Header>
                 <div className="container">
-                    <NavBar />
+                    <NavBar isPopup={isPopup} />
                 </div>
             </Header>
     
