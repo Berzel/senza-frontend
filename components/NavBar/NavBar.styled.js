@@ -9,7 +9,7 @@ const NavBarStyles = styled.div`
     }
 
     .right {
-        display: flex;
+        ${tw`flex items-center`}
 
         >*+*{
             ${tw`ml-3`}

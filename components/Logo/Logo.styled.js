@@ -6,14 +6,12 @@ const LogoStyles = styled.div`
 
     .img {
         > svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            ${tw`text-gray-50 fill-current`}
+            ${tw`w-7 h-7 text-gray-50 fill-current`}
         }
     }
 
     .text {
-        ${tw`font-bold text-2xl ml-2`}
+        ${tw`font-bold text-3xl ml-2`}
     }
 `;
 
