@@ -3,7 +3,7 @@ import Logo from "../Logo/Logo";
 import Menu from "./Menu";
 import NavBarStyles from "./NavBar.styled";
 
-const NavBar = ({isPopup}) => {
+const NavBar = () => {
     const [isServer, setIsServer] = useState(true);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const NavBar = ({isPopup}) => {
     return (
         <NavBarStyles>
             <div>
-                <Logo isPopup={isPopup} />
+                <Logo />
             </div>
             <div className="right">
                 {!isServer && <Menu />}

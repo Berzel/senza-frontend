@@ -1,21 +1,11 @@
 import LogoStyles from "./Logo.styled"
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-const Logo = ({isPopup}) => {
-
-    const router = useRouter();
-
-    const handleClick = e => {
-        if(isPopup) {
-            router.back();
-            return;
-        }
-    }
+const Logo = () => {
     
     return (
         <Link href="/" scroll={false}>
-           <a onClick={handleClick}>
+           <a>
                 <LogoStyles>
                     <i className="img">
                         <svg width="128pt" height="128pt" version="1.0" viewBox="0 0 128 128">
