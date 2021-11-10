@@ -1,11 +1,17 @@
 import LogoStyles from "./Logo.styled"
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Logo = ({setShowJob}) => {
 
+    const router = useRouter();
+
     const handleClick = e => {
         if (typeof setShowJob === "function") {
+            e.preventDefault();
+            e.stopPropagation();
             setShowJob(false);
+            router.back()
         }
     }
     
