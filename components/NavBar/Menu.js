@@ -139,11 +139,11 @@ const Menu = () => {
                                     </p>
                                     {
                                         user ? (
-                                            <button className="auth-btn" onClick={e => logout()}>
+                                            <button className="auth-btn" onClick={e => {setOpen(false); logout()}}>
                                                 Logout
                                             </button>
                                         ) : (
-                                            <button className="auth-btn" onClick={e => setShowAuthModal(true)}>
+                                            <button className="auth-btn" onClick={e => {setOpen(false); setShowAuthModal(true)}}>
                                                 Login / Register
                                             </button>
                                         )
