@@ -13,10 +13,6 @@ const MenuStyles = styled.div`
             ${tw`w-5 h-5 fill-current text-gray-50 cursor-pointer`}
         }
 
-        &:hover .menu_wrapper {
-            ${tw`block`}
-        }
-
         .menu_wrapper {
             ${tw`absolute right-0 pt-3 hidden`}
 
