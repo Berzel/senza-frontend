@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const JobListStyles = styled.div`
     > .title {
-        ${tw`px-3 font-semibold py-2 bg-gray-50 border-b border-t sticky top-0 capitalize`}
+        ${tw`px-3 font-semibold py-2 bg-gray-50 border-b border-t sticky top-0`}
     }
 
     .scroll_thumb {
