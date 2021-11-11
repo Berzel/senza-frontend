@@ -10,7 +10,6 @@ import Banner from '../components/Banner/Banner';
 import Container from '../components/Container/Container';
 import Header from '../components/Header/Header';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 const Main = styled.main`
   & > * {
@@ -19,12 +18,6 @@ const Main = styled.main`
 `;
 
 export default function Home({sectors, latestJobs}) {
-  useEffect(() => {
-    
-    return () => {
-        localStorage.setItem('previousPage', '/')
-    }
-  })
 
   return (
     <>

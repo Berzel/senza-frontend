@@ -1,6 +1,5 @@
 import axios from "axios";
 import Head from "next/head";
-import { useEffect } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Container from "../../components/Container/Container";
@@ -16,12 +15,6 @@ const Main = styled.main`
 `;
 
 const CategoryPage = ({sector}) => {
-
-    useEffect(() => {
-        return () => {
-            localStorage.setItem('previousPage', 'sector')
-        }
-    })
 
     return (
         <>

@@ -8,7 +8,6 @@ import Header from '../../components/Header/Header';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import useUser from '../../lib/useUser';
-import { useEffect } from 'react';
 
 const Main = styled.div`
     ${tw`min-h-screen bg-blue-50 flex`}
@@ -116,12 +115,6 @@ const Bottom = styled.div`
 const Single = ({job, setShowJob}) => {
     const router = useRouter()
     const { user } = useUser()
-
-    useEffect(() => {
-        return () => {
-            localStorage.setItem('previousPage', 'job_details')
-        }
-    }, [])
 
     const formatter = Intl.NumberFormat('en', { notation: 'compact' });
     const formatPeriod = period => {

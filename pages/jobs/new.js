@@ -50,12 +50,6 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const [skills, setSkills] = useState(jobDefaults.qualifications);
     const [responsibilities, setResponsibilities] = useState(jobDefaults.responsibilities);
 
-    useEffect(() => {
-        return () => {
-            localStorage.setItem('previousPage', 'new_job')
-        }
-    })
-
     useEffect(async () => {
         if (user) {
             let config = {headers: {
