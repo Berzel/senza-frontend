@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import anime from "animejs";
 
 const CategoryList = ({categories}) => {
-    categories = categories.concat(categories.filter(cat => cat.display_name != 'Work from Home'));
     const [scrollLeft, setScrollLeft] = useState(0);
     const [scrolledToEnd, setScrolledToEnd] = useState(false);
 
