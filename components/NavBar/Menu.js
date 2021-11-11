@@ -141,60 +141,60 @@ const Menu = () => {
                                     </p>
                                     {
                                         user ? (
-                                            <button className="auth-btn" onClick={e => {setOpen(false); logout()}}>
+                                            <button className="auth-btn" onClick={e => {e.stopPropagation(); logout()}}>
                                                 Logout
                                             </button>
                                         ) : (
-                                            <button className="auth-btn" onClick={e => {setOpen(false); setShowAuthModal(true)}}>
+                                            <button className="auth-btn" onClick={e => {e.stopPropagation(); setOpen(false); setShowAuthModal(true)}}>
                                                 Login / Register
                                             </button>
                                         )
                                     }
                                 </div>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     My Applications
                                 </span>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Saved Alerts
                                 </span>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Settings
                                 </span>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Post a job
                                 </span>
                             </li>
-                            <li className="menu_item generic">
+                            <li className="menu_item generic" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Pricing
                                 </span>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     About Senza
                                 </span>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Contact Us
                                 </span>
                             </li>
-                            <li className="menu_item">
+                            <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Terms of Use
