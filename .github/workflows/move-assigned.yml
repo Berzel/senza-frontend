@@ -16,4 +16,5 @@ jobs:
         with:
           project: Senza Tech
           column: In progress
-          repo-token: ${{ secrets.Workflow_Automation }}
+          repo-token: ${{ secrets.GH_WORKFLOW_TOKEN }}
+          
