@@ -141,6 +141,9 @@ const AuthModal = ({close}) => {
             setTimeout(() => setUser('/api/user'), 1);
             router.back();
             close();
+
+            if (window.location.pathname.startsWith('/job/')) return;
+            localStorage.removeItem('authModalOpen')
         } catch (err) {
             if (err.response && err.response.status === 422) {
                 let newValidationErrors = {...validationErrors};
@@ -155,8 +158,16 @@ const AuthModal = ({close}) => {
         }
     }
 
+    const handleOverlayClick = e => {
+        router.back(); 
+        close();
+
+        if (window.location.pathname.startsWith('/job/')) return;
+        localStorage.removeItem('authModalOpen')
+    }
+
     return (
-        <LoginModalStyles style={{margin: 0}} onClick={e => {router.back(); close();}}>
+        <LoginModalStyles style={{margin: 0}} onClick={handleOverlayClick}>
             <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
                     <h2 className="title">{mode}</h2>
