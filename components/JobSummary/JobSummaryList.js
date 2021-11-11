@@ -7,12 +7,11 @@ import Link from "next/link";
 import useUser from "../../lib/useUser";
 import AuthModal from "../AuthModal/AuthModal";
 
-const JobSummaryList = ({title, jobs, isSector}) => {
+const JobSummaryList = ({title, jobs}) => {
     const { user } = useUser();
     const [allPages, setAllPages] = useState([jobs]);
     const [scrolledDown, setscrolledDown] = useState(0);
     const [showAuthModal, setShowAuthModal] = useState(false);
-    const [showMoreBtn, setShowMoreBtn] = useState(isSector);
     const [awaitingResponse, setAwaitingResrponse] = useState(false)
     const getAllJobs = () => allPages.filter(el => !!el).reduce((allJobs, el) => allJobs.concat(el?.data), []);
     const [activeJob, setActiveJob] = useState(getAllJobs().length > 0 ? getAllJobs()[0] : null)
@@ -25,15 +24,6 @@ const JobSummaryList = ({title, jobs, isSector}) => {
         const nextPage = await axios.get(`${previousPage.next_page_url}`.replaceAll('http', 'https')).then(r => {setAwaitingResrponse(false); return r.data})
         setAllPages([...allPages, nextPage]);
     }
-
-    /**
-     * We don't need to show the more button on browser since we'll infinite scroll
-     * 
-     * @returns
-     */
-    useEffect(() => {
-        setShowMoreBtn(false)
-    }, [])
 
     /**
      * Setting listeners for infinite scroll
@@ -117,17 +107,6 @@ const JobSummaryList = ({title, jobs, isSector}) => {
                             <li key={job?.id}>
                                 <JobSummary setActiveJob={setActiveJob} job={job} active={activeJob?.id === job?.id} />
                             </li>)
-                        )
-                    }
-                    {
-                        showMoreBtn && jobs?.next_page_url && (
-                            <li>
-                                <Link href={`/jobs/${activeJob?.sector?.slug}/${jobs.current_page + 1}`}>
-                                    <a className="more">
-                                        More
-                                    </a>
-                                </Link>
-                            </li>
                         )
                     }
                 </ul>
