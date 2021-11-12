@@ -133,7 +133,7 @@ const Single = ({job, setShowJob}) => {
     const jobSummary = 
 `${job.company.name} \
 is looking for a ${job.is_remote ? 'Remote' : `${job.city} based`}, \
-${job.level.display_name} ${job.title} \
+${job.title} (${job.level.display_name}) \
 to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
 
     return (
