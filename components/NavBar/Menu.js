@@ -87,22 +87,22 @@ const Menu = () => {
     const [ open, setOpen ] = useState(false);
     const [ showAuthModal, setShowAuthModal ] = useState(false);
 
-    useEffect(() => {
-        const closeMenu = e => {
-            setOpen(false)
-        }
-
-        document.addEventListener('click', closeMenu)
-
-        return () => {
-            document.removeEventListener('click', closeMenu)
-        }
-    }, [])
-
     const logout = async () => {
         localStorage.removeItem('auth_token');
         await axios.post('/api/logout').then(res => {res.data});
         setTimeout(() => {setUser(null)}, 10)
+    }
+
+    const handleMenuClick = e => {
+        e.stopPropagation(); 
+        setOpen(true); 
+
+        const closeMenu = () => {
+            setOpen(false)  
+            window.removeEventListener('click', closeMenu)          
+        }
+
+        window.addEventListener('click', closeMenu)
     }
 
     return (
@@ -115,7 +115,7 @@ const Menu = () => {
                                 <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
                             </svg>
                         ) : (
-                            <svg  viewBox="0 0 512 512" onClick={e => {e.stopPropagation(); setOpen(true)}}>
+                            <svg  viewBox="0 0 512 512" onClick={handleMenuClick}>
                                 <g>
                                     <path d="m479.18 91.897h-446.36c-18.131 0-32.821-14.69-32.821-32.82s14.69-32.821 32.821-32.821h446.36c18.13 0 32.82 14.69 32.82 32.821s-14.69 32.82-32.82 32.82z"/>
                                     <path d="M295.385,288.821H32.821C14.69,288.821,0,274.13,0,256s14.69-32.821,32.821-32.821h262.564   c18.13,0,32.821,14.69,32.821,32.821S313.515,288.821,295.385,288.821z"/>
@@ -126,7 +126,7 @@ const Menu = () => {
                         )
                     }
 
-                    <div className={`menu_wrapper ${open ? 'open' : ''}`} onClick={e => {e.stopPropagation(); setOpen(false)}}>
+                    <div className={`menu_wrapper ${open ? 'open' : ''}`}>
                         <ul className="items">
                             <li className="user_details">
                                 <div className="avatar">
