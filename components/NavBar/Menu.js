@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 import useUser from "../../lib/useUser"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import AuthModal from "../AuthModal/AuthModal";
 import axios from "axios";
 
