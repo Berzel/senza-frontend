@@ -18,8 +18,12 @@ const MenuStyles = styled.div`
         .menu_wrapper {
             z-index: 10;
             height: 100vh;
-            width: calc(100vw - 1.25rem);
-            ${tw`absolute right-0 pt-3 hidden`}
+            width: calc(100vw - 0.5rem);
+            ${tw`absolute -right-3 -top-6 pt-3 hidden`}
+
+            @media screen and (min-width: 1024px) {
+                width: calc(1024px - 0.5rem);
+            }
 
             &.open {
                 ${tw`block`}
