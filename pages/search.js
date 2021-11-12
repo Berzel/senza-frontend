@@ -18,7 +18,7 @@ const Main = styled.main`
 const SearchPage = ({jobs}) => {
 
     const { query } = useRouter();
-    const title = query.q && query.q.length > 3 ? `${query.q} jobs` : 'Latest jobs feed';
+    const title = query.q && query.q.length > 3 ? `${jobs.total} Results for ${query.q.toLowerCase()} jobs` : 'Latest jobs feed';
 
     return (
         <>
