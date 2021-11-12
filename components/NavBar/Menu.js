@@ -97,12 +97,16 @@ const Menu = () => {
         e.stopPropagation(); 
         setOpen(true); 
 
+        const targets = [document, document.querySelector('[data-reach-dialog-overlay]')];
+        
         const closeMenu = () => {
-            setOpen(false)  
-            window.removeEventListener('click', closeMenu)          
+            setOpen(false)
+            targets.filter(t => !!t)
+                .forEach(t => t.removeEventListener('click', closeMenu));
         }
-
-        window.addEventListener('click', closeMenu)
+        
+        targets.filter(t => !!t)
+            .forEach(t => t.addEventListener('click', closeMenu));
     }
 
     return (
