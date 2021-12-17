@@ -45,8 +45,8 @@ export default function Home({sectors, latestJobs}) {
 }
 
 export async function getStaticProps(context) {
-  const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
-  const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs?_sort=latest`).then(r => r.data)
+  const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_sort=latest`).then(r => r.data)
+  const sectors = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`).then(r => r.data.data)
 
   return {
       props: {
