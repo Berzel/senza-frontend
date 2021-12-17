@@ -21,7 +21,7 @@ const JobSummaryList = ({title, jobs}) => {
         if (awaitingResponse) return;
         if (!previousPage?.next_page_url) return;
         setAwaitingResrponse(true);
-        const nextPage = await axios.get(`${previousPage.next_page_url}`.replaceAll('http', 'https')).then(r => {setAwaitingResrponse(false); return r.data})
+        const nextPage = await axios.get(`${previousPage.next_page_url}`).then(r => {setAwaitingResrponse(false); return r.data})
         setAllPages([...allPages, nextPage]);
     }
 
@@ -139,7 +139,7 @@ const JobSummaryList = ({title, jobs}) => {
                                                 <li className="detail_item" key={r.id}>
                                                     <svg className="detail_item_pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                                     <span>
-                                                        {r.value}
+                                                        {r.description}
                                                     </span>
                                                 </li>
                                             ))
@@ -154,7 +154,7 @@ const JobSummaryList = ({title, jobs}) => {
                                                 <li className="detail_item" key={q.id}>
                                                     <svg className="detail_item_pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                                     <span>
-                                                        {q.value}
+                                                        {q.description}
                                                     </span>
                                                 </li>
                                             ))

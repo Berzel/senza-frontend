@@ -1,17 +1,4 @@
 const JobSummaryDetails = ({job}) => {
-    const formatPeriod = period => {
-        const values = {
-            hourly: 'hour',
-            daily: 'day',
-            weekly: 'week',
-            'bi-weekly': 'fortnight',
-            monthly: 'month',
-            yearly: 'year'
-        };
-
-        return values[period];
-    }
-
     const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
     return (
@@ -23,13 +10,16 @@ const JobSummaryDetails = ({job}) => {
                         <span className="type">{job.contract_type.display_name}</span>
                     </div>
                     <h3 className="title">{job.title}</h3>
-                    <div className="salary">${formatter.format(job.salary.min)} - ${formatter.format(job.salary.max)} / {`${formatPeriod(job.salary.period)}`}</div>
+                    <div className="salary">${formatter.format(job.min_wage)} - ${formatter.format(job.max_wage)} / {job.wage_period}</div>
                 </div>
-                <div className="right">
-                    <div className="company-logo">
-                    {job.company.name[0].toUpperCase()}
+                {
+                    job.company && 
+                    <div className="right">
+                        <div className="company-logo">
+                            {job.company.name[0].toUpperCase()}
+                        </div>
                     </div>
-                </div>
+                }
             </div>
             <div className="bottom">
                 <div className="left">

@@ -56,7 +56,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                 'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
             }};
 
-            const companies = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/user/companies/all`, config).then(r => r.data);
+            const companies = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/users/${user.email}/companies?_size=500`, config).then(r => r.data);
             setUserCompanies(companies)
             
             if (companies.length > 0) {
