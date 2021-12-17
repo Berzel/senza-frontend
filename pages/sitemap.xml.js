@@ -6,8 +6,8 @@ export default Sitemap
 
 export const getServerSideProps = async ({ req, res }) => {
     let hostname = `https://${req.headers.host}`;
-    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/sectors`).then(r => r.data)
-    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sitemaps/jobs`).then(r => r.data)];
+    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`).then(r => r.data)
+    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_size=40000&_sort=latest`).then(r => r.data)];
     const allJobs = allPages.reduce((currentJobs, nextEl) => currentJobs.concat(nextEl.data), [])
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8" ?>
