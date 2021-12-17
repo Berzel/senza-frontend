@@ -6,9 +6,8 @@ export default Sitemap
 
 export const getServerSideProps = async ({ req, res }) => {
     let hostname = `https://${req.headers.host}`;
-    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`).then(r => r.data)
-    let allPages = [await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_size=40000&_sort=latest`).then(r => r.data)];
-    const allJobs = allPages.reduce((currentJobs, nextEl) => currentJobs.concat(nextEl.data), [])
+    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`).then(r => r.data.data)
+    const jobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_size=40000&_sort=latest`).then(r => r.data.data);
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8" ?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -29,7 +28,7 @@ export const getServerSideProps = async ({ req, res }) => {
                 )).join('')
             }
             ${
-                allJobs.filter(job => !!job.slug).map(job => (
+                jobs.filter(job => !!job.slug).map(job => (
                     `<url>
                         <loc>${hostname}/job/${job.slug}</loc>
                         <lastmod>${job.updated_at}</lastmod>
