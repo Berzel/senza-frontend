@@ -2,19 +2,20 @@ import LoginModalStyles from "./LoginModal.styled"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import useUser from "../../lib/useUser"
-import axios from "axios"
+import axios from "../../lib/axios";
 import { useRouter } from "next/dist/client/router"
 
 const AuthModal = ({close}) => {
     const router = useRouter();
     const [mode, setMode] = useState('login');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [username, setUsername] = useState('email');
     const [usernameValue, setUsernameValue] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
-    const {user, setUser, loginError} = useUser();
+    const {user, mutateUser} = useUser();
     const [validationErrors, setValidationErrors] = useState({});
     const [validationTimers, setValidationTimers] = useState({});
 
@@ -113,10 +114,11 @@ const AuthModal = ({close}) => {
     const handleSubmit = async event => {
         event.preventDefault();
         setValidationErrors({});
+        await axios.get(`/sanctum/csrf-cookie`);
 
         if (mode === "register") {
             try {
-                const registerResponse = await axios.post('/api/register', {email, phone, password, password_confirmation});
+                const registerResponse = await axios.post(`/register`, {name, email, phone, password, password_confirmation});
             } catch (err) {
                 if (err.response && err.response.status === 422) {
                     let newValidationErrors = {...validationErrors};
@@ -135,14 +137,13 @@ const AuthModal = ({close}) => {
         try {
             let loginData = {};
             loginData['password'] = password;
-            loginData[username] = usernameValue;
-            const loginResponse = await axios.post('/api/login', loginData).then(r => r.data);
-            localStorage.setItem('auth_token', loginResponse.data.token);
-            setTimeout(() => setUser('/api/user'), 1);
+            loginData['email'] = usernameValue;
+            await axios.post(`/login`, loginData).then(r => r.data);
+            setTimeout(() => mutateUser('/user'), 1);
             router.back();
             close();
 
-            if (window.location.pathname.startsWith('/job/')) return;
+            if (window.location.pathname.startsWith('/job/')) return; // this stops the job details modal from closing on mobile
             localStorage.removeItem('authModalOpen')
         } catch (err) {
             if (err.response && err.response.status === 422) {
@@ -187,13 +188,18 @@ const AuthModal = ({close}) => {
                         mode === "register" && (
                             <>
                                 <div className="form_group">
+                                    <label htmlFor="name" className="label">Name</label>
+                                    <input type="text" className={`input ${validationErrors?.name ? 'has-error' : ''}`} name="name" value={name} onChange={e => setName(e.target.value)} id="name" placeholder="Fullname" required/>
+                                    { validationErrors?.name && <span className="error-msg">{validationErrors?.name}</span> }
+                                </div>
+                                <div className="form_group">
                                     <label htmlFor="email" className="label">Email</label>
                                     <input type="email" className={`input ${validationErrors?.email ? 'has-error' : ''}`} name="email" value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
                                     { validationErrors?.email && <span className="error-msg">{validationErrors?.email}</span> }
                                 </div>
                                 <div className="form_group">
                                     <label htmlFor="phone" className="label">Phone number</label>
-                                    <input type="text" className={`input ${validationErrors?.phone ? 'has-error' : ''}`} name="phone" value={phone} onChange={onPhoneChange} id="phone" placeholder="+263783632563" required/>
+                                    <input type="text" className={`input ${validationErrors?.phone ? 'has-error' : ''}`} name="phone" value={phone} onChange={onPhoneChange} id="phone" placeholder="+2637XXXXXXXX" required/>
                                     { validationErrors?.phone && <span className="error-msg">{validationErrors?.phone}</span> }
                                 </div>
                             </>

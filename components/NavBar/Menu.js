@@ -3,7 +3,7 @@ import tw from "twin.macro"
 import useUser from "../../lib/useUser"
 import { useState } from "react"
 import AuthModal from "../AuthModal/AuthModal";
-import axios from "axios";
+import axios from "../../lib/axios";
 import Link from "next/link";
 
 const MenuStyles = styled.div`
@@ -88,14 +88,14 @@ const MenuStyles = styled.div`
 `
 
 const Menu = () => {
-    const { user, setUser} = useUser();
+    const { user, mutateUser} = useUser();
     const [ open, setOpen ] = useState(false);
     const [ showAuthModal, setShowAuthModal ] = useState(false);
 
     const logout = async () => {
-        localStorage.removeItem('auth_token');
-        await axios.post('/api/logout').then(res => {res.data});
-        setTimeout(() => {setUser(null)}, 10)
+        await axios.get('/sanctum/csrf-cookie');
+        await axios.post('/logout').then(res => {res.data});
+        setTimeout(() => {mutateUser(null)}, 10)
     }
 
     const handleMenuClick = e => {
@@ -145,7 +145,7 @@ const Menu = () => {
                                 </div>
                                 <div className="content">
                                     <p className="name">
-                                        {user ? `${user.email}` : 'Guest User'}
+                                        {user ? `${user.name}` : 'Guest User'}
                                     </p>
                                     {
                                         user ? (
