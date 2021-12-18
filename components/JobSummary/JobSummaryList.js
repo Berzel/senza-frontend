@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
-import Link from "next/link";
 import useUser from "../../lib/useUser";
 import AuthModal from "../AuthModal/AuthModal";
 

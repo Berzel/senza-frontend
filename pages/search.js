@@ -45,7 +45,7 @@ const SearchPage = ({jobs}) => {
 export default SearchPage
 
 export const getServerSideProps = async ({req}) => {
-    const jobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}${req.url}`).then(r => r.data)
+    const jobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${req.url}`).then(r => r.data)
 
     return {
         props: {
