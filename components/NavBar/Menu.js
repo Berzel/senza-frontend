@@ -4,6 +4,7 @@ import useUser from "../../lib/useUser"
 import { useState } from "react"
 import AuthModal from "../AuthModal/AuthModal";
 import axios from "axios";
+import Link from "next/link";
 
 const MenuStyles = styled.div`
     ${tw`flex items-center space-x-4 text-gray-800`}
@@ -42,6 +43,10 @@ const MenuStyles = styled.div`
                     }
                     > svg {
                         ${tw`w-3 h-3 fill-current block`}
+                    }
+
+                    & .menu_item_link {
+                        ${tw`w-full`}
                     }
                 }
 
@@ -175,9 +180,11 @@ const Menu = () => {
                             </li>
                             <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                <span>
-                                    Post a job
-                                </span>
+                                <Link href="/post-new-job">
+                                    <a className="menu_item_link">
+                                        Post a job
+                                    </a>
+                                </Link>
                             </li>
                             <li className="menu_item generic" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
