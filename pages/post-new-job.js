@@ -1,14 +1,14 @@
 import Head from "next/head";
 import styled from "styled-components";
 import tw from "twin.macro";
-import Header from "../../components/Header/Header";
-import NavBar from "../../components/NavBar/NavBar";
-import Container from "../../components/Container/Container";
+import Header from "../components/Header/Header";
+import NavBar from "../components/NavBar/NavBar";
+import Container from "../components/Container/Container";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import CreateJobStyles from "../../components/CreateJob/CreateJob.styled";
-import useUser from "../../lib/useUser";
-import AuthModal from "../../components/AuthModal/AuthModal";
+import CreateJobStyles from "../components/CreateJob/CreateJob.styled";
+import useUser from "../lib/useUser";
+import AuthModal from "../components/AuthModal/AuthModal";
 import axios from "axios";
 
 const Main = styled.main`
@@ -227,7 +227,6 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     {userCompanies.map(currentCompany => (
                                                         <li className={`company_list_item ${company.id === currentCompany.id ? 'active' : ''}`} onClick={e => setCompany(currentCompany)} key={currentCompany.id}>{currentCompany.name}</li>
                                                     ))}
-                                                    <li className={`company_list_item ${!company?.id ? 'active' : ''}`} onClick={e => setCompany({})} >Add Company</li>
                                                 </ul>
                                             )
                                         }

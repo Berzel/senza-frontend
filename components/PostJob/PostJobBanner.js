@@ -2,7 +2,7 @@ import Link from "next/link"
 import PostJobBannerStyles from "./PostJobBanner.styled"
 
 const PostJobBanner = () => (
-    <Link href="/hiring" scroll={false} >
+    <Link href="/post-new-job" scroll={false} >
         <a>
             <PostJobBannerStyles>
                 <div>
