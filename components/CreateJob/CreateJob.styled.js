@@ -118,7 +118,7 @@ const CreateJobStyles = styled.div`
 
     .sub-section {
         &_heading {
-            ${tw`ml-0.5 border-b pb-2`}
+            ${tw`ml-0.5 mb-4 border-b pb-2`}
 
             &_title {
                 ${tw`font-semibold mb-1`}

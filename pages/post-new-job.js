@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import CreateJobStyles from "../components/CreateJob/CreateJob.styled";
 import useUser from "../lib/useUser";
 import AuthModal from "../components/AuthModal/AuthModal";
-import axios from "axios";
+import axios from "../lib/axios";
 
 const Main = styled.main`
     & > *+* {
@@ -19,25 +19,34 @@ const Main = styled.main`
 
 const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const jobDefaults = {
-        sector_id: 37, // Work from home
-        level_id: 4, // Intermediate
-        contract_type_id: 3, // Full time
-        salary: {
-            negotiable: true,
-            min: 250,
-            max: 2500,
-            currency: 'usd',
-            period: 'monthly'
-        },
+        title: '',
+        description: '',
+        min_wage: '250',
+        max_wage: '2000',
+        wage_period: 'month',
+        wage_currency: 'usd',
+        wage_negotiable: true,
+        level_id: jobLevels.filter(l => l.slug === 'intermediate')[0]?.id,
+        sector_id: sectors.filter(s => s.slug === 'work-from-home')[0]?.id,
+        contract_type_id: contractTypes.filter(c => c.slug === 'full-time')[0]?.id,
+        country_id: countries.filter(c => c.slug === 'zimbabwe')[0]?.id,
+        is_remote: true,
+        city: 'Harare',
         responsibilities: ['', '', ''],
         qualifications: ['', '', ''],
-        is_remote: true,
-        country_id: 1, // Zimbabwe
-        city: 'Harare',
+        application_instructions: '',
+        application_email: '',
+        application_link: ''
     };
 
     const companyDefaults = {
-        country_id: 1 // Zimbabwe
+        name: '',
+        about: '',
+        website: '',
+        contact_email: '',
+        twitter_handle: '',
+        facebook_page: '',
+        country_id: countries.filter(c => c.slug === 'zimbabwe')[0]?.id
     };
 
     const router = useRouter();
@@ -52,40 +61,25 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
 
     useEffect(async () => {
         if (user) {
-            let config = {headers: {
-                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
-            }};
-
-            const companies = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/users/${user.email}/companies?_size=500`, config).then(r => r.data);
+            const companies = await axios.get(`/users/${user.email}/companies?_size=500`).then(r => r.data);
+            if (companies.length > 0) setCompany(companies[0])
             setUserCompanies(companies)
-            
-            if (companies.length > 0) {
-                setCompany(companies[0])
-            }
         }
     }, [user])
-
-    const updateCompany = newCompanyDetails => {
-        setCompany(newCompanyDetails);
-    }
-
-    const updateJob = newJobDetails => {
-        setJob(newJobDetails)
-    }
 
     const addSkill = e => {
         e.preventDefault();
         if (skills.length > 30) return;
         const newSkills = [...skills, ''];
         setSkills(newSkills);
-        updateJob({...job, qualifications: newSkills})
+        setJob({...job, qualifications: newSkills})
     }
 
     const updateSkill = (key, value) => {
         let newSkills = [...skills]
         newSkills[key] = value
         setSkills(newSkills)
-        updateJob({...job, qualifications: newSkills})
+        setJob({...job, qualifications: newSkills})
     }
 
     const removeSkill = key => {
@@ -93,7 +87,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         let newSkills = [...skills]
         newSkills = newSkills.filter((skill, index) => key !== index)
         setSkills(newSkills)
-        updateJob({...job, qualifications: newSkills})
+        setJob({...job, qualifications: newSkills})
     }
 
     const addResponsibitity = e => {
@@ -101,14 +95,14 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         if (responsibilities.length > 30) return;
         const newResponsibilities = [...responsibilities, ''];
         setResponsibilities(newResponsibilities)
-        updateJob({...job, responsibilities: newResponsibilities})
+        setJob({...job, responsibilities: newResponsibilities})
     }
 
     const updateResponsibility = (key, value) => {
         let newResponsibilities = [...responsibilities]
         newResponsibilities[key] = value
         setResponsibilities(newResponsibilities)
-        updateJob({...job, responsibilities: newResponsibilities})
+        setJob({...job, responsibilities: newResponsibilities})
     }
 
     const removeResponsibility = key => {
@@ -116,7 +110,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         let newResponsibilities = [...responsibilities]
         newResponsibilities = newResponsibilities.filter((res, index) => key !== index)
         setResponsibilities(newResponsibilities)
-        updateJob({...job, responsibilities: newResponsibilities})
+        setJob({...job, responsibilities: newResponsibilities})
     }
     
     const postJob = async (event) => {
@@ -126,57 +120,56 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             return setShowAuthModal(true)
         }
 
-        if (user && localStorage.getItem('auth_token')) {
-            let config = {headers: {
-                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
-            }};
+        if (!user) return;
 
-            setValidationErrors({});
-            let company_id = company?.id;
+        console.log(job, company);
+        return;
 
-            try {
-                company_id = company_id ?? await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
-            } catch (err) {
-                if (err.response && err.response.status === 422) {
-                    let newValidationErrors = {...validationErrors};
+        setValidationErrors({});
+        let company_id = company?.id;
 
-                    Object.keys(err.response.data.errors).forEach(key => {
-                        newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
-                    })
+        try {
+            company_id = company_id ?? await axios.post(`/companies`, company).then(r => r.data.id);
+        } catch (err) {
+            if (err.response && err.response.status === 422) {
+                let newValidationErrors = {...validationErrors};
 
-                    setValidationErrors(newValidationErrors)
-                }
+                Object.keys(err.response.data.errors).forEach(key => {
+                    newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                })
 
-                return;
+                setValidationErrors(newValidationErrors)
             }
 
-            try {
-                let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
-                setJob(jobDefaults)
-                setSkills(jobDefaults.qualifications)
-                setResponsibilities(jobDefaults.responsibilities)
-                alert(`Job created: ${jobDetails?.data?.title}`)
-            } catch (err) {
-                if (err.response && err.response.status === 422) {
-                    let newValidationErrors = {...validationErrors};
+            return;
+        }
 
-                    Object.keys(err.response.data.errors).forEach(key => {
-                        newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
-                    })
+        try {
+            let jobDetails = await axios.post(`/jobs`, {...job, company_id}).then(r => r.data);
+            setJob(jobDefaults)
+            setSkills(jobDefaults.qualifications)
+            setResponsibilities(jobDefaults.responsibilities)
+            alert(`Job created: ${jobDetails?.data?.title}`)
+        } catch (err) {
+            if (err.response && err.response.status === 422) {
+                let newValidationErrors = {...validationErrors};
 
-                    setValidationErrors(newValidationErrors)
-                }
+                Object.keys(err.response.data.errors).forEach(key => {
+                    newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+                })
 
-                return;
+                setValidationErrors(newValidationErrors)
             }
+
+            return;
         }
     }
     
     return (
         <>
             <Head>
-                <title>Senza - New Job</title>
-                <meta name="description" content="Generated by create next app" />
+                <title>Senza - Post New Job</title>
+                <meta name="description" content="Post new job on Senza" />
             </Head>
     
             <Header>
@@ -254,20 +247,20 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="text" 
                                                     id="name" 
                                                     name="name" 
-                                                    value={company?.name ?? ''} 
-                                                    onChange={e => updateCompany({...company, name: e.target.value})} 
+                                                    value={company?.name} 
+                                                    onChange={e => setCompany({...company, name: e.target.value})} 
                                                     placeholder="Company name" disabled={!!company?.id} />
                                                 { validationErrors?.name && <span className="error-msg">{validationErrors?.name}</span> }
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="country_id" className="label">
+                                                <label htmlFor="company_country_id" className="label">
                                                     Company country <span className="input_required">*</span>
                                                 </label>
                                                 <select 
                                                     className="input" 
-                                                    id="country_id" 
-                                                    value={company?.country_id ?? '1'} 
-                                                    onChange={e => updateCompany({...company, country_id: e.target.value})} 
+                                                    id="company_country_id" 
+                                                    value={company?.country_id} 
+                                                    onChange={e => setCompany({...company, country_id: e.target.value})} 
                                                     name="country_id" disabled={!!company?.id}>
                                                         {
                                                             countries && countries.map(country => (
@@ -287,8 +280,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 className="input" 
                                                 name="about" 
                                                 id="about" 
-                                                value={company?.about ?? ''} 
-                                                onChange={e => updateCompany({...company, about: e.target.value})} 
+                                                value={company?.about} 
+                                                onChange={e => setCompany({...company, about: e.target.value})} 
                                                 placeholder="What is your company all about?" disabled={!!company?.id}>
                                             </textarea>
                                             { validationErrors?.about && <span className="error-msg">{validationErrors?.about}</span> }
@@ -303,8 +296,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     className="input"
                                                     id="website" 
                                                     name="website" 
-                                                    value={company?.website ?? ''}
-                                                    onChange={e => updateCompany({...company, website: e.target.value})}
+                                                    value={company?.website}
+                                                    onChange={e => setCompany({...company, website: e.target.value})}
                                                     placeholder="www.company.com" disabled={!!company?.id} />
                                                 { validationErrors?.website && <span className="error-msg">{validationErrors?.website}</span> }
                                             </div>
@@ -317,8 +310,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="email" 
                                                     id="contact_email" 
                                                     name="contact_email"
-                                                    value={company?.contact_email ?? ''}
-                                                    onChange={e => updateCompany({...company, contact_email: e.target.value})} 
+                                                    value={company?.contact_email}
+                                                    onChange={e => setCompany({...company, contact_email: e.target.value})} 
                                                     placeholder="someone@company.com" disabled={!!company?.id} />
                                                 { validationErrors?.contact_email && <span className="error-msg">{validationErrors?.contact_email}</span> }
                                             </div>
@@ -333,8 +326,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="text" 
                                                     id="twitter_handle" 
                                                     name="twitter_handle"
-                                                    value={company?.twitter_handle ?? ''}
-                                                    onChange={e => updateCompany({...company, twitter_handle: e.target.value})} 
+                                                    value={company?.twitter_handle}
+                                                    onChange={e => setCompany({...company, twitter_handle: e.target.value})} 
                                                     placeholder="@CompanyName" disabled={!!company?.id} />
                                                 { validationErrors?.twitter_handle && <span className="error-msg">{validationErrors?.twitter_handle}</span> }
                                             </div>
@@ -347,8 +340,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="text" 
                                                     id="facebook_page" 
                                                     name="facebook_page"
-                                                    value={company?.facebook_page ?? ''}
-                                                    onChange={e => updateCompany({...company, facebook_page: e.target.value})} 
+                                                    value={company?.facebook_page}
+                                                    onChange={e => setCompany({...company, facebook_page: e.target.value})} 
                                                     placeholder="Company facebook page" disabled={!!company?.id}/>
                                                 { validationErrors?.facebook_page && <span className="error-msg">{validationErrors?.facebook_page}</span> }
                                             </div>
@@ -368,8 +361,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="text" 
                                                     id="title" 
                                                     name="title" 
-                                                    value={job?.title ?? ''} 
-                                                    onChange={e => updateJob({...job, title: e.target.value})} 
+                                                    value={job?.title} 
+                                                    onChange={e => setJob({...job, title: e.target.value})} 
                                                     placeholder="Web Developer, etc"/>
                                                 { validationErrors?.title && <span className="error-msg">{validationErrors?.title}</span> }
                                             </div>
@@ -380,8 +373,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 <select 
                                                     className="input" 
                                                     name="sector_id" 
-                                                    value={job?.sector_id ?? ''}
-                                                    onChange={e => updateJob({...job, sector_id: e.target.value})}
+                                                    value={job?.sector_id}
+                                                    onChange={e => setJob({...job, sector_id: e.target.value})}
                                                     id="sector_id">
                                                         {
                                                             sectors && sectors.map(sector => (
@@ -400,8 +393,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 <select 
                                                     className="input" 
                                                     name="level_id"
-                                                    value={job?.level_id ?? ''}
-                                                    onChange={e => updateJob({...job, level_id: e.target.value})}
+                                                    value={job?.level_id}
+                                                    onChange={e => setJob({...job, level_id: e.target.value})}
                                                     id="level_id">
                                                         {
                                                             jobLevels && jobLevels.map(level => (
@@ -418,8 +411,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 <select 
                                                     className="input" 
                                                     name="contract_type_id"
-                                                    value={job?.contract_type_id ?? ''}
-                                                    onChange={e => updateJob({...job, contract_type_id: e.target.value})} 
+                                                    value={job?.contract_type_id}
+                                                    onChange={e => setJob({...job, contract_type_id: e.target.value})} 
                                                     id="contract_type_id">
                                                         {
                                                             contractTypes && contractTypes.map(type => (
@@ -439,8 +432,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 className="input" 
                                                 name="description" 
                                                 id="description"
-                                                value={job?.description ?? ''}
-                                                onChange={e => updateJob({...job, description: e.target.value})} 
+                                                value={job?.description}
+                                                onChange={e => setJob({...job, description: e.target.value})} 
                                                 placeholder="Job description goes here"/>
                                             { validationErrors?.description && <span className="error-msg">{validationErrors?.description}</span> }
                                         </div>
@@ -453,11 +446,11 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             <div className="check-group">
                                                 <input 
                                                     type="checkbox" 
-                                                    name="negotiable"
-                                                    checked={!!job?.salary?.negotiable} 
-                                                    onChange={e => updateJob({...job, salary: {...job?.salary, negotiable: e.target.checked}})}
-                                                    id="negotiable"/>
-                                                <label htmlFor="negotiable" className="check-label">Salary is negotiable?</label>
+                                                    name="wage_negotiable"
+                                                    checked={!!job?.wage_negotiable} 
+                                                    onChange={e => setJob({...job, wage_negotiable: e.target.checked})} 
+                                                    id="wage_negotiable" />
+                                                <label htmlFor="wage_negotiable" className="check-label">Salary is negotiable?</label>
                                             </div>
                                             <div className="row">
                                                 <div className="group">
@@ -469,8 +462,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         type="number" 
                                                         id="salary.min" 
                                                         name="salary.min" 
-                                                        value={job?.salary?.min ?? ''}
-                                                        onChange={e => updateJob({...job, salary: {...job?.salary, min: e.target.value}})}
+                                                        value={job?.min_wage}
+                                                        onChange={e => setJob({...job, min_wage: e.target.value})}
                                                         placeholder="250"/>
                                                 </div>
                                                 <div className="group">
@@ -482,8 +475,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         type="number"
                                                         id="salary.max" 
                                                         name="salary.max" 
-                                                        value={job?.salary?.max ?? ''}
-                                                        onChange={e => updateJob({...job, salary: {...job?.salary, max: e.target.value}})}
+                                                        value={job?.max_wage}
+                                                        onChange={e => setJob({...job, max_wage: e.target.value})}
                                                         placeholder="10000"/>
                                                 </div>
                                                 <div className="group">
@@ -493,8 +486,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     <select 
                                                         className="input" 
                                                         name="salary.currency" 
-                                                        value={job?.salary?.currency ?? ''}
-                                                        onChange={e => updateJob({...job, salary: {...job?.salary, currency: e.target.value}})}
+                                                        value={job?.wage_currency}
+                                                        onChange={e => setJob({...job, wage_currency: e.target.value})}
                                                         id="salary.currency">
                                                             <option value="usd">USD</option>
                                                             <option value="zwl">ZWL</option>
@@ -509,15 +502,14 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     <select 
                                                         className="input" 
                                                         name="salary.period"
-                                                        value={job?.salary?.period ?? ''}
-                                                        onChange={e => updateJob({...job, salary: {...job?.salary, period: e.target.value}})} 
+                                                        value={job?.wage_period}
+                                                        onChange={e => setJob({...job, wage_period: e.target.value})} 
                                                         id="salary.period">
-                                                            <option value="hourly">Hourly</option>
-                                                            <option value="daily">Daily</option>
-                                                            <option value="weekly">Weekly</option>
-                                                            <option value="bi-weekly">Bi-Weekly</option>
-                                                            <option value="monthly">Monthly</option>
-                                                            <option value="yearly">Yearly</option>
+                                                            <option value="hour">Hourly</option>
+                                                            <option value="day">Daily</option>
+                                                            <option value="week">Weekly</option>
+                                                            <option value="month">Monthly</option>
+                                                            <option value="year">Yearly</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -533,7 +525,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="checkbox" 
                                                     name="is_remote"
                                                     checked={!!job?.is_remote} 
-                                                    onChange={e => updateJob({...job, is_remote: e.target.checked})} 
+                                                    onChange={e => setJob({...job, is_remote: e.target.checked})} 
                                                     id="is_remote" />
                                                 <label htmlFor="is_remote" className="check-label">This role allows working from home?</label>
                                             </div>
@@ -545,8 +537,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     <select 
                                                         className="input" 
                                                         name="country_id" 
-                                                        value={job?.country_id ?? '1'}
-                                                        onChange={e => updateJob({...job, country_id: e.target.value})}
+                                                        value={job?.country_id}
+                                                        onChange={e => setJob({...job, country_id: e.target.value})}
                                                         id="country_id">
                                                             {
                                                                 countries && countries.map(country => (
@@ -564,8 +556,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         type="text" 
                                                         id="city" 
                                                         name="city" 
-                                                        value={job?.city ?? ''}
-                                                        onChange={e => updateJob({...job, city: e.target.value})}
+                                                        value={job?.city}
+                                                        onChange={e => setJob({...job, city: e.target.value})}
                                                         placeholder="Enter town or city name"/>
                                                 </div>
                                             </div>
@@ -646,8 +638,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     className="input" 
                                                     name="application_instructions" 
                                                     id="application_instructions"
-                                                    value={job?.application_instructions ?? ''}
-                                                    onChange={e => updateJob({...job, application_instructions: e.target.value})} 
+                                                    value={job?.application_instructions}
+                                                    onChange={e => setJob({...job, application_instructions: e.target.value})} 
                                                     placeholder="How should candidates apply?"/>
                                                 { validationErrors?.application_instructions && <span className="error-msg">{validationErrors?.application_instructions}</span> }
                                             </div>
@@ -661,8 +653,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="email"
                                                     id="application_email" 
                                                     name="application_email"
-                                                    value={job?.application_email ?? ''}
-                                                    onChange={e => updateJob({...job, application_email: e.target.value})} 
+                                                    value={job?.application_email}
+                                                    onChange={e => setJob({...job, application_email: e.target.value})} 
                                                     placeholder="Application email"/>
                                                 { validationErrors?.application_email && <span className="error-msg">{validationErrors?.application_email}</span> }
                                             </div>
@@ -675,8 +667,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     type="url"
                                                     id="application_link" 
                                                     name="application_link"
-                                                    value={job?.application_link ?? ''}
-                                                    onChange={e => updateJob({...job, application_link: e.target.value})} 
+                                                    value={job?.application_link}
+                                                    onChange={e => setJob({...job, application_link: e.target.value})} 
                                                     placeholder="Application link"/>
                                                 { validationErrors?.application_link && <span className="error-msg">{validationErrors?.application_link}</span> }
                                             </div>
