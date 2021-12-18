@@ -135,7 +135,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             let company_id = company?.id;
 
             try {
-                company_id = company_id ?? await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
+                company_id = company_id ?? await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/companies`, company, config).then(r => r.data.data.id);
             } catch (err) {
                 if (err.response && err.response.status === 422) {
                     let newValidationErrors = {...validationErrors};
@@ -151,7 +151,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             }
 
             try {
-                let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
+                let jobDetails = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs`, {...job, company_id}, config).then(r => r.data);
                 setJob(jobDefaults)
                 setSkills(jobDefaults.qualifications)
                 setResponsibilities(jobDefaults.responsibilities)
@@ -687,10 +687,10 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
 export default NewJobPage
 
 export async function getStaticProps(context) {
-    const countries = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/countries/all`).then(r => r.data)
-    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/sectors/all`).then(r => r.data)
-    const jobLevels = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/levels/all`).then(r => r.data)
-    const contractTypes = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/contract-types/all`).then(r => r.data)
+    const countries = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/countries`).then(r => r.data.data)
+    const sectors = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`).then(r => r.data.data)
+    const jobLevels = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/levels`).then(r => r.data.data)
+    const contractTypes = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/contract_types`).then(r => r.data.data)
 
     return {
         props: {
