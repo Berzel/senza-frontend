@@ -44,11 +44,22 @@ const CreateJobStyles = styled.div`
 
         @media screen and (min-width: 1024px) {
             display: block;
-            flex-grow: 1;
         }
 
         .sidebar {
             ${tw`sticky top-3 block w-full border rounded-lg p-2`}
+
+            >*+*{
+                ${tw`mt-4`}
+            }
+
+            .title {
+                ${tw`font-semibold mb-4 text-xl`}
+            }
+
+            .link {
+                ${tw`text-blue-400`}
+            }
         }
     }
 
@@ -57,6 +68,7 @@ const CreateJobStyles = styled.div`
 
         @media screen and (min-width: 1024px) {
             flex-basis: 65%;
+            flex-shrink: 0;
         }
     }
 }

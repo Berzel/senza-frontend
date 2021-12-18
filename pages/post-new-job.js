@@ -212,7 +212,21 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                         <div className="form-container">
                             <div className="left">
                                 <div className="sidebar">
-                                    Left
+                                    <h1 className="title">
+                                        Take note
+                                    </h1>
+                                    <p>
+                                        To create a new job posting you must first add the company details that you are creating the job offer for.
+                                    </p>
+                                    <p>
+                                        Fields marked with an asterisk (<span className="input_required">*</span>) are required.
+                                    </p>
+                                    <p>
+                                        You won't be able to edit jobs after posting. For help please contact Berzel Best at <a href="mailto:berzel.best@gmail.com" className="link"> berzel.best@gmail.com</a>
+                                    </p>
+                                    <p>
+                                        Job listings will expire after 30 days on our website and after that applications will be closed.
+                                    </p>
                                 </div>
                             </div>
                             <div className="right">
