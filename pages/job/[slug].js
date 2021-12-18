@@ -115,26 +115,13 @@ const Bottom = styled.div`
 const Single = ({job, setShowJob}) => {
     const router = useRouter()
     const { user } = useUser()
-
     const formatter = Intl.NumberFormat('en', { notation: 'compact' });
-    const formatPeriod = period => {
-        const values = {
-            hourly: 'hour',
-            daily: 'day',
-            weekly: 'week',
-            'bi-weekly': 'fortnight',
-            monthly: 'month',
-            yearly: 'year'
-        };
 
-        return values[period];
-    }
-
-    const jobSummary = 
+    const jobSummary = job?.company ?
 `${job.company.name} \
 is looking for a ${job.is_remote ? 'Remote' : `${job.city} based`}, \
 ${job.title} (${job.level.display_name}) \
-to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
+to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` : job.description;
 
     return (
         <>
@@ -168,7 +155,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
                                     <p className="type">{job.contract_type.display_name}</p>
                                 </div>
                                 <h1 className="title">{job.title}</h1>
-                                <p className="range">${formatter.format(job.salary.min)} - ${formatter.format(job.salary.max)} / {`${formatPeriod(job.salary.period)}`}</p>
+                                <p className="range">${formatter.format(job.min_wage)} - ${formatter.format(job.max_wage)} / {job.wage_period}</p>
                             </div>
                         </div>
                         <div className="location">
@@ -181,7 +168,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
                                     {job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}
                                 </span>
                             </p>
-                            <p>1 day ago</p>
+                            <p>{job.diff_for_humans}</p>
                         </div>
                     </Top>
                     <Bottom>
@@ -213,7 +200,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
                                                 </i>
                                             </div>
                                             <div>
-                                                {res.value}
+                                                {res.description}
                                             </div>
                                         </li>
                                     ))
@@ -234,7 +221,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
                                                 </i>
                                             </div>
                                             <div>
-                                                {qualification.value}
+                                                {qualification.description}
                                             </div>
                                         </li>
                                     ))
@@ -270,7 +257,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.`;
 export default Single
 
 export async function getStaticPaths() {
-    const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs?_sort=latest`).then(r => r.data)
+    const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_sort=latest`).then(r => r.data)
     const paths = latestJobs?.data?.map((job) => ({
         params: { slug: job.slug },
     }));
@@ -279,7 +266,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const job = await axios.get(`${process.env.NEXT_PUBLIC_CORE_SERVICE_ENDPOINT}/jobs/${params.slug}`).then(r => r.data)
+    const job = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs/${params.slug}`).then(r => r.data)
 
     return {
         props: {
