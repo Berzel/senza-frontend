@@ -7,17 +7,16 @@ import { useRouter } from "next/dist/client/router"
 
 const AuthModal = ({close}) => {
     const router = useRouter();
-    const [mode, setMode] = useState('login');
     const [name, setName] = useState('');
+    const {user, mutateUser} = useUser();
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [mode, setMode] = useState('login');
     const [username, setUsername] = useState('email');
     const [usernameValue, setUsernameValue] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
-    const {user, mutateUser} = useUser();
     const [validationErrors, setValidationErrors] = useState({});
-    const [validationTimers, setValidationTimers] = useState({});
 
     useEffect(() => {
         localStorage.setItem('authModalOpen', true)
@@ -47,23 +46,6 @@ const AuthModal = ({close}) => {
         setEmail(email)
         setUsername("email");
         setUsernameValue(email);
-    
-        // We do not wan't to perfom any validation if input length is < 5
-        if (e.target.value.length < 5) {
-            return;
-        }
-
-        // If we had previously set a timer we should clear it
-        if (validationTimers?.emailTimer) {
-            clearTimeout(validationTimers?.emailTimer)
-        }
-
-        // Set the new timer
-        setValidationTimers({...validationTimers, emailTimer: setTimeout(async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/helpers/check-email?email=${e.target.value}`).then(r => r.data)
-            if (response.exists) setValidationErrors({...validationErrors, email: response.message})
-            if (!response.exists) setValidationErrors({...validationErrors, email: null})
-        }, 50)})
     }
 
     const onPhoneChange = e => {
@@ -71,35 +53,12 @@ const AuthModal = ({close}) => {
         setPhone(phone)
         setUsername("phone");
         setUsernameValue(phone);
-    
-        // We do not wan't to perfom any validation if input length is < 5: Phone numbers inc country code should be longer than 5
-        if (e.target.value.length < 5) {
-            return;
-        }
-
-        // If we had previously set a timer we should clear it
-        if (validationTimers?.phoneTimer) {
-            clearTimeout(validationTimers?.phoneTimer)
-        }
-
-        // Set the new timer
-        setValidationTimers({...validationTimers, phoneTimer: setTimeout(async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_AUTH_ENDPOINT}/helpers/check-phone?phone=${encodeURIComponent(e.target.value)}`).then(r => r.data)
-            if (response.exists) setValidationErrors({...validationErrors, phone: response.message})
-            if (!response.exists) setValidationErrors({...validationErrors, phone: null})
-        }, 50)})
     }
 
     const onPasswordChange = e => {
         let value = e.target.value
         setPassword(value)
         setPasswordConfirmation(value)
-
-        if (value.length < 6) {
-            return setValidationErrors({...validationErrors, password: 'The password must be at least 6 characters long.'})
-        }
-
-        setValidationErrors({...validationErrors, password: null})
     }
 
     const onUsernameChange = e => {
@@ -111,6 +70,19 @@ const AuthModal = ({close}) => {
         setUsernameValue(value);
     }
 
+    const handleError = err => {
+        if (err.response && err.response.status === 422) {
+            let newValidationErrors = {...validationErrors};
+
+            Object.keys(err.response.data.errors).forEach(key => {
+                newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+            })
+
+            newValidationErrors.username = newValidationErrors?.phone ?? newValidationErrors.email;
+            setValidationErrors(newValidationErrors)
+        }
+    }
+
     const handleSubmit = async event => {
         event.preventDefault();
         setValidationErrors({});
@@ -118,18 +90,9 @@ const AuthModal = ({close}) => {
 
         if (mode === "register") {
             try {
-                const registerResponse = await axios.post(`/register`, {name, email, phone, password, password_confirmation});
+                await axios.post(`/register`, {name, email, phone, password, password_confirmation});
             } catch (err) {
-                if (err.response && err.response.status === 422) {
-                    let newValidationErrors = {...validationErrors};
-
-                    Object.keys(err.response.data.errors).forEach(key => {
-                        newValidationErrors[key] = err.response.data.errors[key][0];
-                    })
-
-                    setValidationErrors(newValidationErrors)
-                }
-
+                handleError(err);
                 return;
             }
         }
@@ -146,16 +109,7 @@ const AuthModal = ({close}) => {
             if (window.location.pathname.startsWith('/job/')) return; // this stops the job details modal from closing on mobile
             localStorage.removeItem('authModalOpen')
         } catch (err) {
-            if (err.response && err.response.status === 422) {
-                let newValidationErrors = {...validationErrors};
-
-                Object.keys(err.response.data.errors).forEach(key => {
-                    newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
-                })
-
-                newValidationErrors.username = newValidationErrors?.phone ?? newValidationErrors.email;
-                setValidationErrors(newValidationErrors)
-            }
+            handleError(err)
         }
     }
 
