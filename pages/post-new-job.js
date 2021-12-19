@@ -112,9 +112,21 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         setResponsibilities(newResponsibilities)
         setJob({...job, responsibilities: newResponsibilities})
     }
+
+    const handleValidationErrors = err => {
+        if (err.response && err.response.status === 422) {
+            let newValidationErrors = {...validationErrors};
+
+            Object.keys(err.response.data.errors).forEach(key => {
+                newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
+            })
+
+            setValidationErrors(newValidationErrors)
+        }
+    }
     
-    const postJob = async (event) => {
-        event.preventDefault()
+    const postJob = async e => {
+        e.preventDefault()
         
         if (!user && !showAuthModal) {
             return setShowAuthModal(true)
@@ -122,26 +134,18 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
 
         if (!user) return;
 
-        console.log(job, company);
-        return;
-
         setValidationErrors({});
         let company_id = company?.id;
 
         try {
-            company_id = company_id ?? await axios.post(`/companies`, company).then(r => r.data.id);
+            company_id = company_id ?? await axios.post(`/users/${user.email}/companies`, company).then(r => r.data.id);
         } catch (err) {
-            if (err.response && err.response.status === 422) {
-                let newValidationErrors = {...validationErrors};
-
-                Object.keys(err.response.data.errors).forEach(key => {
-                    newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
-                })
-
-                setValidationErrors(newValidationErrors)
+            if (!user.isAdmin) {
+                handleValidationErrors(err)
+                return;
+            } else {
+                setValidationErrors({})
             }
-
-            return;
         }
 
         try {
@@ -149,19 +153,9 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             setJob(jobDefaults)
             setSkills(jobDefaults.qualifications)
             setResponsibilities(jobDefaults.responsibilities)
-            alert(`Job created: ${jobDetails?.data?.title}`)
+            alert(`Job created: ${jobDetails?.title}`)
         } catch (err) {
-            if (err.response && err.response.status === 422) {
-                let newValidationErrors = {...validationErrors};
-
-                Object.keys(err.response.data.errors).forEach(key => {
-                    newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
-                })
-
-                setValidationErrors(newValidationErrors)
-            }
-
-            return;
+            handleValidationErrors(err)
         }
     }
     
@@ -194,7 +188,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                 </button>
                             </div>
                             <h1 className="title">
-                                New Job Listing
+                                Post New Job
                             </h1>
                             <p>
                                 In order to create a new job posting you must first add or select the company details that you are creating the job offer for.
