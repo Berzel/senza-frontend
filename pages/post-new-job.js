@@ -113,6 +113,15 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         setJob({...job, responsibilities: newResponsibilities})
     }
 
+    const updateCompany = currentCompany => {
+        if (company?.id === currentCompany.id) {
+            setCompany(companyDefaults);
+            return;
+        } 
+        
+        setCompany(currentCompany)
+    }
+
     const handleValidationErrors = err => {
         if (err.response && err.response.status === 422) {
             let newValidationErrors = {...validationErrors};
@@ -226,7 +235,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             userCompanies && (
                                                 <ul className="company_list">
                                                     {userCompanies.map(currentCompany => (
-                                                        <li className={`company_list_item ${company.id === currentCompany.id ? 'active' : ''}`} onClick={e => setCompany(currentCompany)} key={currentCompany.id}>{currentCompany.name}</li>
+                                                        <li className={`company_list_item ${company?.id === currentCompany.id ? 'active' : ''}`} onClick={e => updateCompany(currentCompany)} key={currentCompany.id}>{currentCompany.name}</li>
                                                     ))}
                                                 </ul>
                                             )
