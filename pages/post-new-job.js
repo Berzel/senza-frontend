@@ -60,11 +60,12 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const [responsibilities, setResponsibilities] = useState(jobDefaults.responsibilities);
 
     useEffect(async () => {
-        if (user) {
+        if (user?.email) {
             const companies = await axios.get(`/users/${user.email}/companies?_size=500`).then(r => r.data);
-            if (companies.length > 0) setCompany(companies[0])
             setUserCompanies(companies)
         }
+
+        if (!user) setUserCompanies([])
     }, [user])
 
     const addSkill = e => {
