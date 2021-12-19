@@ -212,7 +212,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                         Take note
                                     </h1>
                                     <p>
-                                        To create a new job posting you must first add the company details that you are creating the job offer for.
+                                        To create a new job posting you must first add or select the company details that you are creating the job offer for.
                                     </p>
                                     <p>
                                         Fields marked with an asterisk (<span className="input_required">*</span>) are required.
@@ -240,115 +240,120 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 </ul>
                                             )
                                         }
-                                        <div className="row">
-                                            <div className="group">
-                                                <label htmlFor="name" className="label">
-                                                    Company name <span className="input_required">*</span>
-                                                </label>
-                                                <input 
-                                                    className="input" 
-                                                    type="text" 
-                                                    id="name" 
-                                                    name="name" 
-                                                    value={company?.name} 
-                                                    onChange={e => setCompany({...company, name: e.target.value})} 
-                                                    placeholder="Company name" disabled={!!company?.id} />
-                                                { validationErrors?.name && <span className="error-msg">{validationErrors?.name}</span> }
-                                            </div>
-                                            <div className="group">
-                                                <label htmlFor="company_country_id" className="label">
-                                                    Company country <span className="input_required">*</span>
-                                                </label>
-                                                <select 
-                                                    className="input" 
-                                                    id="company_country_id" 
-                                                    value={company?.country_id} 
-                                                    onChange={e => setCompany({...company, country_id: e.target.value})} 
-                                                    name="country_id" disabled={!!company?.id}>
-                                                        {
-                                                            countries && countries.map(country => (
-                                                                <option key={country.id} value={country.id}>{country.name}</option>
-                                                            ))
-                                                        }
-                                                </select>
-                                                { validationErrors?.country_id && <span className="error-msg">{validationErrors?.country_id.replace('country id', 'country')}</span> }
-                                            </div>
-                                        </div>
-                                        <div className="group">
-                                            <label htmlFor="about" className="label">
-                                                About your company <span className="input_required">*</span>
-                                            </label>
-                                            <textarea 
-                                                rows="5" 
-                                                className="input" 
-                                                name="about" 
-                                                id="about" 
-                                                value={company?.about} 
-                                                onChange={e => setCompany({...company, about: e.target.value})} 
-                                                placeholder="What is your company all about?" disabled={!!company?.id}>
-                                            </textarea>
-                                            { validationErrors?.about && <span className="error-msg">{validationErrors?.about}</span> }
-                                        </div>
-                                        <div className="row">
-                                            <div className="group">
-                                                <label htmlFor="website" className="label">
-                                                    Company website
-                                                </label>
-                                                <input 
-                                                    type="url" 
-                                                    className="input"
-                                                    id="website" 
-                                                    name="website" 
-                                                    value={company?.website}
-                                                    onChange={e => setCompany({...company, website: e.target.value})}
-                                                    placeholder="www.company.com" disabled={!!company?.id} />
-                                                { validationErrors?.website && <span className="error-msg">{validationErrors?.website}</span> }
-                                            </div>
-                                            <div className="group">
-                                                <label htmlFor="contact_email" className="label">
-                                                    Contact email
-                                                </label>
-                                                <input 
-                                                    className="input" 
-                                                    type="email" 
-                                                    id="contact_email" 
-                                                    name="contact_email"
-                                                    value={company?.contact_email}
-                                                    onChange={e => setCompany({...company, contact_email: e.target.value})} 
-                                                    placeholder="someone@company.com" disabled={!!company?.id} />
-                                                { validationErrors?.contact_email && <span className="error-msg">{validationErrors?.contact_email}</span> }
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="group">
-                                                <label htmlFor="twitter_handle" className="label">
-                                                    Twitter handle
-                                                </label>
-                                                <input 
-                                                    className="input" 
-                                                    type="text" 
-                                                    id="twitter_handle" 
-                                                    name="twitter_handle"
-                                                    value={company?.twitter_handle}
-                                                    onChange={e => setCompany({...company, twitter_handle: e.target.value})} 
-                                                    placeholder="@CompanyName" disabled={!!company?.id} />
-                                                { validationErrors?.twitter_handle && <span className="error-msg">{validationErrors?.twitter_handle}</span> }
-                                            </div>
-                                            <div className="group">
-                                                <label htmlFor="facebook_page" className="label">
-                                                    Facebook
-                                                </label>
-                                                <input 
-                                                    className="input" 
-                                                    type="text" 
-                                                    id="facebook_page" 
-                                                    name="facebook_page"
-                                                    value={company?.facebook_page}
-                                                    onChange={e => setCompany({...company, facebook_page: e.target.value})} 
-                                                    placeholder="Company facebook page" disabled={!!company?.id}/>
-                                                { validationErrors?.facebook_page && <span className="error-msg">{validationErrors?.facebook_page}</span> }
-                                            </div>
-                                        </div>
+                                        {
+                                            !company?.id && 
+                                            <>
+                                                <div className="row">
+                                                    <div className="group">
+                                                        <label htmlFor="name" className="label">
+                                                            Company name <span className="input_required">*</span>
+                                                        </label>
+                                                        <input 
+                                                            className="input" 
+                                                            type="text" 
+                                                            id="name" 
+                                                            name="name" 
+                                                            value={company?.name} 
+                                                            onChange={e => setCompany({...company, name: e.target.value})} 
+                                                            placeholder="Company name" disabled={!!company?.id} />
+                                                        { validationErrors?.name && <span className="error-msg">{validationErrors?.name}</span> }
+                                                    </div>
+                                                    <div className="group">
+                                                        <label htmlFor="company_country_id" className="label">
+                                                            Company country <span className="input_required">*</span>
+                                                        </label>
+                                                        <select 
+                                                            className="input" 
+                                                            id="company_country_id" 
+                                                            value={company?.country_id} 
+                                                            onChange={e => setCompany({...company, country_id: e.target.value})} 
+                                                            name="country_id" disabled={!!company?.id}>
+                                                                {
+                                                                    countries && countries.map(country => (
+                                                                        <option key={country.id} value={country.id}>{country.name}</option>
+                                                                    ))
+                                                                }
+                                                        </select>
+                                                        { validationErrors?.country_id && <span className="error-msg">{validationErrors?.country_id.replace('country id', 'country')}</span> }
+                                                    </div>
+                                                </div>
+                                                <div className="group">
+                                                    <label htmlFor="about" className="label">
+                                                        About your company <span className="input_required">*</span>
+                                                    </label>
+                                                    <textarea 
+                                                        rows="5" 
+                                                        className="input" 
+                                                        name="about" 
+                                                        id="about" 
+                                                        value={company?.about} 
+                                                        onChange={e => setCompany({...company, about: e.target.value})} 
+                                                        placeholder="What is your company all about?" disabled={!!company?.id}>
+                                                    </textarea>
+                                                    { validationErrors?.about && <span className="error-msg">{validationErrors?.about}</span> }
+                                                </div>
+                                                <div className="row">
+                                                    <div className="group">
+                                                        <label htmlFor="website" className="label">
+                                                            Company website
+                                                        </label>
+                                                        <input 
+                                                            type="url" 
+                                                            className="input"
+                                                            id="website" 
+                                                            name="website" 
+                                                            value={company?.website}
+                                                            onChange={e => setCompany({...company, website: e.target.value})}
+                                                            placeholder="www.company.com" disabled={!!company?.id} />
+                                                        { validationErrors?.website && <span className="error-msg">{validationErrors?.website}</span> }
+                                                    </div>
+                                                    <div className="group">
+                                                        <label htmlFor="contact_email" className="label">
+                                                            Contact email
+                                                        </label>
+                                                        <input 
+                                                            className="input" 
+                                                            type="email" 
+                                                            id="contact_email" 
+                                                            name="contact_email"
+                                                            value={company?.contact_email}
+                                                            onChange={e => setCompany({...company, contact_email: e.target.value})} 
+                                                            placeholder="someone@company.com" disabled={!!company?.id} />
+                                                        { validationErrors?.contact_email && <span className="error-msg">{validationErrors?.contact_email}</span> }
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="group">
+                                                        <label htmlFor="twitter_handle" className="label">
+                                                            Twitter handle
+                                                        </label>
+                                                        <input 
+                                                            className="input" 
+                                                            type="text" 
+                                                            id="twitter_handle" 
+                                                            name="twitter_handle"
+                                                            value={company?.twitter_handle}
+                                                            onChange={e => setCompany({...company, twitter_handle: e.target.value})} 
+                                                            placeholder="@CompanyName" disabled={!!company?.id} />
+                                                        { validationErrors?.twitter_handle && <span className="error-msg">{validationErrors?.twitter_handle}</span> }
+                                                    </div>
+                                                    <div className="group">
+                                                        <label htmlFor="facebook_page" className="label">
+                                                            Facebook
+                                                        </label>
+                                                        <input 
+                                                            className="input" 
+                                                            type="text" 
+                                                            id="facebook_page" 
+                                                            name="facebook_page"
+                                                            value={company?.facebook_page}
+                                                            onChange={e => setCompany({...company, facebook_page: e.target.value})} 
+                                                            placeholder="Company facebook page" disabled={!!company?.id}/>
+                                                        { validationErrors?.facebook_page && <span className="error-msg">{validationErrors?.facebook_page}</span> }
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
                                     </div>
                                     <div className="section">
                                         <h2 className="title">
