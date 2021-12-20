@@ -229,6 +229,24 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` 
                             </ul>
                         </div>
                         {
+                            job?.company && (
+                                <div>
+                                    <h2 className="title">
+                                        About {job.company.name}
+                                    </h2>
+                                    <div className="body">
+                                        {
+                                            job.company.about.split('\n\n').map((text, key) => (
+                                                <div className="detail_text" key={key}>
+                                                    {text.split('\n').map((e, key) => (<p key={key}>{e}</p>))}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
+                        {
                             user && (
                                 <div>
                                     <h2 className="title">
