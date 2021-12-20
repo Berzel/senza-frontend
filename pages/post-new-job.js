@@ -163,7 +163,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             setJob(jobDefaults)
             setSkills(jobDefaults.qualifications)
             setResponsibilities(jobDefaults.responsibilities)
-            alert(`Job created: ${jobDetails?.title}`)
+            router.push(`/job/${jobDetails?.slug}`);
         } catch (err) {
             handleValidationErrors(err)
         }
