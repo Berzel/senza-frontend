@@ -168,7 +168,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` 
                                     {job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}
                                 </span>
                             </p>
-                            <p>{job.diff_for_humans}</p>
+                            <p>{job.created_ago}</p>
                         </div>
                     </Top>
                     <Bottom>

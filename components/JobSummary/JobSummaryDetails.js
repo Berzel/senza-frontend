@@ -32,7 +32,7 @@ const JobSummaryDetails = ({job}) => {
                     <p className="location">{job.country.name}, {`${job.is_remote ? 'Remote' : job.city}`}</p>
                 </div>
                 <div className="right">
-                    <p className="company-name">{job.diff_for_humans}</p>
+                    <p className="company-name">{job.created_ago}</p>
                 </div>
             </div>
         </>
