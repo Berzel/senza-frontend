@@ -101,6 +101,7 @@ const AuthModal = ({close}) => {
             let loginData = {};
             loginData['password'] = password;
             loginData['email'] = usernameValue;
+            loginData['remember'] = true;
             await axios.post(`/login`, loginData).then(r => r.data);
             setTimeout(() => mutateUser('/user'), 1);
             router.back();
