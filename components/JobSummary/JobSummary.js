@@ -4,6 +4,7 @@ import JobSummaryDetails from "./JobSummaryDetails";
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import "@reach/dialog/styles.css";
 import Single from "../../pages/job/[slug]";
+import * as ga from "../../lib/ga";
 
 const JobSummary = ({setActiveJob, job, active}) => {
     const [showJob, setShowJob] = useState(false);
@@ -11,6 +12,7 @@ const JobSummary = ({setActiveJob, job, active}) => {
     const updateActiveJob = e => {
         e.preventDefault();
         setActiveJob(job);
+        ga.pageview(`${window.location.origin}/job/${job.slug}`);
 
         if (window.innerWidth < 1024) {
             setShowJob(true)
