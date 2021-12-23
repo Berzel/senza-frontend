@@ -50,13 +50,17 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const sector = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors/${params.sector}`).then(r => r.data)
-    sector.latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors/${params.sector}/jobs?_sort=latest`).then(r => r.data)
+    try {
+        const sector = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors/${params.sector}`).then(r => r.data)
+        sector.latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors/${params.sector}/jobs?_sort=latest`).then(r => r.data)
 
-    return {
-        props: {
-            sector
-        },
-        revalidate: 30
+        return {
+            props: {sector},
+            revalidate: 30
+        }
+    } catch (error) {
+        return {
+            notFound: true
+        }
     }
 }
