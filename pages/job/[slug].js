@@ -284,12 +284,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const job = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs/${params.slug}`).then(r => r.data)
+    try {
+        const job = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs/${params.slug}`).then(r => r.data)
 
-    return {
-        props: {
-            job
-        },
-        revalidate: 10
+        return {
+            props: {job},
+            revalidate: 10
+        }
+    } catch (error) {
+        return {
+            notFound: true,
+        }
     }
 }
