@@ -1,7 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import styled from "styled-components";
+import styled from '@emotion/styled';
 import tw from "twin.macro";
 import Container from "../components/Container/Container";
 import Header from "../components/Header/Header";

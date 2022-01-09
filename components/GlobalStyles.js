@@ -1,26 +1,26 @@
 import React from 'react'
-import { createGlobalStyle } from 'styled-components'
 import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
+import { Global, css } from '@emotion/react'
 
-const CustomStyles = createGlobalStyle`
-  body {
-    -webkit-tap-highlight-color: ${theme`colors.transparent`};
-    ${tw`antialiased bg-gray-50`};
-  }
+const customStyles = css({
+  body: {
+    WebkitTapHighlightColor: theme`colors.transparent`,
+    ...tw`antialiased bg-gray-50`,
+  },
 
-  * {
-    font-family: 'Inter', sans-serif;
-  }
+  "*": {
+    fontFamily: "'Inter', sans-serif",
+  },
 
-  [data-reach-dialog-content] {
-    ${tw`w-full p-0 m-0 min-h-screen bg-gray-50`}
+  "div[data-reach-dialog-content]": {
+    ...tw`w-full p-0 m-0 min-h-screen bg-gray-50`
   }
-`
+})
 
 const GlobalStyles = () => (
   <>
     <BaseStyles />
-    <CustomStyles />
+    <Global styles={customStyles} />
   </>
 )
 

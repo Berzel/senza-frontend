@@ -8,21 +8,28 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
+    "@emotion/css": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
     "@reach/dialog": "^0.16.2",
     "animejs": "^3.2.1",
     "axios": "^0.23.0",
     "next": "11.1.3",
     "next-iron-session": "^4.2.0",
+    "prop-types": "latest",
     "react": "17.0.2",
     "react-custom-scrollbars-2": "^4.4.0",
     "react-dom": "17.0.2",
-    "styled-components": "^5.3.1",
     "swr": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.6",
     "babel-plugin-macros": "^3.1.0",
-    "babel-plugin-styled-components": "^1.13.2",
+    "@emotion/babel-plugin": "latest",
     "postcss": "^8.3.8",
     "react-is": "^17.0.2",
     "tailwindcss": "^2.2.16",
@@ -30,7 +37,7 @@
   },
   "babelMacros": {
     "twin": {
-      "preset": "styled-components"
+      "preset": "emotion"
     }
   }
 }

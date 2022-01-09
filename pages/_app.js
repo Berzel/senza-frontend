@@ -1,9 +1,21 @@
 import GlobalStyles from './../components/GlobalStyles'
-import * as ga from '../lib/ga';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-const App = ({ Component, pageProps }) => {
+import * as ga from '../lib/ga';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider } from '@emotion/react';
+import theme from '../lib/theme';
+import createEmotionCache from '../lib/createEmotionCache';
+
+const clientSideEmotionCache = createEmotionCache();
+
+export default function MyApp(props) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const router = useRouter();
 
   useEffect(() => {
@@ -19,11 +31,21 @@ const App = ({ Component, pageProps }) => {
   }, [router.events]);
 
   return (
-    <>
-      <GlobalStyles />
-      <Component {...pageProps} />
-    </>
-  )
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
+  );
 }
 
-export default App
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
+  pageProps: PropTypes.object.isRequired,
+};

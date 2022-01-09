@@ -1,6 +1,6 @@
 import tw from 'twin.macro'
 import Head from 'next/head'
-import styled from 'styled-components'
+import styled from '@emotion/styled';
 import ApplyLink from '../../components/JobDetail/ApplyLink';
 import NavBar from '../../components/NavBar/NavBar';
 import Container from '../../components/Container/Container';

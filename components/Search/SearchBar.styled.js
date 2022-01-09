@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import styled from "styled-components";
+import styled from '@emotion/styled';
 
 const SearchBarStyles = styled.div`
   ${tw`mx-3 -mt-5 rounded-lg shadow-lg overflow-hidden`}

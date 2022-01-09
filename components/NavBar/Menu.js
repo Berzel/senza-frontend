@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from '@emotion/styled';
 import tw from "twin.macro"
 import useUser from "../../lib/useUser"
 import { useState } from "react"
