@@ -12,7 +12,7 @@ const customStyles = css({
     fontFamily: "'Inter', sans-serif",
   },
 
-  "[data-reach-dialog-content]": {
+  "div[data-reach-dialog-content]": {
     ...tw`w-full p-0 m-0 min-h-screen bg-gray-50`
   }
 })
