@@ -1,6 +1,6 @@
 import tw from 'twin.macro'
 import Head from 'next/head'
-import styled from 'styled-components'
+import styled from '@emotion/styled';
 import JobSummaryList from '../components/JobSummary/JobSummaryList';
 import PostJobBanner from '../components/PostJob/PostJobBanner';
 import CategoryList from '../components/Category/CategoryList';

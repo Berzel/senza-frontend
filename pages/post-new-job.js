@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styled from "styled-components";
+import styled from '@emotion/styled';
 import tw from "twin.macro";
 import Header from "../components/Header/Header";
 import NavBar from "../components/NavBar/NavBar";

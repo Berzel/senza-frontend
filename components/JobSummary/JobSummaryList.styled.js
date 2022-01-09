@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import styled from "styled-components";
+import styled from '@emotion/styled';
 
 const JobListStyles = styled.div`
     > .title {

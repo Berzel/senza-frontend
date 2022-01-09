@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import styled from "styled-components";
+import styled from '@emotion/styled';
 
 const PostJobBannerStyles = styled.div`
     ${tw`px-3 pt-8 pb-8 text-center bg-gradient-to-b from-blue-50 to-gray-50`}

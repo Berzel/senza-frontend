@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from '@emotion/styled';
 import tw from "twin.macro";
 
 const NavBarStyles = styled.div`
