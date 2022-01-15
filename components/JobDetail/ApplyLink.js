@@ -1,7 +1,8 @@
-import { useState } from "react";
-import useUser from "../../lib/useUser";
-import AuthModal from "../AuthModal/AuthModal";
 import ApplyLinkStyles from "./ApplyLink.styled";
+import AuthModal from "../AuthModal/AuthModal";
+import { useState } from "react";
+import recordApplication from "../../lib/recordApplication";
+import useUser from "../../lib/useUser";
 
 const ApplyLink = ({job}) => {
     const { user } = useUser()
@@ -12,7 +13,7 @@ const ApplyLink = ({job}) => {
             <ApplyLinkStyles>
                 {
                     user && job.application_link && (
-                        <a className="link" href={job.application_link} target="_blank">
+                        <a className="link" href={job.application_link} onClick={() => recordApplication(job)} target="_blank">
                             Apply now
                         </a>
                     )
@@ -20,7 +21,7 @@ const ApplyLink = ({job}) => {
 
                 {
                     user && job.application_email && !job.application_link && (
-                        <a className="link" href={`mailto:${job.application_email}`} target="_blank">
+                        <a className="link" href={`mailto:${job.application_email}`} onClick={() => recordApplication(job)} target="_blank">
                             Apply with email
                         </a>
                     )

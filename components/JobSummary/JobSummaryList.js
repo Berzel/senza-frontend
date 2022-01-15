@@ -5,6 +5,7 @@ import JobSummary from "./JobSummary";
 import JobListStyles from "./JobSummaryList.styled";
 import useUser from "../../lib/useUser";
 import AuthModal from "../AuthModal/AuthModal";
+import recordApplication from "../../lib/recordApplication";
 
 const JobSummaryList = ({title, jobs}) => {
     const { user } = useUser();
@@ -195,14 +196,14 @@ const JobSummaryList = ({title, jobs}) => {
                                 <div>
                                     {
                                         user && activeJob.application_link && (
-                                            <a className="detail_apply_btn" href={activeJob.application_link} target="_blank">
+                                            <a className="detail_apply_btn" href={activeJob.application_link} onClick={() => recordApplication(activeJob)} target="_blank">
                                                 Apply now
                                             </a>
                                         )
                                     }
                                     {
                                         user && activeJob.application_email && !activeJob.application_link && (
-                                            <a className="detail_apply_btn" href={`mailto:${activeJob.application_email}`} target="_blank">
+                                            <a className="detail_apply_btn" href={`mailto:${activeJob.application_email}`} onClick={() => recordApplication(activeJob)} target="_blank">
                                                 Apply with email
                                             </a>
                                         )
