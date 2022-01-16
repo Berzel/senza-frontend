@@ -36,7 +36,8 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         qualifications: ['', '', ''],
         application_instructions: '',
         application_email: '',
-        application_link: ''
+        application_link: '',
+        application_deadline: '',
     };
 
     const companyDefaults = {
@@ -56,6 +57,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
     const [skills, setSkills] = useState(jobDefaults.qualifications);
+    const [application_method, setApplicationMethod] = useState({type: 'link', value: ''});
     const [responsibilities, setResponsibilities] = useState(jobDefaults.responsibilities);
 
     const addSkill = e => {
@@ -104,9 +106,19 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
         setJob({...job, responsibilities: newResponsibilities})
     }
 
+    const onApplicationMethodChange = value => {
+        if (value.startsWith("https://") || value.startsWith("http://")) {
+            setApplicationMethod({type: 'link', value});
+            setJob({...job, application_email: "", application_link: value});
+        } else {
+            setApplicationMethod({type: 'email', value});
+            setJob({...job, application_link: "", application_email: value});
+        }
+    }
+
     const handleValidationErrors = err => {
         if (err.response && err.response.status === 422) {
-            let newValidationErrors = {...validationErrors};
+            let newValidationErrors = {};
 
             Object.keys(err.response.data.errors).forEach(key => {
                 newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
@@ -118,29 +130,18 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
     
     const postJob = async e => {
         e.preventDefault()
-        
+        setValidationErrors({});
+
         if (!user && !showAuthModal) {
             return setShowAuthModal(true)
         }
 
-        if (!user) return;
-
-        setValidationErrors({});
-        let company_id = company?.id;
-
-        try {
-            company_id = company_id ?? await axios.post(`/users/${user.email}/companies`, company).then(r => r.data.id);
-        } catch (err) {
-            if (!user.isAdmin) {
-                handleValidationErrors(err)
-                return;
-            } else {
-                setValidationErrors({})
-            }
-        }
+        if (!user) {
+            return;
+        };
 
         try {
-            let jobDetails = await axios.post(`/jobs`, {...job, company_id}).then(r => r.data);
+            let jobDetails = await axios.post(`/jobs`, {...job,  company_id: company?.id}).then(r => r.data);
             setJob(jobDefaults)
             setSkills(jobDefaults.qualifications)
             setResponsibilities(jobDefaults.responsibilities)
@@ -507,32 +508,32 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                             </div>
                                             <div className="row">
                                             <div className="group">
-                                                <label htmlFor="application_email" className="label">
-                                                    Application email
+                                                <label htmlFor="application_method" className="label">
+                                                    Application email / link
                                                 </label>
                                                 <input 
                                                     className="input" 
-                                                    type="email"
-                                                    id="application_email" 
-                                                    name="application_email"
-                                                    value={job?.application_email}
-                                                    onChange={e => setJob({...job, application_email: e.target.value})} 
-                                                    placeholder="Application email"/>
+                                                    type="text"
+                                                    id="application_method" 
+                                                    value={application_method.value}
+                                                    onChange={e => onApplicationMethodChange(e.target.value.toLowerCase())} 
+                                                    placeholder="Application email / link" required/>
                                                 { validationErrors?.application_email && <span className="error-msg">{validationErrors?.application_email}</span> }
+                                                { validationErrors?.application_link && <span className="error-msg">{validationErrors?.application_link}</span> }
                                             </div>
                                             <div className="group">
-                                                <label htmlFor="application_link" className="label">
-                                                    Application link
+                                                <label htmlFor="application_deadline" className="label">
+                                                    Application deadline
                                                 </label>
                                                 <input 
                                                     className="input" 
-                                                    type="url"
-                                                    id="application_link" 
-                                                    name="application_link"
-                                                    value={job?.application_link}
-                                                    onChange={e => setJob({...job, application_link: e.target.value})} 
-                                                    placeholder="Application link"/>
-                                                { validationErrors?.application_link && <span className="error-msg">{validationErrors?.application_link}</span> }
+                                                    type="date"
+                                                    id="application_deadline" 
+                                                    name="application_deadline"
+                                                    value={job?.application_deadline}
+                                                    onChange={e => setJob({...job, application_deadline: e.target.value})} 
+                                                    placeholder="Application deadline"/>
+                                                { validationErrors?.application_deadline && <span className="error-msg">{validationErrors?.application_deadline}</span> }
                                             </div>
                                             </div>
                                         </div>
