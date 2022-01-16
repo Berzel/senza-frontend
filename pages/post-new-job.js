@@ -226,7 +226,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="title" 
                                                     value={job?.title} 
                                                     onChange={e => setJob({...job, title: e.target.value})} 
-                                                    placeholder="Web Developer, etc"/>
+                                                    placeholder="Web Developer, etc" required/>
                                                 { validationErrors?.title && <span className="error-msg">{validationErrors?.title}</span> }
                                             </div>
                                             <div className="group">
@@ -238,7 +238,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="sector_id" 
                                                     value={job?.sector_id}
                                                     onChange={e => setJob({...job, sector_id: e.target.value})}
-                                                    id="sector_id">
+                                                    id="sector_id" required>
                                                         {
                                                             sectors && sectors.map(sector => (
                                                                 <option key={sector.id} value={sector.id}>{sector.display_name}</option>
@@ -258,7 +258,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="level_id"
                                                     value={job?.level_id}
                                                     onChange={e => setJob({...job, level_id: e.target.value})}
-                                                    id="level_id">
+                                                    id="level_id" required>
                                                         {
                                                             jobLevels && jobLevels.map(level => (
                                                                 <option key={level.id} value={level.id}>{level.display_name}</option>
@@ -276,7 +276,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="contract_type_id"
                                                     value={job?.contract_type_id}
                                                     onChange={e => setJob({...job, contract_type_id: e.target.value})} 
-                                                    id="contract_type_id">
+                                                    id="contract_type_id" required>
                                                         {
                                                             contractTypes && contractTypes.map(type => (
                                                                 <option key={type.id} value={type.id}>{type.display_name}</option>
@@ -297,7 +297,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 id="description"
                                                 value={job?.description}
                                                 onChange={e => setJob({...job, description: e.target.value})} 
-                                                placeholder="Job description goes here"/>
+                                                placeholder="Job description goes here" required/>
                                             { validationErrors?.description && <span className="error-msg">{validationErrors?.description}</span> }
                                         </div>
 
@@ -421,7 +421,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                         name="city" 
                                                         value={job?.city}
                                                         onChange={e => setJob({...job, city: e.target.value})}
-                                                        placeholder="Enter town or city name"/>
+                                                        placeholder="Enter town or city name" required={job?.is_remote ? "" : "required"}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -441,7 +441,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                                 type="text" 
                                                                 id={`responsibilities[${key}]`} 
                                                                 name={`responsibilities[${key}]`} 
-                                                                placeholder={`Responsibility #${key+1}`}/>
+                                                                placeholder={`Responsibility #${key+1}`} required/>
                                                             {
                                                                 responsibilities.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeResponsibility(key)}}>x</a>
                                                             }
@@ -472,7 +472,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                                 type="text" 
                                                                 id={`qualifications[${key}]`} 
                                                                 name={`qualifications[${key}]`} 
-                                                                placeholder={`Qualification #${key+1}`}/>
+                                                                placeholder={`Qualification #${key+1}`} required/>
                                                             {
                                                                 skills.length > 3 && <a href="#" className="remove-btn" onClick={e => {e.preventDefault(); removeSkill(key)}}>x</a>
                                                             }
@@ -503,7 +503,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     id="application_instructions"
                                                     value={job?.application_instructions}
                                                     onChange={e => setJob({...job, application_instructions: e.target.value})} 
-                                                    placeholder="How should candidates apply?"/>
+                                                    placeholder="How should candidates apply?" required/>
                                                 { validationErrors?.application_instructions && <span className="error-msg">{validationErrors?.application_instructions}</span> }
                                             </div>
                                             <div className="row">
@@ -532,7 +532,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                     name="application_deadline"
                                                     value={job?.application_deadline}
                                                     onChange={e => setJob({...job, application_deadline: e.target.value})} 
-                                                    placeholder="Application deadline"/>
+                                                    placeholder="Application deadline" required/>
                                                 { validationErrors?.application_deadline && <span className="error-msg">{validationErrors?.application_deadline}</span> }
                                             </div>
                                             </div>
