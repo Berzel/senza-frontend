@@ -20,6 +20,7 @@ const MainSearch = () => {
         sx={{ overflow: 'hidden' }}
         id="search-form"
         className="form"
+        component="form"
         action="/search"
       >
         <Box
