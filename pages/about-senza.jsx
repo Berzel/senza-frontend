@@ -65,8 +65,13 @@ const AboutSenze = () => {
               eos quaerat ea.
             </Typography>
           </Grid>
-          <Grid item xs={12} lg={6}>
-            Bla
+          <Grid
+            item
+            xs={12}
+            lg={6}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Avatar variant="square" sx={{ height: 120, width: 120 }} />
           </Grid>
         </Grid>
         <Grid item xs={12} sx={{ pt: 10, pb: 3 }}>
