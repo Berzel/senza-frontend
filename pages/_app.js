@@ -1,7 +1,7 @@
-import GlobalStyles from './../components/GlobalStyles'
+import '../styles/globals.css';
+import GlobalStyles from './../components/GlobalStyles';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
 import * as ga from '../lib/ga';
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -20,14 +20,14 @@ export default function MyApp(props) {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      ga.pageview(url)
-    }
+      ga.pageview(url);
+    };
 
-    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
   }, [router.events]);
 
   return (
@@ -47,5 +47,5 @@ export default function MyApp(props) {
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   emotionCache: PropTypes.object,
-  pageProps: PropTypes.object.isRequired,
+  pageProps: PropTypes.object.isRequired
 };
