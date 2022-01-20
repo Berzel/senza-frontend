@@ -228,7 +228,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` 
                                 }
                             </ul>
                         </div>
-                        {
+                        {/* {
                             job?.company && (
                                 <div>
                                     <h2 className="title">
@@ -245,7 +245,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` 
                                     </div>
                                 </div>
                             )
-                        }
+                        } */}
                         {
                             user && (
                                 <div>

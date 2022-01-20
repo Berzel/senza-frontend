@@ -161,7 +161,7 @@ const JobSummaryList = ({title, jobs}) => {
                                         }
                                     </ul>
                                 </div>
-                                {
+                                {/* {
                                     activeJob?.company && (
                                         <div>
                                             <h4 className="detail_sub_title">About {activeJob.company.name}</h4>
@@ -176,7 +176,7 @@ const JobSummaryList = ({title, jobs}) => {
                                             </div>
                                         </div>
                                     )
-                                }
+                                } */}
                                 {
                                     user && (
                                         <div>
