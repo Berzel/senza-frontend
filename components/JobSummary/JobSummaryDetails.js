@@ -12,14 +12,6 @@ const JobSummaryDetails = ({job}) => {
                     <h3 className="title">{job.title}</h3>
                     <div className="salary">${formatter.format(job.min_wage)} - ${formatter.format(job.max_wage)} / {job.wage_period}</div>
                 </div>
-                {
-                    job.company && 
-                    <div className="right">
-                        <div className="company-logo">
-                            {job.company.name[0].toUpperCase()}
-                        </div>
-                    </div>
-                }
             </div>
             <div className="bottom">
                 <div className="left">
