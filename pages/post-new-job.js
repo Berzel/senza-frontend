@@ -10,6 +10,7 @@ import CreateJobStyles from "../components/CreateJob/CreateJob.styled";
 import useUser from "../lib/useUser";
 import AuthModal from "../components/AuthModal/AuthModal";
 import axios from "../lib/axios";
+import useDebounce from "../lib/useDebounce";
 
 const Main = styled.main`
     & > *+* {
@@ -52,13 +53,27 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
 
     const router = useRouter();
     const { user } = useUser();
+    const [typed, setTyped] = useState(false);
     const [job, setJob] = useState(jobDefaults);
+    const [company_name, setCompanyName] = useState('');
     const [company, setCompany] = useState(companyDefaults);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
+    const [companySuggestions, setCompanySuggestions] = useState([]);
     const [skills, setSkills] = useState(jobDefaults.qualifications);
     const [application_method, setApplicationMethod] = useState({type: 'link', value: ''});
     const [responsibilities, setResponsibilities] = useState(jobDefaults.responsibilities);
+
+    useDebounce(async () => {
+        if (typed) {
+            if (company_name.length < 3) {
+                setCompanySuggestions([])
+            } else {
+                const companies = await axios.get(`/companies?name=${company_name}&_size=5`).then(r => r.data.data)
+                setCompanySuggestions(companies)
+            }
+        }
+    }, 500, [company_name])
 
     const addSkill = e => {
         e.preventDefault();
@@ -114,6 +129,23 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             setApplicationMethod({type: 'email', value});
             setJob({...job, application_link: "", application_email: value});
         }
+    }
+
+    const selectCompany = company => {
+        setTyped(false)
+        setCompany(company)
+        setCompanySuggestions([])
+        setCompanyName(company.name)
+    }
+
+    const onCompanyNameChange = e => {
+        setTyped(true);
+
+        if (e.target.value.length < 3) {
+            setCompany(companyDefaults);
+        }
+
+        setCompanyName(e.target.value)
     }
 
     const handleValidationErrors = err => {
@@ -285,6 +317,35 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 </select>
                                                 { validationErrors?.contract_type_id && <span className="error-msg">{validationErrors?.contract_type_id.replace('contract type id', 'job type')}</span> }
                                             </div>
+                                        </div>
+                                        <div className="group company_suggestions">
+                                            <label htmlFor="company_name" className="label">
+                                                Company name
+                                            </label>
+                                            <input 
+                                                className="input" 
+                                                name="company_name" 
+                                                id="company_name"
+                                                value={company_name}
+                                                onChange={onCompanyNameChange} 
+                                                placeholder="Company name" required/>
+                                            {
+                                                companySuggestions.length > 0 &&
+                                                (
+                                                    <ul className="company_suggestions_list">
+                                                        {
+                                                            companySuggestions.map(c => (
+                                                                <li key={c.id}>
+                                                                    <button onClick={(e) => {e.preventDefault(); selectCompany(c)}}>
+                                                                        {c.name}
+                                                                    </button>
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                )
+                                            }
+                                            { validationErrors?.company_name && <span className="error-msg">{validationErrors?.company_name}</span> }
                                         </div>
                                         <div className="group">
                                             <label htmlFor="description" className="label">

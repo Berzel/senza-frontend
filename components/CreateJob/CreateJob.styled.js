@@ -187,6 +187,30 @@ const CreateJobStyles = styled.div`
         }
     }
 }
+
+.company_suggestions {
+    position: relative;
+
+    &_list {
+        ${tw`absolute bg-gray-800 block w-full rounded-lg shadow-lg p-3`}
+
+        > *+* {
+            ${tw`mt-2`}
+        }
+
+        > * {
+            ${tw`text-white`}
+
+            > * {
+                ${tw`block w-full text-left py-1`}
+
+                &:hover {
+                    ${tw`text-gray-500`}
+                }
+            }
+        }
+    }
+}
 `;
 
 export default CreateJobStyles
