@@ -328,7 +328,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
                                                 id="company_name"
                                                 value={company_name}
                                                 onChange={onCompanyNameChange} 
-                                                placeholder="Company name" required/>
+                                                placeholder="Company name"/>
                                             {
                                                 companySuggestions.length > 0 &&
                                                 (
