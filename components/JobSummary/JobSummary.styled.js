@@ -2,32 +2,55 @@ import tw from "twin.macro"
 import styled from '@emotion/styled';
 
 const JobSummaryStyles = styled.div`
-    ${tw`px-2 py-3 bg-gray-50 border rounded-lg`}
-    ${props => props.active ? tw`shadow border-blue-300` : ''}
+    ${tw`border rounded-lg`}
+    ${props => props.active ? tw`border border-blue-300` : ''}
 
     &:hover {
         ${tw`bg-gray-100`}
-    }
-
-    .link.active {
-        @media screen and (min-width: 1024px) {
-            ${tw`bg-gray-100`}
-        }
     }
 
     .link {
         ${tw`block`}        
     }
 
-    .top, .bottom {
-        ${tw`flex justify-between`}
+    .top {
+        ${tw`flex space-x-4 p-3`}
+
+        &_logo {
+            width: 3.5rem;
+            flex-shrink: 0;
+            ${tw`rounded-lg mt-0.5 flex items-start`}
+
+            > svg {
+                ${tw`fill-current text-gray-200`}
+            }
+
+            > img {
+                ${tw`rounded-lg`}
+                object-position: top;
+                object-fit: contain;
+                max-width: 100%;
+            }
+        }
+
+        .left {
+            overflow: hidden;
+        }
     }
 
-    .location, .company-name {
+    .location {
         ${tw`text-sm text-gray-600 ml-1`}
     }
 
+    .company-name {
+        ${tw`text-sm text-gray-600 whitespace-nowrap`}
+    }
+
     .pills {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
         >*+*{
             ${tw`ml-2`}
         }
@@ -39,7 +62,8 @@ const JobSummaryStyles = styled.div`
     }
 
     .title {
-        ${tw`text-black font-semibold mt-2`}
+        font-size: 1.05rem;
+        ${tw`text-black font-semibold mb-2 mt-0.5 text-blue-400`}
     }
 
     .salary {
@@ -56,17 +80,12 @@ const JobSummaryStyles = styled.div`
     }
 
     .bottom {
-        ${tw`mt-3`}
+        ${tw`mt-6 flex justify-between border-t p-3`}
+        ${props => props.active ? tw`border-blue-300` : ''}
 
         .left {
             ${tw`flex items-center`}
         }
-    }
-
-    .company-logo {
-        width: 4rem;
-        height: 4rem;
-        ${tw`border rounded-lg flex items-center justify-center text-3xl text-gray-500 font-bold overflow-hidden`}
     }
 `;
 
