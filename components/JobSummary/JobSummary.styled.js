@@ -80,8 +80,7 @@ const JobSummaryStyles = styled.div`
     }
 
     .bottom {
-        ${tw`mt-6 flex justify-between border-t p-3`}
-        ${props => props.active ? tw`border-blue-300` : ''}
+        ${tw`mt-2 flex justify-between bg-gray-100 rounded-b-lg px-3 py-4`}
 
         .left {
             ${tw`flex items-center`}
