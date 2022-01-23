@@ -39,7 +39,7 @@ const CategoryList = ({categories}) => {
     })
 
     useEffect(() => {
-        const el = document.getElementById('listsContainer')
+        const el = document.querySelector('#listsContainer')
 
         let pos = {
             x: 0,

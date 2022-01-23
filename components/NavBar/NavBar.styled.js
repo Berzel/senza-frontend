@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { Box } from '@mui/material';
+import { AppBar } from '@mui/material';
 import tw from 'twin.macro';
 
-const NavBarStyles = styled(Box)`
+const NavBarStyles = styled((props) => <AppBar {...props} position="static" />)`
   ${tw`p-3 pr-4 bg-gray-800 flex justify-between items-center text-gray-50`}
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 900px) {
     ${tw`bg-transparent`}
   }
 

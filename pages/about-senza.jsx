@@ -1,10 +1,19 @@
 import React from 'react';
 import Head from 'next/head';
 import { Avatar, Box, Grid, Paper, Typography } from '@mui/material';
+import MuiContainer from '@mui/material/Container';
 import NavBar from '../components/NavBar/NavBar';
+import { Footer } from '../components/Footer/Footer';
+import TeamSlider from '../components/About/TeamSlider';
+import styled from '@emotion/styled';
+import tw from 'twin.macro';
 import Container from '../components/Container/Container';
 
-const AboutSenze = () => {
+const Bunner = styled(Box)`
+  ${tw`bg-gradient-to-b from-gray-800 via-gray-800 to-gray-700`}
+`;
+
+const AboutSenza = () => {
   return (
     <>
       <Head>
@@ -12,29 +21,27 @@ const AboutSenze = () => {
         <meta name="description" content="Senza about us" />
       </Head>
 
-      <Box
+      <Bunner
         sx={{
-          boxShadow: 5,
-          background: `linear-gradient(to bottom, #1118275e, #374151e3), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/owl1.jpg)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
+          background: { lg: `linear-gradient(to top, #111827, #374151)` },
+          boxShadow: 5
         }}
       >
-        <Container sx={{ border: 'none' }}>
-          <NavBar />
-          <Box sx={{ pt: { xs: 4, md: 7 }, px: 2, pb: { xs: 3, md: 5 } }}>
+        <Container>
+          <NavBar position="sticky" />
+          <Box sx={{ pt: { xs: 4, md: 5 }, px: 2, pb: { xs: 3, md: 5 } }}>
             <Typography
               component="h1"
               variant="body1"
               sx={{ py: 3, color: '#fff', fontSize: { md: 20 }, maxWidth: 450 }}
             >
-              Abour Senza
+              About Senza
             </Typography>
             <Typography
               component="h1"
               variant="h4"
               sx={{
-                fontWeight: 500,
+                fontWeight: 600,
                 color: '#fff',
                 maxWidth: { xs: 480, md: 550 }
               }}
@@ -51,10 +58,29 @@ const AboutSenze = () => {
             </Typography>
           </Box>
         </Container>
-      </Box>
-      <Grid container sx={{ pt: 7, px: 2, border: 'none' }} component={Container}>
-        <Grid container item xs={12} sx={{ flexDirection: { xs: 'row-reverse' } }}>
-          <Grid item xs={12} lg={6}>
+      </Bunner>
+      <Container component={MuiContainer}>
+        <Grid container sx={{ pt: { md: 15, xs: 4 } }}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{
+              display: { xs: 'none', md: 'block' }
+            }}
+          >
+            <Avatar
+              variant="square"
+              src="/img/mission_statement.png"
+              sx={{
+                height: { md: 250 },
+                boxShadow: 10,
+                borderRadius: 4,
+                width: { md: 360 }
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
             <Typography component="h3" fontWeight="bold" variant="h4">
               Mission
             </Typography>
@@ -65,25 +91,47 @@ const AboutSenze = () => {
               eos quaerat ea.
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            lg={6}
-            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <Avatar variant="square" sx={{ height: 120, width: 120 }} />
-          </Grid>
         </Grid>
-        <Grid item xs={12} sx={{ pt: 10, pb: 3 }}>
+        <Box
+          sx={{
+            width: '100%',
+            height: { md: '50vh', lg: '80vh' },
+            mt: 10,
+            borderRadius: 4,
+            position: 'relative',
+            backgroundImage:
+              "url('https://minimal-assets-api.vercel.app/assets/images/about/vision.jpg')",
+            backgroundAttachment: 'fixed',
+            backgroundSize: 'contain'
+          }}
+        >
           <Typography
             component="h3"
-            fontWeight="bold"
-            textAlign="center"
+            sx={{
+              fontWeight: 'bold',
+              textAlign: 'center',
+              pt: 10,
+              width: { xs: 450, md: 700 },
+              color: '#e5e5e5',
+              position: 'absolute',
+              bottom: '5%',
+              left: '2%'
+            }}
             variant="h4"
           >
-            Values
+            Our vision offering the best product nulla vehicula tortor scelerisque
+            ultrices malesuada.
           </Typography>
-        </Grid>
+        </Box>
+        <Typography
+          component="h3"
+          fontWeight="bold"
+          textAlign="center"
+          variant="h4"
+          sx={{ pt: 10, pb: 5 }}
+        >
+          Values
+        </Typography>
         <Grid container spacing={8} item xs={12} sx={{ py: 3 }}>
           <Grid item xs={12} md={4}>
             <Paper
@@ -100,11 +148,11 @@ const AboutSenze = () => {
                 sx={{ py: 3 }}
                 component="h3"
                 fontWeight="bold"
-                variant="h5"
+                variant="h6"
               >
                 Building for IT
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ px: 3 }}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
                 quasi nulla nobis exercitationem. Nesciunt sint dolores
                 reprehenderit,
@@ -126,11 +174,11 @@ const AboutSenze = () => {
                 sx={{ py: 3 }}
                 component="h3"
                 fontWeight="bold"
-                variant="h5"
+                variant="h6"
               >
                 Making things better
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ px: 3 }}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
                 quasi nulla nobis exercitationem. Nesciunt sint dolores
                 reprehenderit,
@@ -152,11 +200,11 @@ const AboutSenze = () => {
                 sx={{ py: 3 }}
                 component="h3"
                 fontWeight="bold"
-                variant="h5"
+                variant="h6"
               >
-                Staying open and connected
+                Staying connected
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ px: 3 }}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
                 quasi nulla nobis exercitationem. Nesciunt sint dolores
                 reprehenderit,
@@ -171,82 +219,31 @@ const AboutSenze = () => {
             textAlign="center"
             variant="h4"
           >
-            Team
+            Great team is the key
+          </Typography>
+
+          <Typography
+            component="h3"
+            sx={{
+              py: 3,
+              margin: '0 auto',
+              width: { md: '80%' },
+              color: 'textSecondary',
+              textAlign: 'center'
+            }}
+            variant="body1"
+          >
+            Minimal will provide you support if you have any problems, our support
+            team will reply within a day and we also have detailed documentation.{' '}
           </Typography>
         </Grid>{' '}
         <Grid container spacing={3} item xs={12} sx={{ py: 3 }}>
-          <Grid item xs={6}>
-            <Paper
-              sx={{
-                p: 2,
-                boxShadow: 0,
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column'
-              }}
-            >
-              <Avatar variant="square" sx={{ height: 120, width: 120 }} />
-              <Typography
-                sx={{ pt: 3 }}
-                component="h3"
-                fontWeight="bold"
-                variant="h6"
-              >
-                Founder
-              </Typography>
-              <Typography
-                sx={{ py: 2 }}
-                component="h3"
-                color="textSecondary"
-                variant="body1"
-              >
-                Berzel Best
-              </Typography>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
-                quasi nulla nobis exercitationem. Nesciunt sint dolores
-                reprehenderit,
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper
-              sx={{
-                p: 2,
-                boxShadow: 0,
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column'
-              }}
-            >
-              <Avatar variant="square" sx={{ height: 120, width: 120 }} />
-              <Typography
-                sx={{ pt: 3 }}
-                component="h3"
-                fontWeight="bold"
-                variant="h6"
-              >
-                Designer
-              </Typography>
-              <Typography
-                sx={{ py: 2 }}
-                component="h3"
-                color="textSecondary"
-                variant="body1"
-              >
-                Brendon Chirume
-              </Typography>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
-                quasi nulla nobis exercitationem. Nesciunt sint dolores
-                reprehenderit,
-              </Typography>
-            </Paper>
-          </Grid>
+          <TeamSlider />
         </Grid>
-      </Grid>
+      </Container>
+      <Footer />
     </>
   );
 };
 
-export default AboutSenze;
+export default AboutSenza;

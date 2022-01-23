@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import GlobalStyles from './../components/GlobalStyles';
+import 'swiper/css';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import * as ga from '../lib/ga';

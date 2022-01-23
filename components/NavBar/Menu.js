@@ -94,7 +94,7 @@ const options = [
   { title: 'Post a job', href: '/post-new-job' },
   { title: 'Pricing', href: '/pricing' },
   { title: 'About Senza', href: '/about-senza' },
-  { title: 'Contact Us', href: '/contact' },
+  { title: 'Contact Us', href: '/contact-us' },
   { title: 'Terms of Use', href: '/terms' },
   { title: 'Privacy Policy', href: '/privacy-policy' }
 ];
@@ -160,7 +160,7 @@ const Menu = () => {
             </svg>
           )}
 
-          <Fade unmountOnExit in={open}>
+          <Fade unmountOnExit timeout={500} in={open}>
             <div className={`menu_wrapper ${open ? 'open' : ''}`}>
               <ul className="items">
                 <li className="user_details">

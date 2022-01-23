@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@emotion/cache": "latest",
+    "@emotion/css": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
-    "@emotion/css": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@reach/dialog": "^0.16.2",
@@ -24,12 +24,13 @@
     "react": "17.0.2",
     "react-custom-scrollbars-2": "^4.4.0",
     "react-dom": "17.0.2",
+    "swiper": "^7.4.1",
     "swr": "^1.0.1"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "latest",
     "autoprefixer": "^10.3.6",
     "babel-plugin-macros": "^3.1.0",
-    "@emotion/babel-plugin": "latest",
     "postcss": "^8.3.8",
     "react-is": "^17.0.2",
     "tailwindcss": "^2.2.16",

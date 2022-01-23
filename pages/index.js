@@ -1,5 +1,5 @@
-import tw from 'twin.macro'
-import Head from 'next/head'
+import tw from 'twin.macro';
+import Head from 'next/head';
 import styled from '@emotion/styled';
 import JobSummaryList from '../components/JobSummary/JobSummaryList';
 import PostJobBanner from '../components/PostJob/PostJobBanner';
@@ -17,8 +17,7 @@ const Main = styled.main`
   }
 `;
 
-const Home = ({sectors, latestJobs}) => {
-
+const Home = ({ sectors, latestJobs }) => {
   return (
     <>
       <Head>
@@ -29,32 +28,45 @@ const Home = ({sectors, latestJobs}) => {
       <Header>
         <div className="container">
           <NavBar />
-          <Banner title="Job hunters, rest and let the jobs find you." description="Instantly search over thousands of live vacancies from all industries across the nation and find the perfect job you desire." />
+          <Banner
+            title="Job hunters, rest and let the jobs find you."
+            description="Instantly search over thousands of live vacancies from all industries across the nation and find the perfect job you desire."
+          />
           <SearchBar />
         </div>
       </Header>
-      <Container>
+      <Container
+        sx={{
+          border: ({ palette }) => palette.border,
+          borderBottom: 'none',
+          borderTop: 'none'
+        }}
+      >
         <Main>
           <CategoryList categories={sectors} />
           <PostJobBanner />
-          <JobSummaryList title='Latest jobs feed' jobs={latestJobs}/>
+          <JobSummaryList title="Latest jobs feed" jobs={latestJobs} />
         </Main>
       </Container>
     </>
-  )
-}
+  );
+};
 
 export default Home;
 
 export async function getStaticProps(context) {
-  const latestJobs = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_sort=latest`).then(r => r.data)
-  const sectors = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`).then(r => r.data.data)
+  const latestJobs = await axios
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/jobs?_sort=latest`)
+    .then((r) => r.data);
+  const sectors = await axios
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/sectors?_size=5000`)
+    .then((r) => r.data.data);
 
   return {
-      props: {
-          sectors,
-          latestJobs
-      },
-      revalidate: 30
-  }
+    props: {
+      sectors,
+      latestJobs
+    },
+    revalidate: 30
+  };
 }

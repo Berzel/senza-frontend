@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import tw from 'twin.macro';
 
 const Header = styled(Box)`
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 900px) {
     ${tw`bg-gray-800 bg-gradient-to-t from-gray-900 to-gray-700`}
   }
 

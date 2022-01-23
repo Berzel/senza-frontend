@@ -11,3 +11,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a3a3a3;
 }
+
+body {
+  letter-spacing: 0.3px;
+}
