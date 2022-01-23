@@ -69,7 +69,7 @@ const NewJobPage = ({countries, sectors, jobLevels, contractTypes}) => {
             if (company_name.length < 3) {
                 setCompanySuggestions([])
             } else {
-                const companies = await axios.get(`/companies?name=${company_name}&_size=5`).then(r => r.data.data)
+                const companies = await axios.get(`/companies?name=${encodeURIComponent(company_name)}&_size=5`).then(r => r.data.data)
                 setCompanySuggestions(companies)
             }
         }
