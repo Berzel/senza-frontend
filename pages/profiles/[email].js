@@ -104,6 +104,10 @@ const Profile = styled.div`
                 ${tw`mt-6`}
             }
 
+            &_heading {
+                ${tw`flex justify-between items-center`}
+            }
+
             &_title {
                 ${tw`font-semibold text-lg text-gray-700`}
             }
@@ -316,7 +320,12 @@ const ProfilePage = () => {
                             </div>
                             <div className="profile__bottom_right">
                                 <div className="profile__card">
-                                    <h3 className="profile__card_title">Work Experience</h3>
+                                    <div className="profile__card_heading">
+                                        <h3 className="profile__card_title">Work Experience</h3>
+                                        <button>
+                                            Add Experience
+                                        </button>
+                                    </div>
 
                                     <ul className="profile__medias">
                                         <li className="profile__media">
@@ -358,7 +367,12 @@ const ProfilePage = () => {
                                     </ul>
                                 </div>
                                 <div className="profile__card">
-                                    <h3 className="profile__card_title">Education</h3>
+                                    <div className="profile__card_heading">
+                                        <h3 className="profile__card_title">Education</h3>
+                                        <button>
+                                            Add Education
+                                        </button>
+                                    </div>
 
                                     <ul className="profile__medias">
                                         <li className="profile__media">
@@ -384,6 +398,12 @@ const ProfilePage = () => {
                                 </div>
                                 <div className="profile__card">
                                     <h3 className="profile__card_title">Projects</h3>
+                                </div>
+                                <div className="profile__card">
+                                    <h3 className="profile__card_title">Career Goals</h3>
+                                </div>
+                                <div className="profile__card">
+                                    <h3 className="profile__card_title">Skills</h3>
                                 </div>
                             </div>
                         </div>
