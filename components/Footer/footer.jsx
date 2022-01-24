@@ -110,7 +110,7 @@ export const Footer = () => {
               href="/post-new-job"
               variant="contained"
               sx={{
-                width: 120,
+                width: 'fit-content',
                 mt: 1,
                 color: '#fff',
                 display: { xs: 'none', md: 'block' },

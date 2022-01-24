@@ -27,27 +27,23 @@ const TeamSlider = () => {
   return (
     <Swiper
       navigation
-      style={{ marginLeft: 24 }}
+      style={{ marginLeft: 24, px: 3 }}
       breakpoints={{
         0: {
           slidesPerView: 1,
-          centeredSlides: true,
-          spaceBetween: 24
+          centeredSlides: true
         },
         600: {
           centeredSlides: true,
-          slidesPerView: 2,
-          spaceBetween: 24
+          slidesPerView: 2
         },
         900: {
           slidesPerView: 3,
-          centeredSlides: false,
-          spaceBetween: 24
+          centeredSlides: false
         },
         1200: {
           slidesPerView: 3,
-          centeredSlides: false,
-          spaceBetween: 36
+          centeredSlides: false
         }
       }}
     >
@@ -57,20 +53,21 @@ const TeamSlider = () => {
             sx={{
               borderRadius: 4,
               p: 2,
-              boxShadow: 1,
+              boxShadow: 0,
               mb: 1,
               border: ({ palette }) => palette.border,
               maxWidth: 270,
               background: 'transparent',
               display: 'flex',
               alignItems: 'center',
+              margin: { xs: '0 auto' },
               flexDirection: 'column'
             }}
           >
-            <Typography component="h3" fontWeight="bold" variant="h6">
+            <Typography component="h3" variant="body1">
               Founder
             </Typography>
-            <Typography component="h3" color="textSecondary" variant="body1">
+            <Typography component="h3" color="textSecondary" variant="body2">
               Berzel Best
             </Typography>
             <Avatar

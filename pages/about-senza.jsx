@@ -46,7 +46,7 @@ const AboutSenza = () => {
                 maxWidth: { xs: 480, md: 550 }
               }}
             >
-              Making Jobs and Job Seekers accessible to everyone
+              Creating Job opotunities to Job Seekers
             </Typography>
             <Typography
               component="h1"
@@ -95,12 +95,14 @@ const AboutSenza = () => {
         <Box
           sx={{
             width: '100%',
-            height: { md: '50vh', lg: '80vh' },
+            height: { xs: 'fit-content', md: '50vh', lg: '80vh' },
             mt: 10,
             borderRadius: 4,
             position: 'relative',
-            backgroundImage:
-              "url('https://minimal-assets-api.vercel.app/assets/images/about/vision.jpg')",
+            backgroundImage: {
+              xs: '',
+              md: "url('https://minimal-assets-api.vercel.app/assets/images/about/vision.jpg')"
+            },
             backgroundAttachment: 'fixed',
             backgroundSize: 'contain'
           }}
@@ -109,18 +111,19 @@ const AboutSenza = () => {
             component="h3"
             sx={{
               fontWeight: 'bold',
-              textAlign: 'center',
-              pt: 10,
-              width: { xs: 450, md: 700 },
-              color: '#e5e5e5',
-              position: 'absolute',
+              textAlign: { xs: 'center', md: 'left' },
+              fontSize: { xs: '1.75rem', md: '2.3rem' },
+              pt: { xs: 0, md: 10 },
+              width: { xs: '100%', md: 700 },
+              color: { xs: 'initial', md: '#e5e5e5' },
+              position: { xs: 'static', md: 'absolute' },
               bottom: '5%',
-              left: '2%'
+              left: '3%'
             }}
             variant="h4"
           >
-            Our vision offering the best product nulla vehicula tortor scelerisque
-            ultrices malesuada.
+            Our vision is to prorate avant Job Board services to the global
+            workforce.
           </Typography>
         </Box>
         <Typography
@@ -138,6 +141,34 @@ const AboutSenza = () => {
               sx={{
                 p: 2,
                 boxShadow: 0,
+                borderRadius: 4,
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column'
+              }}
+            >
+              <Avatar variant="square" sx={{ height: 120, width: 120 }} />
+              <Typography
+                sx={{ py: 2 }}
+                component="h3"
+                textAlign="center"
+                fontWeight="bold"
+                variant="body1"
+              >
+                Foster sense of security and belonging
+              </Typography>
+              <Typography variant="body2" sx={{ px: 3 }}>
+                We are committed to achieving fair outcomes for all members of the
+                global workforce, beginning with our employees.
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper
+              sx={{
+                p: 2,
+                boxShadow: 0,
+                borderRadius: 4,
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'column'
@@ -150,7 +181,7 @@ const AboutSenza = () => {
                 fontWeight="bold"
                 variant="h6"
               >
-                Building for IT
+                Reliability
               </Typography>
               <Typography variant="body2" sx={{ px: 3 }}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
@@ -164,6 +195,7 @@ const AboutSenza = () => {
               sx={{
                 p: 2,
                 boxShadow: 0,
+                borderRadius: 4,
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'column'
@@ -176,33 +208,7 @@ const AboutSenza = () => {
                 fontWeight="bold"
                 variant="h6"
               >
-                Making things better
-              </Typography>
-              <Typography variant="body2" sx={{ px: 3 }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
-                quasi nulla nobis exercitationem. Nesciunt sint dolores
-                reprehenderit,
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper
-              sx={{
-                p: 2,
-                boxShadow: 0,
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column'
-              }}
-            >
-              <Avatar variant="square" sx={{ height: 120, width: 120 }} />
-              <Typography
-                sx={{ py: 3 }}
-                component="h3"
-                fontWeight="bold"
-                variant="h6"
-              >
-                Staying connected
+                Effectiveness
               </Typography>
               <Typography variant="body2" sx={{ px: 3 }}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut
