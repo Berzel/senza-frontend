@@ -4,6 +4,10 @@ import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import Container from "../../components/Container/Container";
 import tw from "twin.macro";
+import AddExperienceModal from "../../components/Experience/AddExperienceModal";
+import AddEducationModal from "../../components/Education/AddEducationModal";
+import EditProfileModal from "../../components/Profile/EditProfileModal";
+import { useState } from "react";
 
 const Main = styled.main`
     min-height: calc(100vh - 3rem);
@@ -218,6 +222,20 @@ const Profile = styled.div`
 `
 
 const ProfilePage = () => {
+    const [modalState, setModalState] = useState({});
+
+    const toggleModal = modal => {
+        const prevModalState = modalState[modal];
+        let newState = {};
+        newState[modal] = !prevModalState;
+        setModalState(newState)
+    }
+
+    const close = modal => {
+        let newState = {};
+        newState[modal] = false;
+        setModalState(newState)
+    }
 
     return (
         <>
@@ -254,7 +272,12 @@ const ProfilePage = () => {
                         <div className="profile__bottom">
                             <div className="profile__bottom_left">
                                 <div className="profile__card about">
-                                    <h3 className="profile__card_title">About</h3>
+                                    <div className="profile__card_heading">
+                                        <h3 className="profile__card_title">About</h3>
+                                        <button onClick={() => toggleModal("profile")}>
+                                            Edit
+                                        </button>
+                                    </div>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque voluptas fuga natus fugiat magni aliquam delectus 
                                         officiis facere illum, tempore vel iusto corrupti, necessitatibus, ratione doloribus porro eum! Impedit, perspiciatis?
@@ -322,7 +345,7 @@ const ProfilePage = () => {
                                 <div className="profile__card">
                                     <div className="profile__card_heading">
                                         <h3 className="profile__card_title">Work Experience</h3>
-                                        <button>
+                                        <button onClick={() => toggleModal("xp")}>
                                             Add Experience
                                         </button>
                                     </div>
@@ -369,7 +392,7 @@ const ProfilePage = () => {
                                 <div className="profile__card">
                                     <div className="profile__card_heading">
                                         <h3 className="profile__card_title">Education</h3>
-                                        <button>
+                                        <button onClick={() => toggleModal("edu")}>
                                             Add Education
                                         </button>
                                     </div>
@@ -410,6 +433,10 @@ const ProfilePage = () => {
                     </Profile>
                 </Main>
             </Container>
+
+            <AddExperienceModal close={() => close("xp")} open={modalState.xp} />
+            <AddEducationModal close={() => close("edu")} open={modalState.edu} />
+            <EditProfileModal close={() => close("profile")} open={modalState.profile} />
         </>
     )
 }
