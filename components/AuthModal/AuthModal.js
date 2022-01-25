@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import useUser from "../../lib/useUser"
 import axios from "../../lib/axios";
 import { useRouter } from "next/dist/client/router"
+import BeatLoader from "react-spinners/BeatLoader";
 
 const AuthModal = ({close}) => {
     const router = useRouter();
@@ -12,6 +13,7 @@ const AuthModal = ({close}) => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [mode, setMode] = useState('login');
+    const [loading, setLoading] = useState(false);
     const [username, setUsername] = useState('email');
     const [usernameValue, setUsernameValue] = useState('');
     const [password, setPassword] = useState('');
@@ -84,6 +86,7 @@ const AuthModal = ({close}) => {
     }
 
     const handleSubmit = async event => {
+        setLoading(true);
         event.preventDefault();
         setValidationErrors({});
         await axios.get(`/sanctum/csrf-cookie`);
@@ -93,6 +96,7 @@ const AuthModal = ({close}) => {
                 await axios.post(`/register`, {name, email, phone, password, password_confirmation});
             } catch (err) {
                 handleError(err);
+                setLoading(false);
                 return;
             }
         }
@@ -109,8 +113,10 @@ const AuthModal = ({close}) => {
 
             if (window.location.pathname.startsWith('/job/')) return; // this stops the job details modal from closing on mobile
             localStorage.removeItem('authModalOpen')
+            setLoading(false);
         } catch (err) {
             handleError(err)
+            setLoading(false);
         }
     }
 
@@ -186,7 +192,13 @@ const AuthModal = ({close}) => {
                     </div>
 
                     <div className="form_group">
-                        <input type="submit" className="input submit" value={mode} />
+                        <button type="submit" className="input submit" disabled={loading ? "disabled" : ""}>
+                            {
+                                loading 
+                                    ? (<BeatLoader color="#fff" />)
+                                    : (<span>{mode}</span>)
+                            }
+                        </button>
                     </div>
                     <div className="form_group register">
                         {mode === 'login' ? "Don't" : "Already"} have an account? <br />

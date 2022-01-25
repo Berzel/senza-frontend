@@ -59,6 +59,15 @@ const LoginModalStyles = styled.div`
             .error-msg {
                 ${tw`text-red-500 text-sm inline-block ml-1`}
             }
+
+            .input.submit {
+                ${tw`py-4`}
+
+                > * {
+                    height: 1.2rem;
+                    ${tw`flex items-center justify-center py-0`}
+                }
+            }
         }
 
         .forgot-password {
