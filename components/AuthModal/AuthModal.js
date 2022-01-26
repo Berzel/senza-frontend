@@ -73,6 +73,8 @@ const AuthModal = ({close}) => {
     }
 
     const handleError = err => {
+        setLoading(false);
+
         if (err.response && err.response.status === 422) {
             let newValidationErrors = {...validationErrors};
 
@@ -95,25 +97,28 @@ const AuthModal = ({close}) => {
             try {
                 await axios.post(`/register`, {name, email, phone, password, password_confirmation});
             } catch (err) {
-                handleError(err);
-                setLoading(false);
-                return;
+                return handleError(err);
             }
         }
 
         try {
+            setLoading(true);
             let loginData = {};
             loginData['password'] = password;
             loginData['email'] = usernameValue;
             loginData['remember'] = true;
-            await axios.post(`/login`, loginData).then(r => r.data);
-            setTimeout(() => mutateUser('/user'), 1);
+
+            await axios.post(`/login`, loginData).then(r => {
+                setLoading(false);
+                close();
+                return r.data;
+            });
+            
+            mutateUser('/user');
             router.back();
-            close();
 
             if (window.location.pathname.startsWith('/job/')) return; // this stops the job details modal from closing on mobile
             localStorage.removeItem('authModalOpen')
-            setLoading(false);
         } catch (err) {
             handleError(err)
             setLoading(false);
