@@ -8,7 +8,7 @@ const JobSummaryDetails = ({ job }) => {
       <div className="top">
         <div className="top_logo">
           {job?.company?.img ? (
-            <img src={job.company.img} alt={`${job.company.name} logo`} />
+            <img src={job.company.img} alt={`${job.company.name} logo`} title={`${job.company.name}`} />
           ) : (
             <SvgIcon
               sx={{ height: 56, width: 56 }}
@@ -33,7 +33,7 @@ const JobSummaryDetails = ({ job }) => {
         <div className="left">
           <div className="pills">
             {job?.company ? (
-              <span className="company-name">{job.company.name}</span>
+              <span className="company-name" title={`${job.company.name}`}>{job.company.name}</span>
             ) : (
               <span className="company-name">A local company</span>
             )}
