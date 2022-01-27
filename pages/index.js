@@ -24,6 +24,7 @@ const Home = ({sectors, latestJobs}) => {
       <Head>
         <title>Senza - Zimbabwe's favourite job board</title>
         <meta name="description" content="Zimbabwe's favourite job board." />
+        <meta name="keywords" content={sectors.map(s => `${s.display_name} jobs in Zimbabwe`).join(", ")} />
       </Head>
 
       <Header>
