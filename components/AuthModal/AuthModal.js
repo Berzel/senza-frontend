@@ -14,8 +14,6 @@ const AuthModal = ({close}) => {
     const [phone, setPhone] = useState('');
     const [mode, setMode] = useState('login');
     const [loading, setLoading] = useState(false);
-    const [username, setUsername] = useState('email');
-    const [usernameValue, setUsernameValue] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const [validationErrors, setValidationErrors] = useState({});
@@ -37,39 +35,26 @@ const AuthModal = ({close}) => {
 
     if (user) close();
 
-    const toggleMode = () => {
+    const toggleMode = mode => {
+        setPassword("");
         setValidationErrors({});
-        if (mode === "login") setMode("register")
-        if (mode === "register") setMode("login")
+        if (mode === "login") setMode("login")
+        if (mode === "register") setMode("register")
+        if (mode === "forgot_password") setMode("forgot_password")
     }
 
     const onEmailChange = e => {
-        let email = e.target.value;
-        setEmail(email)
-        setUsername("email");
-        setUsernameValue(email);
+        setEmail(e.target.value)
     }
 
     const onPhoneChange = e => {
-        let phone = e.target.value;
-        setPhone(phone)
-        setUsername("phone");
-        setUsernameValue(phone);
+        setPhone(e.target.value)
     }
 
     const onPasswordChange = e => {
         let value = e.target.value
         setPassword(value)
         setPasswordConfirmation(value)
-    }
-
-    const onUsernameChange = e => {
-        const value = e.target.value;
-        isNaN(value.replaceAll(/\+|\s/g, "")) 
-            ? setUsername('email') 
-            : setUsername('phone');
-
-        setUsernameValue(value);
     }
 
     const handleError = err => {
@@ -82,33 +67,14 @@ const AuthModal = ({close}) => {
                 newValidationErrors[key] = err.response.data.errors[key][0]; // Only take the first error message to display
             })
 
-            newValidationErrors.username = newValidationErrors?.phone ?? newValidationErrors.email;
             setValidationErrors(newValidationErrors)
         }
     }
 
-    const handleSubmit = async event => {
-        setLoading(true);
-        event.preventDefault();
-        setValidationErrors({});
-        await axios.get(`/sanctum/csrf-cookie`);
-
-        if (mode === "register") {
-            try {
-                await axios.post(`/register`, {name, email, phone, password, password_confirmation});
-            } catch (err) {
-                return handleError(err);
-            }
-        }
-
+    const login = async () => {
         try {
             setLoading(true);
-            let loginData = {};
-            loginData['password'] = password;
-            loginData['email'] = usernameValue;
-            loginData['remember'] = true;
-
-            await axios.post(`/login`, loginData).then(r => {
+            await axios.post(`/login`, {email, password, remember: true}).then(r => {
                 setLoading(false);
                 close();
                 return r.data;
@@ -120,9 +86,36 @@ const AuthModal = ({close}) => {
             if (window.location.pathname.startsWith('/job/')) return; // this stops the job details modal from closing on mobile
             localStorage.removeItem('authModalOpen')
         } catch (err) {
-            handleError(err)
-            setLoading(false);
+            return handleError(err);
         }
+    }
+
+    const register = async () => {
+        try {
+            setLoading(true);    
+            await axios.post(`/register`, {name, email, phone, password, password_confirmation});
+            await login();
+        } catch (err) {
+            return handleError(err);
+        }
+    }
+
+    const forgot_password = async () => {
+        try {
+            setLoading(true);
+            await axios.post(`/password_reset_codes`, {email}).then(r => r.data);
+            toggleMode("reset_password");
+            setLoading(false);
+        } catch (err) {
+            return handleError(err);
+        }
+    }
+
+    const handleSubmit = async event => {
+        event.preventDefault();
+        setValidationErrors({});
+        await axios.get(`/sanctum/csrf-cookie`);
+        return {register, login, forgot_password}[mode]();
     }
 
     const handleOverlayClick = e => {
@@ -137,19 +130,54 @@ const AuthModal = ({close}) => {
         <LoginModalStyles style={{margin: 0}} onClick={handleOverlayClick}>
             <form action="#" method="POST" className="form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className="heading">
-                    <h2 className="title">{mode}</h2>
-                    <p className="body">You must log in first or create an account to continue.</p>
+                    <h2 className="title">
+                        {
+                            {
+                                login: "Login",
+                                register: "Register",
+                                forgot_password: "Forgot Password"
+                            }[mode]
+                        }
+                    </h2>
+                    <p className="body">
+                        {
+                            (mode === "login" || mode === "register") && (
+                                <>
+                                    You must log in first or create an account to continue.
+                                </>
+                            )
+                        }
+
+                        {
+                            mode === "forgot_password" && (
+                                <>
+                                    Enter your registered email address to recieve password reset code.
+                                </>
+                            )
+                        }
+                    </p>
                 </div>
                 <div className="section">
                     {
                         mode === "login" && (
                             <div className="form_group">
-                                <label htmlFor="username" className="label">Email</label>
-                                <input type={username === 'phone' ? 'text' : 'email'} className={`input ${validationErrors?.username ? 'has-error' : ''}`} name={username} value={usernameValue} onChange={onUsernameChange} id="username" placeholder="you@email.com" required/>
-                                { validationErrors?.username && <span className="error-msg">{validationErrors?.username}</span> }
+                                <label htmlFor="email" className="label">Email</label>
+                                <input type="email" className={`input ${validationErrors?.email ? 'has-error' : ''}`} name={email} value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
+                                { validationErrors?.email && <span className="error-msg">{validationErrors?.email}</span> }
                             </div>
                         )
                     }
+
+                    {
+                        mode === "forgot_password" && (
+                            <div className="form_group">
+                                <label htmlFor="email" className="label">Email</label>
+                                <input type="email" className={`input ${validationErrors?.email ? 'has-error' : ''}`} name={email} value={email} onChange={onEmailChange} id="email" placeholder="you@email.com" required/>
+                                { validationErrors?.email && <span className="error-msg">{validationErrors?.email}</span> }
+                            </div>
+                        )
+                    }
+
                     {
                         mode === "register" && (
                             <>
@@ -171,45 +199,91 @@ const AuthModal = ({close}) => {
                             </>
                         )
                     }
+                    {
+                        (mode === "login" || mode === "register") && (
+                            <div className="form_group">
+                                <label htmlFor="password" className="label">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    value={password} 
+                                    onChange={onPasswordChange} 
+                                    className={`input ${validationErrors?.password ? 'has-error' : ''}`}
+                                    placeholder="********" 
+                                    required />
+                                { validationErrors?.password && <span className="error-msg">{validationErrors?.password}</span> }
+                                {
+                                    mode === "login" && (
+                                        <div className="forgot-password">
+                                            <button type="button" onClick={e => {e.preventDefault(); toggleMode("forgot_password")}}>
+                                                Forgot password?
+                                            </button>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+
                     <div className="form_group">
-                        <label htmlFor="password" className="label">Password</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            value={password} 
-                            onChange={onPasswordChange} 
-                            className={`input ${validationErrors?.password ? 'has-error' : ''}`}
-                            placeholder="********" 
-                            required />
-                        { validationErrors?.password && <span className="error-msg">{validationErrors?.password}</span> }
                         {
                             mode === "login" && (
-                                <div className="forgot-password">
-                                    <Link href="#" scroll={false}>
-                                        <a>
-                                            Forgot password?
-                                        </a>
-                                    </Link>
-                                </div>
+                                <button type="submit" className="input submit" disabled={loading ? "disabled" : ""}>
+                                    {
+                                        loading 
+                                            ? (<BeatLoader color="#fff" />)
+                                            : (<span>Login</span>)
+                                    }
+                                </button>
+                            )
+                        }
+                        {
+                            mode === "register" && (
+                                <button type="submit" className="input submit" disabled={loading ? "disabled" : ""}>
+                                    {
+                                        loading 
+                                            ? (<BeatLoader color="#fff" />)
+                                            : (<span>Register</span>)
+                                    }
+                                </button>
+                            )
+                        }
+
+                        {
+                            mode === "forgot_password" && (
+                                <button type="submit" className="input submit" disabled={loading ? "disabled" : ""}>
+                                    {
+                                        loading 
+                                            ? (<BeatLoader color="#fff" />)
+                                            : (<span>Continue</span>)
+                                    }
+                                </button>
                             )
                         }
                     </div>
-
-                    <div className="form_group">
-                        <button type="submit" className="input submit" disabled={loading ? "disabled" : ""}>
-                            {
-                                loading 
-                                    ? (<BeatLoader color="#fff" />)
-                                    : (<span>{mode}</span>)
-                            }
-                        </button>
-                    </div>
                     <div className="form_group register">
-                        {mode === 'login' ? "Don't" : "Already"} have an account? <br />
-                        <button className="register-btn" onClick={e => {e.preventDefault(); toggleMode()}}>
-                            {mode === "login" ? "Register" : "Login"} now.
-                        </button>
+                        {
+                            (mode === "login" || mode === "forgot_password") && (
+                                <>
+                                    Don't have an account? <br />
+                                    <button className="register-btn" onClick={e => {e.preventDefault(); toggleMode("register")}}>
+                                        Register now.
+                                    </button>
+                                </>
+                            )
+                        }
+
+                        {
+                            mode === "register" && (
+                                <>
+                                    Already have an account? <br />
+                                    <button className="register-btn" onClick={e => {e.preventDefault(); toggleMode("login")}}>
+                                        Login now.
+                                    </button>
+                                </>
+                            )
+                        }
                     </div>
                 </div>
             </form>
