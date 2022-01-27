@@ -8,6 +8,7 @@ import Header from '../../components/Header/Header';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import useUser from '../../lib/useUser';
+import JobPosting from '../../components/Google/JobPosting';
 
 const Main = styled.div`
     ${tw`min-h-screen bg-blue-50 flex`}
@@ -126,6 +127,12 @@ const Single = ({job, setShowJob}) => {
                 </title>
                 <meta name="description" content={seoString} />
                 <meta name="keywords" content={seoString} />
+                <script 
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JobPosting(job),
+                    }}
+                />
             </Head>
     
             <Header>
