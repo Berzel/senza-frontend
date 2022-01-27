@@ -1,7 +1,7 @@
 const JobPosting = job => {
     const datePosted = (new Date(job.updated_at)).toISOString().split("T")[0];
     const applicationDeadline = (new Date(job.application_deadline)).toISOString().split("T")[0];
-    const hiringOrganization = job.company.name ? `{
+    const hiringOrganization = job.company?.name ? `{
             "@type" : "Organization",
             "name" : "${job.company.name}",
             "sameAs" : "${job.company.website ?? 'https://senza.co.zw'}",
