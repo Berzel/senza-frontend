@@ -116,21 +116,16 @@ const Single = ({job, setShowJob}) => {
     const router = useRouter()
     const { user } = useUser()
     const formatter = Intl.NumberFormat('en', { notation: 'compact' });
-
-    const jobSummary = job?.company ?
-`${job.company.name} \
-is looking for a ${job.is_remote ? 'Remote' : `${job.city} based`}, \
-${job.title} (${job.level.display_name}) \
-to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` : job.description;
+    const seoString = `${job.title} job at ${job.company ? job.company.name : 'Senza'}, ${job.title} jobs in ${job.city} - ${job.country.name}, ${job.sector.display_name} jobs in ${job.country.name}, Jobs at ${job.company ? job.company.name : 'Senza'} in Zimbabwe`;
 
     return (
         <>
             <Head>
                 <title>
-                    {`${job.is_remote ? 'Remote' : ''} ${job.title} ${job.city ? `in ${job.city}, ${job.country.name}`:''} | ${job.level.display_name} | ${job.contract_type.display_name}`} - Senza 
+                    {`${job.is_remote ? 'Remote' : ''} ${job.title} at ${job.company ? job.company.name : 'Senza'} ${job.city ? `in ${job.city}, ${job.country.name}`:''} | ${job.level.display_name} | ${job.contract_type.display_name}`} - Senza 
                 </title>
-                <meta name="description" content={jobSummary} />
-                <meta name="keywords" content={`${job.title} in ${job.country.name}, ${job.sector.display_name} jobs in ${job.country.name}, Jobs at ${job.company ? job.company.name : 'Senza'} in Zimbabwe`} />
+                <meta name="description" content={seoString} />
+                <meta name="keywords" content={seoString} />
             </Head>
     
             <Header>
