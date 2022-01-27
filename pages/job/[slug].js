@@ -116,7 +116,7 @@ const Single = ({job, setShowJob}) => {
     const router = useRouter()
     const { user } = useUser()
     const formatter = Intl.NumberFormat('en', { notation: 'compact' });
-    const seoString = `${job.title} job at ${job.company ? job.company.name : 'Senza'}, ${job.title} jobs in ${job.city} - ${job.country.name}, ${job.sector.display_name} jobs in ${job.country.name}, Jobs at ${job.company ? job.company.name : 'Senza'} in Zimbabwe`;
+    const seoString = `${job.title} job at ${job.company ? job.company.name : 'Senza'}, ${job.level.display_name} ${job.sector.display_name} jobs in ${job.city} - ${job.country.name}, ${job.title} jobs in ${job.city} - ${job.country.name}, ${job.sector.display_name} jobs in ${job.country.name}, Jobs at ${job.company ? job.company.name : 'Senza'} in Zimbabwe`;
 
     return (
         <>
