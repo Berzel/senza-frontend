@@ -130,6 +130,7 @@ to join their team on a ${job.contract_type.display_name.toLowerCase()} basis.` 
                     {`${job.is_remote ? 'Remote' : ''} ${job.title} ${job.city ? `in ${job.city}, ${job.country.name}`:''} | ${job.level.display_name} | ${job.contract_type.display_name}`} - Senza 
                 </title>
                 <meta name="description" content={jobSummary} />
+                <meta name="keywords" content={`${job.title} in ${job.country.name}, ${job.sector.display_name} jobs in ${job.country.name}`} />
             </Head>
     
             <Header>
