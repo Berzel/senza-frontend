@@ -1,4 +1,5 @@
 const JobPosting = job => {
+    const directApply = job.application_email ? true : false;
     const datePosted = (new Date(job.updated_at)).toISOString().split("T")[0];
     const applicationDeadline = (new Date(job.application_deadline)).toISOString().split("T")[0];
     const hiringOrganization = job.company?.name ? `{
@@ -40,6 +41,7 @@ const JobPosting = job => {
                 </ul>
             </div> <br />
         </div>",
+        "directApply" : ${directApply},
         "datePosted" : "${datePosted}",
         "validThrough" : "${applicationDeadline}",
         "employmentType" : "${employmentType(job.contract_type.slug)}",
@@ -51,8 +53,8 @@ const JobPosting = job => {
                 "addressLocality": "${job.city}",
                 "addressCountry": "ZW"
             }
-        },
-    }`;
+        }
+    }`.replace(/(\r\n|\n|\r)/gm, "").replace(/\s+/g, ' ').trim();
 
     return jobPostingStr;
 }
