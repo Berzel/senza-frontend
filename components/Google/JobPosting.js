@@ -45,7 +45,7 @@ const JobPosting = job => {
         "datePosted" : "${datePosted}",
         "validThrough" : "${applicationDeadline}",
         "employmentType" : "${employmentType(job.contract_type.slug)}",
-        "hiringOrganization" : ${hiringOrganization},
+        "hiringOrganization" : "${hiringOrganization}",
         "jobLocation": {
             "@type": "Place",
             "address": {
