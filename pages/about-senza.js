@@ -277,7 +277,7 @@ const AboutSenza = () => (
             sx={{
               p: 3,
               backgroundColor: '#fff',
-              height: 280
+              minHeight: 280
             }}
           >
             <Typography component="h3" fontWeight="bold" variant="h6">
@@ -305,7 +305,7 @@ const AboutSenza = () => (
             sx={{
               p: 3,
               backgroundColor: '#fff',
-              height: 280
+              minHeight: 280
             }}
           >
             <Typography component="h3" fontWeight="bold" variant="h6">
@@ -332,7 +332,7 @@ const AboutSenza = () => (
             sx={{
               p: 3,
               backgroundColor: '#fff',
-              height: 280
+              minHeight: 280
             }}
           >
             <Typography component="h3" fontWeight="bold" variant="h6">
