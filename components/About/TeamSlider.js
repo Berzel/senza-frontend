@@ -1,11 +1,45 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import SwiperCore, { Navigation } from 'swiper';
-import { Avatar, Box, IconButton, SvgIcon, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  styled,
+  SvgIcon,
+  Typography
+} from '@mui/material';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import { blueGrey } from '@mui/material/colors';
 
 SwiperCore.use([Navigation]);
+
+const NavButton = styled(Button)(({ theme }) => ({
+  zIndex: theme.zIndex.mobileStepper,
+  top: '50%',
+  transform: ' translateY(-50%)',
+  borderRadius: '50%',
+  minWidth: 40,
+  height: 40,
+  padding: 0,
+  color: theme.palette.getContrastText('#121928b8'),
+  backgroundColor: '#121928b8',
+  '&:hover': {
+    backgroundColor: blueGrey[700]
+  },
+  [theme.breakpoints.up('md')]: {
+    position: 'absolute'
+  },
+  [theme.breakpoints.down('md')]: {
+    position: 'initial',
+    margin: '10px 3px 0 0',
+    minWidth: 35,
+    height: 35
+  }
+}));
 
 const TeamSlider = () => {
   const array = (n) => {
@@ -21,16 +55,27 @@ const TeamSlider = () => {
     <Box
       sx={{
         width: '100%',
-        // pl: 3,
+        position: 'relative',
         '& .swiper-slide:first-child': {
           ml: { xs: '0 !important', md: '16px !important' }
         }
       }}
     >
+      <NavButton variant="contained" sx={{ left: 0 }} className="swiper-button-prev">
+        <ArrowLeftIcon fontSize="large" />
+      </NavButton>
+
+      <NavButton
+        variant="contained"
+        sx={{ right: 0 }}
+        className="swiper-button-next"
+      >
+        <ArrowRightIcon fontSize="large" />
+      </NavButton>
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={32}
-        navigation
+        navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
         breakpoints={{
           0: {
             centeredSlides: true
@@ -44,7 +89,7 @@ const TeamSlider = () => {
         }}
       >
         {array(5).map((key) => (
-          <SwiperSlide key={key} style={{ width: 291 }}>
+          <SwiperSlide data-slide key={key} style={{ width: 'fit-content' }}>
             <Box
               sx={{
                 borderRadius: 4,
@@ -52,13 +97,28 @@ const TeamSlider = () => {
                 px: 2.5,
                 pt: 2.5,
                 mb: 3,
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
+                width: '100%',
+                maxWidth: { xs: 350, sm: 291 }
               }}
             >
-              <Box textAlign="center" sx={{ mb: 3 }}>
+              <Avatar
+                variant="square"
+                src="https://brendonchirumet.web.app/static/media/profile.8885cbe6.jpg"
+                sx={{
+                  maxWidth: { xs: 'calc(100vw - 80px)', sm: 259 },
+                  maxHeight: { xs: 300, sm: 259 },
+                  width: '100%',
+                  height: '100%',
+                  mb: 3,
+                  margin: '0 auto',
+                  borderRadius: 4
+                }}
+              />
+              <Box textAlign="center">
                 <Typography
                   variant="body1"
-                  sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+                  sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', pt: 2 }}
                 >
                   Brendon Chirume
                 </Typography>
@@ -70,18 +130,6 @@ const TeamSlider = () => {
                   Developer
                 </Typography>
               </Box>
-              <Avatar
-                variant="square"
-                src="https://brendonchirumet.web.app/static/media/profile.8885cbe6.jpg"
-                sx={{
-                  maxWidth: 259,
-                  maxHeight: 259,
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: 4
-                }}
-              />
-
               <Box textAlign="center" sx={{ pt: 2 }}>
                 <IconButton>
                   <SvgIcon

@@ -159,7 +159,7 @@ const AboutSenza = () => (
         component="h3"
         fontWeight="bold"
         variant="h4"
-        sx={{ pt: 10, pb: 5, textAlign: { xs: 'left', md: 'center' } }}
+        sx={{ pt: 10, pb: 5, textAlign: 'center' }}
       >
         Our Values
       </Typography>
@@ -267,7 +267,7 @@ const AboutSenza = () => (
         component="h3"
         fontWeight="bold"
         variant="h4"
-        sx={{ pt: 10, pb: 5, textAlign: { xs: 'left', md: 'center' } }}
+        sx={{ pt: 10, pb: 5, textAlign: 'center' }}
       >
         Our Services
       </Typography>
@@ -277,7 +277,7 @@ const AboutSenza = () => (
             sx={{
               p: 3,
               backgroundColor: '#fff',
-              minHeight: 280
+              minHeight: { xs: 310, lg: 280 }
             }}
           >
             <Typography component="h3" fontWeight="bold" variant="h6">
@@ -305,7 +305,7 @@ const AboutSenza = () => (
             sx={{
               p: 3,
               backgroundColor: '#fff',
-              minHeight: 280
+              minHeight: { xs: 310, lg: 280 }
             }}
           >
             <Typography component="h3" fontWeight="bold" variant="h6">
@@ -332,7 +332,7 @@ const AboutSenza = () => (
             sx={{
               p: 3,
               backgroundColor: '#fff',
-              minHeight: 280
+              minHeight: { xs: 310, lg: 280 }
             }}
           >
             <Typography component="h3" fontWeight="bold" variant="h6">
@@ -360,7 +360,7 @@ const AboutSenza = () => (
         component="h3"
         fontWeight="bold"
         variant="h4"
-        sx={{ pt: 10, textAlign: { xs: 'left', md: 'center' } }}
+        sx={{ pt: 10, textAlign: 'center' }}
       >
         Our Team
       </Typography>
