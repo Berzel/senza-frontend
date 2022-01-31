@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import SwiperCore, { Navigation } from 'swiper';
-import { Avatar, Box, IconButton, Paper, SvgIcon, Typography } from '@mui/material';
+import { Avatar, Box, IconButton, SvgIcon, Typography } from '@mui/material';
 
 SwiperCore.use([Navigation]);
 
@@ -21,7 +21,7 @@ const TeamSlider = () => {
     <Box
       sx={{
         width: '100%',
-        pl: 3,
+        // pl: 3,
         '& .swiper-slide:first-child': {
           ml: { xs: '0 !important', md: '16px !important' }
         }
@@ -29,7 +29,7 @@ const TeamSlider = () => {
     >
       <Swiper
         slidesPerView={'auto'}
-        spaceBetween={30}
+        spaceBetween={32}
         navigation
         breakpoints={{
           0: {
@@ -45,13 +45,17 @@ const TeamSlider = () => {
       >
         {array(5).map((key) => (
           <SwiperSlide key={key} style={{ width: 291 }}>
-            <Paper sx={{ borderRadius: 4, p: 2, mb: 3 }}>
-              <Avatar
-                src="https://brendonchirumet.web.app/static/media/profile.8885cbe6.jpg"
-                sx={{ maxWidth: 259, maxHeight: 259, width: '100%', height: '100%' }}
-              />
-
-              <Box textAlign="center" sx={{ mt: 3 }}>
+            <Box
+              sx={{
+                borderRadius: 4,
+                pb: 2,
+                px: 2.5,
+                pt: 2.5,
+                mb: 3,
+                backgroundColor: '#fff'
+              }}
+            >
+              <Box textAlign="center" sx={{ mb: 3 }}>
                 <Typography
                   variant="body1"
                   sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
@@ -66,7 +70,19 @@ const TeamSlider = () => {
                   Developer
                 </Typography>
               </Box>
-              <Box textAlign="center" sx={{ pt: 3 }}>
+              <Avatar
+                variant="square"
+                src="https://brendonchirumet.web.app/static/media/profile.8885cbe6.jpg"
+                sx={{
+                  maxWidth: 259,
+                  maxHeight: 259,
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: 4
+                }}
+              />
+
+              <Box textAlign="center" sx={{ pt: 2 }}>
                 <IconButton>
                   <SvgIcon
                     xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +156,7 @@ const TeamSlider = () => {
                   </SvgIcon>
                 </IconButton>
               </Box>
-            </Paper>
+            </Box>
           </SwiperSlide>
         ))}
       </Swiper>

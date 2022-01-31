@@ -33,7 +33,7 @@ const AboutSenza = () => (
       </div>
     </Header>
     <Container component={MuiContainer} sx={{ border: 'none' }}>
-      <Grid container sx={{ pt: { md: 15, xs: 4 } }}>
+      <Grid container sx={{ pt: { md: 8, xs: 4 } }}>
         <Grid
           item
           xs={12}
@@ -121,13 +121,15 @@ const AboutSenza = () => (
       <Typography
         component="h3"
         fontWeight="bold"
-        textAlign="center"
         variant="h4"
-        sx={{ pt: 10, pb: 5 }}
+        sx={{ pt: 10, pb: 5, textAlign: { xs: 'left', md: 'center' } }}
       >
         About Us
       </Typography>
-      <Typography variant="body1" sx={{ pb: 5, px: { md: 5 }, textAlign: 'center' }}>
+      <Typography
+        variant="body1"
+        sx={{ pb: 5, px: { md: 5 }, textAlign: { xs: 'left', md: 'center' } }}
+      >
         Senza is a leader among marketing and creative staffing agencies. We
         specialize in connecting talented, creative professionals with companies
         looking to hire interactive, design, marketing, advertising and public
@@ -152,20 +154,20 @@ const AboutSenza = () => (
         Companies. Choose us Headhunting as your Executive Search Partner through
         trust and reputation.
       </Typography>
+
       <Typography
         component="h3"
         fontWeight="bold"
-        textAlign="center"
         variant="h4"
-        sx={{ pt: 10, pb: 5 }}
+        sx={{ pt: 10, pb: 5, textAlign: { xs: 'left', md: 'center' } }}
       >
         Our Values
       </Typography>
-      <Grid container spacing={{ xs: 2, md: 8 }} item xs={12} sx={{ py: 3 }}>
+      <Grid container spacing={{ xs: 2, md: 4 }}>
         <Grid item xs={12} sm={4}>
           <Box
             sx={{
-              p: { xs: 1, md: 3 },
+              p: 3,
               backgroundColor: '#fff'
             }}
           >
@@ -184,11 +186,11 @@ const AboutSenza = () => (
               component="h3"
               textAlign="center"
               fontWeight="bold"
-              variant="body1"
+              variant="h6"
             >
               Foster sense of security and belonging
             </Typography>
-            <Typography variant="body2" sx={{ px: { xs: 1, md: 3 } }}>
+            <Typography>
               We are committed to achieving fair outcomes for all members of the
               global workforce, beginning with our employees.
             </Typography>
@@ -197,7 +199,7 @@ const AboutSenza = () => (
         <Grid item xs={12} sm={4}>
           <Box
             sx={{
-              p: { xs: 1, md: 3 },
+              p: 3,
               backgroundColor: '#fff'
             }}
           >
@@ -217,11 +219,11 @@ const AboutSenza = () => (
               component="h3"
               textAlign="center"
               fontWeight="bold"
-              variant="body1"
+              variant="h6"
             >
               Foster sense of security and belonging
             </Typography>
-            <Typography variant="body2" sx={{ px: { xs: 1, md: 3 } }}>
+            <Typography>
               We are committed to achieving fair outcomes for all members of the
               global workforce, beginning with our employees.
             </Typography>
@@ -230,7 +232,7 @@ const AboutSenza = () => (
         <Grid item xs={12} sm={4}>
           <Box
             sx={{
-              p: { xs: 1, md: 3 },
+              p: 3,
               backgroundColor: '#fff'
             }}
           >
@@ -250,11 +252,11 @@ const AboutSenza = () => (
               component="h3"
               textAlign="center"
               fontWeight="bold"
-              variant="body1"
+              variant="h6"
             >
               Foster sense of security and belonging
             </Typography>
-            <Typography variant="body2" sx={{ px: { xs: 1, md: 3 } }}>
+            <Typography>
               We are committed to achieving fair outcomes for all members of the
               global workforce, beginning with our employees.
             </Typography>
@@ -264,22 +266,21 @@ const AboutSenza = () => (
       <Typography
         component="h3"
         fontWeight="bold"
-        textAlign="center"
         variant="h4"
-        sx={{ pt: 10, pb: 5 }}
+        sx={{ pt: 10, pb: 5, textAlign: { xs: 'left', md: 'center' } }}
       >
         Our Services
       </Typography>
-      <Grid container spacing={{ xs: 2, md: 4 }} sx={{ py: 3 }}>
+      <Grid container spacing={{ xs: 2, md: 4 }}>
         <Grid item xs={12} sm={4}>
           <Box
             sx={{
-              p: { xs: 1, md: 2 },
-              height: 230,
-              backgroundColor: '#fff'
+              p: 3,
+              backgroundColor: '#fff',
+              height: 280
             }}
           >
-            <Typography component="h3" fontWeight="bold" variant="h5">
+            <Typography component="h3" fontWeight="bold" variant="h6">
               Recruiters
             </Typography>
             <Divider
@@ -302,12 +303,12 @@ const AboutSenza = () => (
         <Grid item xs={12} sm={4}>
           <Box
             sx={{
-              p: { xs: 1, md: 2 },
-              height: 230,
-              backgroundColor: '#fff'
+              p: 3,
+              backgroundColor: '#fff',
+              height: 280
             }}
           >
-            <Typography component="h3" fontWeight="bold" variant="h5">
+            <Typography component="h3" fontWeight="bold" variant="h6">
               Job Seekers
             </Typography>
             <Divider
@@ -329,12 +330,12 @@ const AboutSenza = () => (
         <Grid item xs={12} sm={4}>
           <Box
             sx={{
-              p: { xs: 1, md: 2 },
-              height: 230,
-              backgroundColor: '#fff'
+              p: 3,
+              backgroundColor: '#fff',
+              height: 280
             }}
           >
-            <Typography component="h3" fontWeight="bold" variant="h5">
+            <Typography component="h3" fontWeight="bold" variant="h6">
               Employers
             </Typography>
             <Divider
@@ -355,29 +356,29 @@ const AboutSenza = () => (
           </Box>
         </Grid>
       </Grid>
-      <Grid item xs={12} sx={{ pt: 10, pb: 3 }}>
-        <Typography component="h3" fontWeight="bold" textAlign="center" variant="h4">
-          Our Team
-        </Typography>
-
-        <Typography
-          component="h3"
-          sx={{
-            py: 3,
-            margin: '0 auto',
-            width: { md: '80%' },
-            color: 'textSecondary',
-            textAlign: 'center'
-          }}
-          variant="body1"
-        >
-          Minimal will provide you support if you have any problems, our support team
-          will reply within a day and we also have detailed documentation.{' '}
-        </Typography>
-      </Grid>{' '}
-      <Grid container spacing={3} item xs={12} sx={{ py: 3 }}>
-        <TeamSlider />
-      </Grid>
+      <Typography
+        component="h3"
+        fontWeight="bold"
+        variant="h4"
+        sx={{ pt: 10, textAlign: { xs: 'left', md: 'center' } }}
+      >
+        Our Team
+      </Typography>
+      <Typography
+        component="h3"
+        sx={{
+          py: 2.5,
+          margin: '0 auto',
+          width: { md: '80%' },
+          color: 'textSecondary',
+          textAlign: 'center'
+        }}
+        variant="body1"
+      >
+        Minimal will provide you support if you have any problems, our support team
+        will reply within a day and we also have detailed documentation.{' '}
+      </Typography>
+      <TeamSlider />
     </Container>
     <Footer />
   </>
