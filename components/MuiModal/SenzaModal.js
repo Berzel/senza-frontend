@@ -1,37 +1,78 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import { Close } from '@mui/icons-material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  borderRadius: 2,
-  p: 4
-};
+const SenzaModal = ({ open, title, children, scroll, handleClose }) => {
+  const descriptionElementRef = React.useRef(null);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
 
-export default function SenzaModal({ children, open, handleClose }) {
   return (
-    <Modal
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
+    <Dialog
       open={open}
       onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500
-      }}
+      scroll={scroll}
+      maxWidth="md"
+      fullScreen={fullScreen}
+      aria-labelledby="senza-dialog"
+      aria-describedby="senza-dialog"
     >
-      <Fade in={open}>
-        <Box sx={style}>{children}</Box>
-      </Fade>
-    </Modal>
+      <DialogTitle sx={{ fontFamily: 'Inter, sans-serif' }}>
+        {title}
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 10,
+            color: (theme) => theme.palette.grey[500]
+          }}
+        >
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent
+        dividers={scroll === 'paper'}
+        sx={{ minWidth: { sm: 500, md: 600 } }}
+      >
+        {children}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Save</Button>
+      </DialogActions>
+    </Dialog>
   );
-}
+};
+
+SenzaModal.defaultProps = {
+  scroll: 'paper'
+};
+SenzaModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  scroll: PropTypes.oneOf(['paper', 'body']),
+  title: PropTypes.string.isRequired,
+  sx: PropTypes.shape({}),
+  dialogProps: PropTypes.shape({}),
+  handleClose: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.object, PropTypes.array])
+    .isRequired
+};
+
+export default SenzaModal;

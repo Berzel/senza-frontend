@@ -1,11 +1,15 @@
-import Modal from "../Modal/Modal";
+import SenzaModal from '../MuiModal/SenzaModal';
 
-const EditProfileModal = ({open, close}) => {
-    return (
-        <Modal close={close} open={open}>
-            Edit Profile Modal
-        </Modal>
-    )
-}
+const EditProfileModal = ({ open, handleClose }) => {
+  return (
+    <SenzaModal
+      handleClose={handleClose}
+      title="Edit Profile"
+      open={open === 'profile'}
+    >
+      Add Profile Modal
+    </SenzaModal>
+  );
+};
 
-export default EditProfileModal
+export default EditProfileModal;
