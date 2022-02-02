@@ -160,6 +160,18 @@ const Menu = () => {
                                     }
                                 </div>
                             </li>
+                            {
+                                user && (
+                                <li className="menu_item" onClick={e => e.stopPropagation()}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+                                    <Link href="/profiles/berzel.best@gmail.com">
+                                        <a className="menu_item_link">
+                                            My Profile
+                                        </a>
+                                    </Link>
+                                </li>
+                                )
+                            }
                             <li className="menu_item" onClick={e => e.stopPropagation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
@@ -202,18 +214,6 @@ const Menu = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
                                 <span>
                                     Contact Us
-                                </span>
-                            </li>
-                            <li className="menu_item" onClick={e => e.stopPropagation()}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                <span>
-                                    Terms of Use
-                                </span>
-                            </li>
-                            <li className="menu_item" onClick={e => e.stopPropagation()}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
-                                <span>
-                                    Privacy Policy
                                 </span>
                             </li>
                         </ul>
