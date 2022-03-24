@@ -13,7 +13,7 @@
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
-    "@mui/icons-material": "latest",
+    "@mui/icons-material": "5.4.4",
     "@mui/material": "latest",
     "@reach/dialog": "^0.16.2",
     "animejs": "^3.2.1",
