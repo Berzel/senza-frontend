@@ -17,7 +17,7 @@
     "@mui/material": "latest",
     "@reach/dialog": "^0.16.2",
     "animejs": "^3.2.1",
-    "axios": "^0.23.0",
+    "axios": "^0.26.0",
     "next": "^11.1.4",
     "next-iron-session": "^4.2.0",
     "prop-types": "latest",
